@@ -57,4 +57,66 @@ extension LinkedListTests {
         thirdList.reverse()
         
     }
+    
+    func testLinkedListCollection() {
+        let coll: LinkedList = ["A", "B", "C"]
+        for element in coll {
+            print(element)
+        }
+        coll.contains("D")
+    }
+    
+    func test206() {
+        let node = ListNode(101)
+        node.next = .init(102)
+        node.next?.next = .init(103)
+        node.next?.next?.next = .init(104)
+        
+        let reversed = LL206().reverseListRecursive(node)
+        print(node)
+    }
+    
+    func testMaxStack() {
+        let maxStack = MaxStack()
+        let list = makeList(5)
+        list.forEach({ maxStack.push($0) })
+        let val = maxStack.popMax()
+        let val2 = maxStack.popMax()
+    }
+    
+    func makeList(_ n: Int) -> [Int] {
+        return (0..<n).map { _ in .random(in: 1...20) }
+    }
+    
+    func testLongestParentheses() {
+//        LongestValidParentheses().longestValidParentheses("(()")
+        LongestValidParentheses().longestValidParentheses(")()())")
+    }
+    
+    func testExclusiveTF() {
+        let timeFunc = ExclusiveTimeFunctions()
+        
+        XCTAssertEqual(timeFunc.exclusiveTime(2, ["0:start:0","1:start:2","1:end:5","0:end:6"]), [3,4])
+        XCTAssertEqual(timeFunc.exclusiveTime(1, ["0:start:0","0:start:2","0:end:5","0:start:6","0:end:6","0:end:7"]), [8])
+        XCTAssertEqual(timeFunc.exclusiveTime(2, ["0:start:0","1:start:2","1:end:5","0:end:6"]), [3,4])
+        XCTAssertEqual(timeFunc.exclusiveTime(2, ["0:start:0","1:start:2","1:end:5","0:end:6"]), [3,4])
+    }
+    
+    func testRotateLL() {
+        let node = ListNode(1)
+        node.next = .init(2)
+        node.next?.next = .init(3)
+        node.next?.next?.next = .init(4)
+        node.next?.next?.next?.next = .init(5)
+        
+        let expectedNode = ListNode(4)
+        expectedNode.next = .init(5)
+        expectedNode.next?.next = .init(1)
+        expectedNode.next?.next?.next = .init(2)
+        expectedNode.next?.next?.next?.next = .init(3)
+        
+        let obj = RotateLL()
+        let result = obj.rotateRight(node, 2)
+        XCTAssertEqual(result, expectedNode)
+    }
 }

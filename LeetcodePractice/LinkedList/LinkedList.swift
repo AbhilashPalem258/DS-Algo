@@ -15,8 +15,8 @@ protocol LinkedListNodeProtocol {
     var previous: Self? {get set}
 }
 
-protocol LinkedListProtocol {
-    associatedtype Value
+protocol LinkedListProtocol: ExpressibleByArrayLiteral {
+    associatedtype Value where Self.Value == Self.ArrayLiteralElement
     associatedtype Node: LinkedListNodeProtocol where Self.Node.Value == Self.Value
     
     var head: Node? {get set}
@@ -25,7 +25,7 @@ protocol LinkedListProtocol {
     var count: Int { get }
     
     subscript(index: Int) -> Value? { get }
-    
+        
     func node(at index: Int) -> Node?
     
     func append(_ value: Value)
@@ -54,7 +54,7 @@ final class LinkedListNode<T>: LinkedListNodeProtocol {
 }
 
 final class LinkedList<T>: LinkedListProtocol {
-
+    
     typealias Node = LinkedListNode<T>
     
     var head: Node?
@@ -230,6 +230,43 @@ extension LinkedList: ExpressibleByArrayLiteral {
     }
 }
 
+extension LinkedList: Collection {
+
+    typealias Index = LinkedListIndex<T>
+    
+    var startIndex: Index {
+        .init(node: head, tag: 0)
+    }
+    
+    var endIndex: Index {
+        .init(node: head, tag: count)
+    }
+    
+    subscript(position: Index) -> T? {
+        return position.node?.value
+    }
+    
+    func index(after i: Index) -> Index {
+        .init(node: i.node?.next, tag: i.tag + 1)
+    }
+}
+
+struct LinkedListIndex<T>: Comparable {
+    static func == (lhs: LinkedListIndex<T>, rhs: LinkedListIndex<T>) -> Bool {
+        lhs.tag == rhs.tag
+    }
+    
+    let node: LinkedListNode<T>?
+    let tag: Int
+    
+    static func < (lhs: LinkedListIndex, rhs: LinkedListIndex) -> Bool {
+        lhs.tag < rhs.tag
+    }
+    
+    static func > (lhs: LinkedListIndex, rhs: LinkedListIndex) -> Bool {
+        lhs.tag > rhs.tag
+    }
+}
 
 extension Optional {
     var isNil: Bool {

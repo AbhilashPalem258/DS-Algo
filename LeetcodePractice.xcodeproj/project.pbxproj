@@ -20,6 +20,34 @@
 		004C92BB267A72B70094CC50 /* Array475.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92BA267A72B70094CC50 /* Array475.swift */; };
 		004C92BE267AD6B70094CC50 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92BD267AD6B70094CC50 /* LinkedList.swift */; };
 		004C92C0267AE4CE0094CC50 /* LinkedListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92BF267AE4CE0094CC50 /* LinkedListTests.swift */; };
+		004C92C3267B806E0094CC50 /* 206.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C2267B806E0094CC50 /* 206.swift */; };
+		004C92C5267C3D3E0094CC50 /* 143.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C4267C3D3E0094CC50 /* 143.swift */; };
+		004C92C7267C713B0094CC50 /* LL146.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C6267C713B0094CC50 /* LL146.swift */; };
+		004C92CA267CFC860094CC50 /* LL155.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C9267CFC860094CC50 /* LL155.swift */; };
+		004C92CC267D828C0094CC50 /* MaxStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92CB267D828C0094CC50 /* MaxStack.swift */; };
+		004C92CE267DACB60094CC50 /* longestParentheses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92CD267DACB60094CC50 /* longestParentheses.swift */; };
+		007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35DE267E260D0054CFE9 /* StackLeetcode.swift */; };
+		007A35E1267E27030054CFE9 /* StackTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35E0267E27030054CFE9 /* StackTestCases.swift */; };
+		007A35EB267F40B90054CFE9 /* QueueProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35EA267F40B90054CFE9 /* QueueProtocol.swift */; };
+		007A35ED267F41540054CFE9 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35EC267F41540054CFE9 /* Queue.swift */; };
+		007A35EF267F42870054CFE9 /* QueueConceptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35EE267F42870054CFE9 /* QueueConceptTests.swift */; };
+		007A35F1267F45370054CFE9 /* OptimizedQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35F0267F45370054CFE9 /* OptimizedQueue.swift */; };
+		007A35F3267F72A10054CFE9 /* DequeueOptimized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35F2267F72A10054CFE9 /* DequeueOptimized.swift */; };
+		007A35F7267F9BB70054CFE9 /* Leetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35F6267F9BB70054CFE9 /* Leetcode.swift */; };
+		007A35F9267F9EA20054CFE9 /* QueueLeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35F8267F9EA20054CFE9 /* QueueLeetcodeTests.swift */; };
+		007A35FF268039D10054CFE9 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35FE268039D10054CFE9 /* Tree.swift */; };
+		007A360126803B4F0054CFE9 /* TreeConceptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A360026803B4F0054CFE9 /* TreeConceptTests.swift */; };
+		007A3603268047E80054CFE9 /* BinaryTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A3602268047E80054CFE9 /* BinaryTree.swift */; };
+		007A360626806DE10054CFE9 /* TreesLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A360526806DE10054CFE9 /* TreesLeetcode.swift */; };
+		007A360926806F550054CFE9 /* TreeLeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A360826806F550054CFE9 /* TreeLeetcodeTests.swift */; };
+		007A360B26811CC20054CFE9 /* LLLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A360A26811CC20054CFE9 /* LLLeetcode.swift */; };
+		007A360D26849EBC0054CFE9 /* BinarySearchTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A360C26849EBC0054CFE9 /* BinarySearchTree.swift */; };
+		007A36112686152D0054CFE9 /* StringsLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A36102686152D0054CFE9 /* StringsLeetcode.swift */; };
+		007A3615268618A50054CFE9 /* StringsLeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A3614268618A50054CFE9 /* StringsLeetcodeTests.swift */; };
+		007A3619268DEC9D0054CFE9 /* ArraysLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A3618268DEC9D0054CFE9 /* ArraysLeetcode.swift */; };
+		007A361C268DF0450054CFE9 /* ArrayLeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A361B268DF0450054CFE9 /* ArrayLeetcodeTests.swift */; };
+		007A361F268FF0350054CFE9 /* JulyLeetcodeChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A361E268FF0340054CFE9 /* JulyLeetcodeChallenge.swift */; };
+		007A3622268FF0740054CFE9 /* JulyLeetcodeChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A3621268FF0740054CFE9 /* JulyLeetcodeChallenge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +88,34 @@
 		004C92BA267A72B70094CC50 /* Array475.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array475.swift; sourceTree = "<group>"; };
 		004C92BD267AD6B70094CC50 /* LinkedList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
 		004C92BF267AE4CE0094CC50 /* LinkedListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkedListTests.swift; sourceTree = "<group>"; };
+		004C92C2267B806E0094CC50 /* 206.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 206.swift; sourceTree = "<group>"; };
+		004C92C4267C3D3E0094CC50 /* 143.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 143.swift; sourceTree = "<group>"; };
+		004C92C6267C713B0094CC50 /* LL146.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LL146.swift; sourceTree = "<group>"; };
+		004C92C9267CFC860094CC50 /* LL155.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LL155.swift; sourceTree = "<group>"; };
+		004C92CB267D828C0094CC50 /* MaxStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxStack.swift; sourceTree = "<group>"; };
+		004C92CD267DACB60094CC50 /* longestParentheses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longestParentheses.swift; sourceTree = "<group>"; };
+		007A35DE267E260D0054CFE9 /* StackLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackLeetcode.swift; sourceTree = "<group>"; };
+		007A35E0267E27030054CFE9 /* StackTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTestCases.swift; sourceTree = "<group>"; };
+		007A35EA267F40B90054CFE9 /* QueueProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueProtocol.swift; sourceTree = "<group>"; };
+		007A35EC267F41540054CFE9 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		007A35EE267F42870054CFE9 /* QueueConceptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueConceptTests.swift; sourceTree = "<group>"; };
+		007A35F0267F45370054CFE9 /* OptimizedQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptimizedQueue.swift; sourceTree = "<group>"; };
+		007A35F2267F72A10054CFE9 /* DequeueOptimized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DequeueOptimized.swift; sourceTree = "<group>"; };
+		007A35F6267F9BB70054CFE9 /* Leetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Leetcode.swift; sourceTree = "<group>"; };
+		007A35F8267F9EA20054CFE9 /* QueueLeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueLeetcodeTests.swift; sourceTree = "<group>"; };
+		007A35FE268039D10054CFE9 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		007A360026803B4F0054CFE9 /* TreeConceptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeConceptTests.swift; sourceTree = "<group>"; };
+		007A3602268047E80054CFE9 /* BinaryTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryTree.swift; sourceTree = "<group>"; };
+		007A360526806DE10054CFE9 /* TreesLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreesLeetcode.swift; sourceTree = "<group>"; };
+		007A360826806F550054CFE9 /* TreeLeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeLeetcodeTests.swift; sourceTree = "<group>"; };
+		007A360A26811CC20054CFE9 /* LLLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LLLeetcode.swift; sourceTree = "<group>"; };
+		007A360C26849EBC0054CFE9 /* BinarySearchTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinarySearchTree.swift; sourceTree = "<group>"; };
+		007A36102686152D0054CFE9 /* StringsLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLeetcode.swift; sourceTree = "<group>"; };
+		007A3614268618A50054CFE9 /* StringsLeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsLeetcodeTests.swift; sourceTree = "<group>"; };
+		007A3618268DEC9D0054CFE9 /* ArraysLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArraysLeetcode.swift; sourceTree = "<group>"; };
+		007A361B268DF0450054CFE9 /* ArrayLeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayLeetcodeTests.swift; sourceTree = "<group>"; };
+		007A361E268FF0340054CFE9 /* JulyLeetcodeChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JulyLeetcodeChallenge.swift; sourceTree = "<group>"; };
+		007A3621268FF0740054CFE9 /* JulyLeetcodeChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JulyLeetcodeChallenge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +166,13 @@
 		004C9284267A24AC0094CC50 /* LeetcodePractice */ = {
 			isa = PBXGroup;
 			children = (
-				004C92BC267AD6A90094CC50 /* Leetcode */,
+				007A361D268FF0050054CFE9 /* JulyLeetcodeChallenge */,
+				007A3616268DEC7F0054CFE9 /* Arrays */,
+				007A360E268615130054CFE9 /* Strings */,
+				007A35FA267FB98D0054CFE9 /* Trees */,
+				007A35E2267F09AC0054CFE9 /* Queue */,
+				004C92C8267CFC750094CC50 /* Stack */,
+				004C92BC267AD6A90094CC50 /* LinkedList */,
 				004C92B1267A24B50094CC50 /* Array */,
 				004C9285267A24AC0094CC50 /* LeetcodePracticeApp.swift */,
 				004C9287267A24AC0094CC50 /* ContentView.swift */,
@@ -133,10 +195,16 @@
 		004C9297267A24AE0094CC50 /* LeetcodePracticeTests */ = {
 			isa = PBXGroup;
 			children = (
+				007A3620268FF0510054CFE9 /* JulyLeetcodeChallenge */,
+				007A361A268DF02D0054CFE9 /* Arrays */,
+				007A3612268618710054CFE9 /* Strings */,
+				007A35FC267FB9A10054CFE9 /* Trees */,
+				007A35E6267F09D80054CFE9 /* Queue */,
 				004C9298267A24AE0094CC50 /* LeetcodePracticeTests.swift */,
 				004C929A267A24AE0094CC50 /* Info.plist */,
 				004C92B4267A255D0094CC50 /* ArrayProblemsTests.swift */,
 				004C92BF267AE4CE0094CC50 /* LinkedListTests.swift */,
+				007A35E0267E27030054CFE9 /* StackTestCases.swift */,
 			);
 			path = LeetcodePracticeTests;
 			sourceTree = "<group>";
@@ -161,12 +229,228 @@
 			path = Array;
 			sourceTree = "<group>";
 		};
-		004C92BC267AD6A90094CC50 /* Leetcode */ = {
+		004C92BC267AD6A90094CC50 /* LinkedList */ = {
 			isa = PBXGroup;
 			children = (
+				004C92C1267B805A0094CC50 /* Leetcode */,
 				004C92BD267AD6B70094CC50 /* LinkedList.swift */,
 			);
+			path = LinkedList;
+			sourceTree = "<group>";
+		};
+		004C92C1267B805A0094CC50 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				004C92C2267B806E0094CC50 /* 206.swift */,
+				004C92C4267C3D3E0094CC50 /* 143.swift */,
+				004C92C6267C713B0094CC50 /* LL146.swift */,
+				007A360A26811CC20054CFE9 /* LLLeetcode.swift */,
+			);
 			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		004C92C8267CFC750094CC50 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				004C92C9267CFC860094CC50 /* LL155.swift */,
+				004C92CB267D828C0094CC50 /* MaxStack.swift */,
+				004C92CD267DACB60094CC50 /* longestParentheses.swift */,
+				007A35DE267E260D0054CFE9 /* StackLeetcode.swift */,
+			);
+			path = Stack;
+			sourceTree = "<group>";
+		};
+		007A35E2267F09AC0054CFE9 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				007A35E5267F09CB0054CFE9 /* Concept */,
+				007A35E4267F09BF0054CFE9 /* Hackerrank */,
+				007A35E3267F09B90054CFE9 /* Leetcode */,
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
+		007A35E3267F09B90054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A35F6267F9BB70054CFE9 /* Leetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A35E4267F09BF0054CFE9 /* Hackerrank */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Hackerrank;
+			sourceTree = "<group>";
+		};
+		007A35E5267F09CB0054CFE9 /* Concept */ = {
+			isa = PBXGroup;
+			children = (
+				007A35EA267F40B90054CFE9 /* QueueProtocol.swift */,
+				007A35EC267F41540054CFE9 /* Queue.swift */,
+				007A35F0267F45370054CFE9 /* OptimizedQueue.swift */,
+				007A35F2267F72A10054CFE9 /* DequeueOptimized.swift */,
+			);
+			path = Concept;
+			sourceTree = "<group>";
+		};
+		007A35E6267F09D80054CFE9 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				007A35E9267F09EC0054CFE9 /* Leetcode */,
+				007A35E8267F09E50054CFE9 /* Hackerrank */,
+				007A35E7267F09DE0054CFE9 /* Concept */,
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
+		007A35E7267F09DE0054CFE9 /* Concept */ = {
+			isa = PBXGroup;
+			children = (
+				007A35EE267F42870054CFE9 /* QueueConceptTests.swift */,
+			);
+			path = Concept;
+			sourceTree = "<group>";
+		};
+		007A35E8267F09E50054CFE9 /* Hackerrank */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Hackerrank;
+			sourceTree = "<group>";
+		};
+		007A35E9267F09EC0054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A35F8267F9EA20054CFE9 /* QueueLeetcodeTests.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A35FA267FB98D0054CFE9 /* Trees */ = {
+			isa = PBXGroup;
+			children = (
+				007A360426806DC90054CFE9 /* Leetcode */,
+				007A35FB267FB9960054CFE9 /* Concept */,
+			);
+			path = Trees;
+			sourceTree = "<group>";
+		};
+		007A35FB267FB9960054CFE9 /* Concept */ = {
+			isa = PBXGroup;
+			children = (
+				007A35FE268039D10054CFE9 /* Tree.swift */,
+				007A3602268047E80054CFE9 /* BinaryTree.swift */,
+				007A360C26849EBC0054CFE9 /* BinarySearchTree.swift */,
+			);
+			path = Concept;
+			sourceTree = "<group>";
+		};
+		007A35FC267FB9A10054CFE9 /* Trees */ = {
+			isa = PBXGroup;
+			children = (
+				007A360726806F410054CFE9 /* Leetcode */,
+				007A35FD267FB9A90054CFE9 /* Concept */,
+			);
+			path = Trees;
+			sourceTree = "<group>";
+		};
+		007A35FD267FB9A90054CFE9 /* Concept */ = {
+			isa = PBXGroup;
+			children = (
+				007A360026803B4F0054CFE9 /* TreeConceptTests.swift */,
+			);
+			path = Concept;
+			sourceTree = "<group>";
+		};
+		007A360426806DC90054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A360526806DE10054CFE9 /* TreesLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A360726806F410054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A360826806F550054CFE9 /* TreeLeetcodeTests.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A360E268615130054CFE9 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				007A360F2686151C0054CFE9 /* Leetcode */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		007A360F2686151C0054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A36102686152D0054CFE9 /* StringsLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A3612268618710054CFE9 /* Strings */ = {
+			isa = PBXGroup;
+			children = (
+				007A36132686187A0054CFE9 /* Leetcode */,
+			);
+			path = Strings;
+			sourceTree = "<group>";
+		};
+		007A36132686187A0054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A3614268618A50054CFE9 /* StringsLeetcodeTests.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A3616268DEC7F0054CFE9 /* Arrays */ = {
+			isa = PBXGroup;
+			children = (
+				007A3617268DEC860054CFE9 /* Leetcode */,
+			);
+			path = Arrays;
+			sourceTree = "<group>";
+		};
+		007A3617268DEC860054CFE9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007A3618268DEC9D0054CFE9 /* ArraysLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007A361A268DF02D0054CFE9 /* Arrays */ = {
+			isa = PBXGroup;
+			children = (
+				007A361B268DF0450054CFE9 /* ArrayLeetcodeTests.swift */,
+			);
+			path = Arrays;
+			sourceTree = "<group>";
+		};
+		007A361D268FF0050054CFE9 /* JulyLeetcodeChallenge */ = {
+			isa = PBXGroup;
+			children = (
+				007A361E268FF0340054CFE9 /* JulyLeetcodeChallenge.swift */,
+			);
+			path = JulyLeetcodeChallenge;
+			sourceTree = "<group>";
+		};
+		007A3620268FF0510054CFE9 /* JulyLeetcodeChallenge */ = {
+			isa = PBXGroup;
+			children = (
+				007A3621268FF0740054CFE9 /* JulyLeetcodeChallenge.swift */,
+			);
+			path = JulyLeetcodeChallenge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,12 +582,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				007A35F3267F72A10054CFE9 /* DequeueOptimized.swift in Sources */,
 				004C92BB267A72B70094CC50 /* Array475.swift in Sources */,
+				007A360B26811CC20054CFE9 /* LLLeetcode.swift in Sources */,
+				004C92CE267DACB60094CC50 /* longestParentheses.swift in Sources */,
 				004C9288267A24AC0094CC50 /* ContentView.swift in Sources */,
 				004C9286267A24AC0094CC50 /* LeetcodePracticeApp.swift in Sources */,
+				007A35FF268039D10054CFE9 /* Tree.swift in Sources */,
+				007A35F7267F9BB70054CFE9 /* Leetcode.swift in Sources */,
+				007A35EB267F40B90054CFE9 /* QueueProtocol.swift in Sources */,
+				007A3603268047E80054CFE9 /* BinaryTree.swift in Sources */,
+				007A3619268DEC9D0054CFE9 /* ArraysLeetcode.swift in Sources */,
 				004C92B7267A60420094CC50 /* Array905.swift in Sources */,
+				004C92C3267B806E0094CC50 /* 206.swift in Sources */,
+				007A361F268FF0350054CFE9 /* JulyLeetcodeChallenge.swift in Sources */,
+				004C92CA267CFC860094CC50 /* LL155.swift in Sources */,
+				004C92C7267C713B0094CC50 /* LL146.swift in Sources */,
 				004C92B9267A6C430094CC50 /* Array485.swift in Sources */,
+				007A36112686152D0054CFE9 /* StringsLeetcode.swift in Sources */,
+				004C92C5267C3D3E0094CC50 /* 143.swift in Sources */,
+				007A35ED267F41540054CFE9 /* Queue.swift in Sources */,
+				004C92CC267D828C0094CC50 /* MaxStack.swift in Sources */,
+				007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */,
+				007A35F1267F45370054CFE9 /* OptimizedQueue.swift in Sources */,
+				007A360D26849EBC0054CFE9 /* BinarySearchTree.swift in Sources */,
 				004C92B3267A24EB0094CC50 /* Array953.swift in Sources */,
+				007A360626806DE10054CFE9 /* TreesLeetcode.swift in Sources */,
 				004C92BE267AD6B70094CC50 /* LinkedList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,8 +616,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				007A35E1267E27030054CFE9 /* StackTestCases.swift in Sources */,
 				004C9299267A24AE0094CC50 /* LeetcodePracticeTests.swift in Sources */,
+				007A360926806F550054CFE9 /* TreeLeetcodeTests.swift in Sources */,
+				007A360126803B4F0054CFE9 /* TreeConceptTests.swift in Sources */,
+				007A3615268618A50054CFE9 /* StringsLeetcodeTests.swift in Sources */,
+				007A3622268FF0740054CFE9 /* JulyLeetcodeChallenge.swift in Sources */,
+				007A35EF267F42870054CFE9 /* QueueConceptTests.swift in Sources */,
 				004C92C0267AE4CE0094CC50 /* LinkedListTests.swift in Sources */,
+				007A35F9267F9EA20054CFE9 /* QueueLeetcodeTests.swift in Sources */,
+				007A361C268DF0450054CFE9 /* ArrayLeetcodeTests.swift in Sources */,
 				004C92B5267A255D0094CC50 /* ArrayProblemsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
