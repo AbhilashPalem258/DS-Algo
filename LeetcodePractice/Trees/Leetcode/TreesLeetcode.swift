@@ -601,3 +601,28 @@ class BinaryTreePaths {
     }
     
 }
+/*
+ link: https://leetcode.com/problems/count-good-nodes-in-binary-tree/
+ */
+struct CountGoodNodes {
+    func callAsFunction(_ root: TreeLeetcode.TreeNode?) -> Int {
+        guard let root = root else {
+            return 0
+        }
+        var count = 0
+        
+        func evaluateGoodNode(_ node: TreeLeetcode.TreeNode?, lastVal: Int) {
+            guard let node = node else {
+                return
+            }
+            if node.val >= lastVal {
+                count += 1
+            }
+            evaluateGoodNode(node.left, lastVal: node.val)
+            evaluateGoodNode(node.right, lastVal: node.val)
+        }
+        
+        evaluateGoodNode(root, lastVal: Int.min)
+        return count
+    }
+}

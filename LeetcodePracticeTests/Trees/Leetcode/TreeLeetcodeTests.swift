@@ -288,4 +288,18 @@ class TreeLeetcodeTests: XCTestCase {
         let obj = BinaryTreePaths()
         XCTAssertEqual(obj(one), ["1->2->5","1->3"])
     }
+    
+    func testCountGoodNodes() {
+        let one1 = TreeLeetcode.TreeNode(1)
+        let three = TreeLeetcode.TreeNode(3)
+        let five = TreeLeetcode.TreeNode(5)
+        
+        let one = TreeLeetcode.TreeNode(1, three, nil)
+        let four = TreeLeetcode.TreeNode(4, one1, five)
+
+        let three1 = TreeLeetcode.TreeNode(3, one, four)
+        
+        let obj = CountGoodNodes()
+        XCTAssertEqual(obj(three1), 4)
+    }
 }

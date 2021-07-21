@@ -176,6 +176,181 @@ class ArrayLeetcodeTests: XCTestCase {
         let obj = NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]])
         XCTAssertEqual(obj.sumRegion(2, 1, 4, 3), 8)
     }
+    
+    func testMaxDistToClosest() {
+        let obj = MaxDistToClosest()
+        XCTAssertEqual(obj([1,0,0,0,1,0,1]), 2)
+    }
+    
+    func testExamRoom() {
+        let obj = ExamRoom(10)
+        XCTAssertEqual(obj.seat(), 0)
+        XCTAssertEqual(obj.seat(), 9)
+        XCTAssertEqual(obj.seat(), 4)
+        XCTAssertEqual(obj.seat(), 2)
+        obj.leave(4)
+        XCTAssertEqual(obj.seat(), 5)
+    }
+    
+    func testShortestWordDistance() {
+        let obj = ShortestWordDistance()
+        XCTAssertEqual(obj(["can", "this", "problem", "be", "solved", "problem"], "can", "solved"), 4)
+        XCTAssertEqual(obj(["can", "this", "problem", "be", "solved", "problem"], "problem", "solved"), 1)
+        
+        XCTAssertEqual(obj(["practice", "makes", "perfect", "coding", "makes"], "coding", "practice"), 3)
+    }
+    
+    func testShortestWordDistanceII() {
+        let obj = ShortestWordDistanceII(["can", "this", "problem", "be", "solved", "problem"])
+        XCTAssertEqual(obj.shortest("can", "solved"), 4)
+        XCTAssertEqual(obj.shortest("problem", "solved"), 1)
+        
+        let obj1 = ShortestWordDistanceII(["practice", "makes", "perfect", "coding", "makes"])
+        XCTAssertEqual(obj1.shortest("coding", "practice"), 3)
+    }
+    
+    func testShortestWordDistanceIII() {
+        let obj = ShortestWordDistanceIII()
+        XCTAssertEqual(obj.shortestWordDistance(["practice", "makes", "perfect", "coding", "makes"], "coding", "practice"), 3)
+        XCTAssertEqual(obj.shortestWordDistance(["practice", "makes", "perfect", "coding", "makes"], "makes", "makes"), 3)
+    }
+    
+    func testMinimumSizeSubarraySum() {
+        let obj = MinimumSizeSubarraySum()
+        XCTAssertEqual(obj(7, [2,3,1,2,4,3]), 2)
+        XCTAssertEqual(obj(4, [1,4,4]), 1)
+        XCTAssertEqual(obj(11, [1,1,1,1,1,1,1,1]), 0)
+    }
+    
+    func testMaximumSizeSubarraySumEqualsK() {
+        let obj = MaximumSizeSubarraySumEqualsK()
+        XCTAssertEqual(obj([1, -1, 5, -2, 3], 3), 4)
+    }
+    
+    func testProductExceptSelf() {
+        let obj = ProductExceptSelf()
+        XCTAssertEqual(obj([1,2,3,4]), [24,12,8,6])
+        XCTAssertEqual(obj([1,2,3,4]), [24,12,8,6])
+    }
+    
+    func testRotateArray() {
+        let obj = RotateArray()
+        
+        var arr1 = [1,2,3,4,5,6,7]
+        obj.rotate(&arr1, 3)
+        XCTAssertEqual(arr1, [5,6,7,1,2,3,4])
+        
+        var arr2 = [-1,-100,3,99]
+        obj.rotate(&arr2, 2)
+        XCTAssertEqual(arr2, [3,99,-1,-100])
+    }
+    
+    func testRotateImage() {
+        let obj = RotateImage()
+        
+        var arr1 = [[1,2,3],[4,5,6],[7,8,9]]
+        obj.rotate(&arr1)
+        XCTAssertEqual(arr1, [[7,4,1],[8,5,2],[9,6,3]])
+        
+        var arr2 = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+        obj.rotate(&arr2)
+        XCTAssertEqual(arr2, [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]])
+    }
+    
+    func testSpiralOrder() {
+        let obj = SprialOrder()
+        XCTAssertEqual(obj([[1,2,3],[4,5,6],[7,8,9]]), [1,2,3,6,9,8,7,4,5])
+        XCTAssertEqual(obj([[1,2,3,4],[5,6,7,8],[9,10,11,12]]), [1,2,3,4,8,12,11,10,9,5,6,7])
+    }
+    
+    func testSpiralMatrixII() {
+        let obj = SpiralMatrixII()
+        XCTAssertEqual(obj.generateMatrix(3), [[1,2,3],[8,9,4],[7,6,5]])
+        XCTAssertEqual(obj.generateMatrix(1), [[1]])
+    }
+    
+    func testDiagonalTraverse() {
+        let obj = DiagonalOrder()
+        XCTAssertEqual(obj([[1,2,3],[4,5,6],[7,8,9]]), [1,2,4,7,5,3,6,8,9])
+    }
+    
+    func testValidSudoku() {
+        let obj = ValidSudoku()
+        XCTAssertEqual(obj.isValidSudoku([["5","3",".",".","7",".",".",".","."]
+                                       ,["6",".",".","1","9","5",".",".","."]
+                                       ,[".","9","8",".",".",".",".","6","."]
+                                       ,["8",".",".",".","6",".",".",".","3"]
+                                       ,["4",".",".","8",".","3",".",".","1"]
+                                       ,["7",".",".",".","2",".",".",".","6"]
+                                       ,[".","6",".",".",".",".","2","8","."]
+                                       ,[".",".",".","4","1","9",".",".","5"]
+                                       ,[".",".",".",".","8",".",".","7","9"]]), true)
+        XCTAssertEqual(obj.isValidSudoku([["8","3",".",".","7",".",".",".","."]
+                                          ,["6",".",".","1","9","5",".",".","."]
+                                          ,[".","9","8",".",".",".",".","6","."]
+                                          ,["8",".",".",".","6",".",".",".","3"]
+                                          ,["4",".",".","8",".","3",".",".","1"]
+                                          ,["7",".",".",".","2",".",".",".","6"]
+                                          ,[".","6",".",".",".",".","2","8","."]
+                                          ,[".",".",".","4","1","9",".",".","5"]
+                                          ,[".",".",".",".","8",".",".","7","9"]]), false)
+    }
+    
+    func testSetMatrixZero() {
+        let obj = SetZeroes()
+        
+        var arr1 = [[1,1,1],[1,0,1],[1,1,1]]
+        obj(&arr1)
+        XCTAssertEqual(arr1, [[1,0,1],[0,0,0],[1,0,1]])
+        
+        var arr2 = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+        obj(&arr2)
+        XCTAssertEqual(arr2, [[0,0,0,0],[0,4,5,0],[0,3,1,0]])
+    }
+    
+    func testGasStation() {
+        let obj = GasStation()
+        XCTAssertEqual(obj.canCompleteCircuit([2,3,4],[3,4,3]), -1)
+        XCTAssertEqual(obj.canCompleteCircuit([1,2,3,4,5], [3,4,5,1,2]), 3)
+    }
+    
+    func testGameOfLife() {
+        let obj = GameOfLife()
+        
+        var arr1 = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+        obj(&arr1)
+        XCTAssertEqual(arr1, [[0,0,0],[1,0,1],[0,1,1],[0,1,0]])
+        
+        var arr2 = [[1,1],[1,0]]
+        obj(&arr2)
+        XCTAssertEqual(arr2, [[1,1],[1,1]])
+    }
+    
+    func testTaskScheduler() {
+        let obj = TaskScheduler()
+        obj(["A","A","A","B","B","B"], 2)
+    }
+    
+    func testSlidingWindowMaximum() {
+        let obj = SlidingWindowMaximum()
+        XCTAssertEqual(obj.maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3), [3,3,5,5,6,7])
+        XCTAssertEqual(obj.maxSlidingWindow([1], 1), [1])
+        XCTAssertEqual(obj.maxSlidingWindow([1,-1], 1), [1,-1])
+        XCTAssertEqual(obj.maxSlidingWindow([7,2,4], 2), [7,4])
+    }
+    
+    func testLongestConsecutiveSeq() {
+        let obj = LongestConsecutiveSeq()
+        XCTAssertEqual(obj([1,2,0,1]), 3)
+        XCTAssertEqual(obj([100,4,200,1,3,2]), 4)
+        XCTAssertEqual(obj([0,3,7,2,5,8,4,6,0,1]), 9)
+    }
+    
+    func testFindDisappearedNumbers() {
+        let obj = FindDisappearedNumbers()
+        XCTAssertEqual(obj([4,3,2,7,8,2,3,1]), [5,6])
+        XCTAssertEqual(obj([1,1]), [2])
+    }
 }
 
 //2,3,4,5,6,7
