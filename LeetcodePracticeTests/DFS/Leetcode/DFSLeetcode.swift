@@ -99,6 +99,17 @@ class DFSLeetcode: XCTestCase {
       ])
     }
     
+    func testStrobogrammaticNumberII() {
+        let obj = StrobogrammaticNumberII()
+        XCTAssertEqual(obj(2).sorted(), ["11","69","88","96"].sorted())
+    }
+    
+    func testGeneralizedAbbreviation() {
+        let obj = GeneralizedAbbreviation()
+        obj.generateAbbreviations("word")
+//        print(obj.generateAbbreviations("word"))
+    }
+    
     func testPalindromePartioning() {
         let obj = PalindromePartioning()
         XCTAssertEqual(obj("aab"), [["a","a","b"],["aa","b"]])
@@ -133,5 +144,47 @@ class DFSLeetcode: XCTestCase {
         let obj = NQueensII()
         XCTAssertEqual(obj(4), 2)
         XCTAssertEqual(obj(1), 1)
+    }
+    
+    func testSudokuSolver() {
+        let obj = SudokuSolver()
+        var board: [[Character]] = [["5","3",".",".","7",".",".",".","."],["6",".",".","1","9","5",".",".","."],[".","9","8",".",".",".",".","6","."],["8",".",".",".","6",".",".",".","3"],["4",".",".","8",".","3",".",".","1"],["7",".",".",".","2",".",".",".","6"],[".","6",".",".",".",".","2","8","."],[".",".",".","4","1","9",".",".","5"],[".",".",".",".","8",".",".","7","9"]]
+        obj(&board)
+        XCTAssertEqual(board, [["5","3","4","6","7","8","9","1","2"],["6","7","2","1","9","5","3","4","8"],["1","9","8","3","4","2","5","6","7"],["8","5","9","7","6","1","4","2","3"],["4","2","6","8","5","3","7","9","1"],["7","1","3","9","2","4","8","5","6"],["9","6","1","5","3","7","2","8","4"],["2","8","7","4","1","9","6","3","5"],["3","4","5","2","8","6","1","7","9"]])
+    }
+    
+    func testRemoveInvalidParentheses() {
+        let obj = RemoveInvalidParentheses()
+        XCTAssertEqual(obj.removeInvalidParentheses("(())())"), ["(())()","()()()"])
+    }
+    
+    func testExpressionAddOperators() {
+        let obj = ExpressionAddOperators()
+        XCTAssertEqual(obj.addOperators("123", 6), ["1+2+3", "1*2*3"])
+        XCTAssertEqual(obj.addOperators("232", 8), ["2+3*2", "2*3+2"])
+    }
+    
+    func testClimbingStairs() {
+        let obj = ClimbingStairs()
+       obj(steps: 10, eligibleStep: 2)
+    }
+    
+    func testCanPartitionKSubsets() {
+        let obj = CanPartitionKSubsets()
+        XCTAssertEqual(obj.canPartitionKSubsets([4,5,2,3,5,0,1], 4), true)
+        XCTAssertEqual(obj.canPartitionKSubsets([1,2,3,4], 3), false)
+    }
+    
+    func testWordSquares() {
+        let obj = WordSquares()
+        XCTAssertEqual(obj(wordList: ["ball","area","lead","lady"]), [["ball","area","lead","lady"]])
+        XCTAssertEqual(obj(wordList: ["area","lead","wall","lady","ball"]), [["wall","area","lead","lady"],["ball","area","lead","lady"]])
+    }
+    
+    func testWordPatternII() {
+        let obj = WordPatternII()
+        XCTAssertEqual(obj.wordPatternMatch("abab", "redblueredblue"), true)
+        XCTAssertEqual(obj.wordPatternMatch("aaaa", "asdasdasdasd"), true)
+        XCTAssertEqual(obj.wordPatternMatch("aabb", "xyzabcxzyabc"), false)
     }
 }

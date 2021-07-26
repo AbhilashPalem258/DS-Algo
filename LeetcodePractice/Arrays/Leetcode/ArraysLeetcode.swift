@@ -1255,7 +1255,7 @@ class DiagonalOrder {
 //explanation: https://www.youtube.com/watch?v=TjFXEUCMqI8
 struct ValidSudoku {
     func isValidSudoku(_ board: [[Character]]) -> Bool {
-        guard board.count == 9 && board[0].count == 9  else {
+        if board.count != 9 && board[0].count != 9 {
             return false
         }
         
@@ -1303,7 +1303,6 @@ struct ValidSudoku {
         
         return true
     }
-    
 }
 
 struct SetZeroes {

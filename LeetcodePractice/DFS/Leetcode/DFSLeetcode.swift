@@ -12,21 +12,21 @@ class NumberOfIslands {
         let m = grid.count, n = grid[0].count
         var numOfIslands = 0, grid = grid
         
-        func bfs(_ row: Int, _ col: Int) {
+        func dfs(_ row: Int, _ col: Int) {
             if !(0..<m).contains(row) || !(0..<n).contains(col) || grid[row][col] != "1" {
                 return
             }
             grid[row][col] = "0"
-            bfs(row-1, col)
-            bfs(row+1, col)
-            bfs(row, col+1)
-            bfs(row, col-1)
+            dfs(row-1, col)
+            dfs(row+1, col)
+            dfs(row, col+1)
+            dfs(row, col-1)
         }
         
         for row in 0..<m {
             for col in 0..<n where grid[row][col] == "1" {
                 numOfIslands += 1
-                bfs(row, col)
+                dfs(row, col)
             }
         }
         return numOfIslands
@@ -34,6 +34,29 @@ class NumberOfIslands {
 }
 
 class Permutation {
+    func permute(_ nums: [Int]) -> [[Int]] {
+        var permutations = [[Int]]()
+        let count = nums.count
+        
+        func calculatePermutations(_ newNums: [Int],_ start: Int) {
+            if start == newNums.count {
+                permutations.append(newNums)
+            }
+            
+            var mutableNums = newNums
+            for i in start..<count {
+                (mutableNums[start], mutableNums[i]) = (mutableNums[i], mutableNums[start])
+                calculatePermutations(mutableNums, start+1)
+                (mutableNums[start], mutableNums[i]) = (mutableNums[i], mutableNums[start])
+            }
+        }
+        
+        calculatePermutations(nums, 0)
+        return permutations
+    }
+}
+
+class PermutationII {
     func permute(_ nums: [Int]) -> [[Int]] {
         var permutations = [[Int]]()
         let count = nums.count
@@ -364,6 +387,68 @@ class FactorCombinations {
     }
 }
 
+class StrobogrammaticNumberII {
+    func callAsFunction(_ n: Int) -> [String] {
+        let mirrorDigits = [0: 0, 1: 1, 6: 9, 8: 8, 9: 6]
+        var combinations = [String](), combination = Array(repeating: "", count: n)
+        
+        func dfs(_ left: Int, _ right: Int) {
+            if left > right {
+                combinations.append(combination.joined())
+                return
+            }
+            
+            for (key, val) in mirrorDigits {
+                
+                if left == right && [6,9].contains(key) {
+                    continue
+                }
+                
+                if left != right && left == 0 && key == 0 {
+                    continue
+                }
+                
+                combination[left] = String(key)
+                combination[right] = String(val)
+                
+                dfs(left+1, right-1)
+            }
+        }
+        dfs(0, n-1)
+        return combinations
+    }
+}
+
+class GeneralizedAbbreviation {
+    func generateAbbreviations(_ word: String) -> [String] {
+        var result = [String]()
+        let chars = Array(word).map {String($0)}
+        
+        func dfs(start: Int, subset: String) {
+            if start == word.count {
+                result.append(subset)
+                return
+            }
+            
+            result.append(subset + String(chars.count - start))
+            
+            for i in start..<chars.count {
+                let offset = i - start
+                print("start: \(start), i: \(i), offset: \(offset), subset: \(subset), chars[i]: \(chars[i])")
+                if offset != 0 {
+                    dfs(start: i + 1, subset: subset + String(offset) + chars[i])
+                } else {
+                    dfs(start: i + 1, subset: subset + chars[i])
+                }
+            }
+        }
+        
+        dfs(start: 0, subset: "")
+        return result
+    }
+}
+
+
 class PalindromePartioning {
     func callAsFunction(_ s: String) -> [[String]] {
         var result = [[String]](), path = [String]()
@@ -538,6 +623,411 @@ class NQueensII {
         }
         
         backtrack(row: 0)
+        return result
+    }
+}
+
+class SudokuSolver {
+    func callAsFunction(_ board: inout [[Character]]) {
+        if board.count != 9 || board.first?.count != 9 {
+            return 
+        }
+        
+        var emptyElements = [(Int, Int)]()
+        
+        func isValidValue(row: Int, col: Int, num: Character) -> Bool {
+            // check row
+            for tCol in 0..<9 {
+                if board[row][tCol] == num {
+                    return false
+                }
+            }
+            
+            // check col
+            for tRow in 0..<9 {
+                if board[tRow][col] == num {
+                    return false
+                }
+            }
+            
+            // check square
+            let boxStartRow = (row / 3) * 3, boxStartCol = (col / 3) * 3
+            for row in boxStartRow..<boxStartRow + 3 {
+                for col in boxStartCol..<boxStartCol + 3 {
+                    if board[row][col] == num {
+                        return false
+                    }
+                }
+            }
+            
+            return true
+        }
+        
+        func findEmptyElements() {
+            for row in 0..<9 {
+                for col in 0..<9 where board[row][col] == "." {
+                    emptyElements.append((row, col))
+                }
+            }
+        }
+        
+        @discardableResult
+        func dfs(_ i: Int) -> Bool {
+            if i == emptyElements.count {
+                return true
+            }
+            let (row, col) = emptyElements[i]
+            for num in 1...9 {
+                let char = Character("\(num)")
+                if isValidValue(row: row, col: col, num: char) {
+                    board[row][col] = char
+                    if dfs(i+1) {
+                       return true
+                    }
+                   board[row][col] = "."
+                }
+            }
+            return false
+        }
+        
+        findEmptyElements()
+        dfs(0)
+    }
+}
+
+class RemoveInvalidParentheses {
+    func removeInvalidParentheses(_ s: String) -> [String] {
+        var paths = [String]()
+        
+        dfs(&paths, Array(s), 0, 0, ("(", ")"))
+        
+        return paths
+    }
+    
+    fileprivate func dfs(_ paths: inout [String], _ s: [Character], _ lastValid: Int, _ lastRight: Int, _ parens: (Character, Character)) {
+        var counter = 0, s = s
+        
+        for i in lastValid..<s.count {
+            if s[i] == parens.0 {
+                counter += 1
+            }
+            if s[i] == parens.1 {
+                counter -= 1
+            }
+            
+            if counter < 0 {
+                for j in lastRight...i {
+                    guard s[j] == parens.1 else {
+                        continue
+                    }
+                    guard j == 0 || s[j] != s[j - 1] || j == lastRight else {
+                        continue
+                    }
+                    
+                    dfs(&paths, Array(s[0..<j] + s[j + 1..<s.count]), i, j, parens)
+                }
+                // jump over invalid ones
+                return
+            }
+        }
+        
+        if parens.0 == "(" {
+            dfs(&paths, s.reversed(), 0, 0, (")", "("))
+        } else {
+            paths.append(String(s.reversed()))
+        }
+    }
+}
+
+class ExpressionAddOperators {
+    
+    // the problem description is a bit vague, but we don't just
+    // care about single digits, it's all possible numbers comprised
+    // of those digits, this greatly increases the number of permutations
+    // to O(n^2)
+    func addOperators(_ num: String, _ target: Int) -> [String] {
+        var results = [String](), nums = Array(num).map {Int(String($0))!}
+        if num.isEmpty {
+            return results
+        }
+        
+        func dfs(offset: Int, path: String, mr: Int, prior: Int) {
+            
+            if offset == num.count {
+                if mr == target {
+                    results.append(path)
+                }
+                return
+            }
+            for i in offset..<nums.count {
+                
+                if i != offset && nums[offset] == 0 {
+                    break
+                }
+                
+                var val = 0
+                for j in offset..<i+1 {
+                    val *= 10
+                    val += nums[j]
+                }
+
+                if offset == 0 {
+                    dfs(offset: i+1, path: path + String(val), mr: mr + val, prior: val)
+                } else {
+                    dfs(offset: i+1, path: path + "+" + String(val), mr: mr + val, prior: val)
+                    dfs(offset: i+1, path: path + "-" + String(val), mr: mr - val, prior: -val)
+                    dfs(offset: i+1, path: path + "*" + String(val), mr: mr - prior + (prior * val), prior: prior * val)
+                }
+            }
+        }
+        dfs(offset: 0, path: "", mr: 0, prior: 0)
+        return results
+    }
+}
+
+
+struct ClimbingStairs {
+    func callAsFunction(steps: Int, eligibleStep: Int) -> [[Int]] {
+        var combinations = [[Int]](), combination = [Int]()
+        let arr = Array(1...eligibleStep)
+        
+        func dfs(_ start: Int, target: Int) {
+            if target == 0 {
+                combinations.append(combination)
+                return
+            }
+            for i in start..<arr.count {
+                let current = arr[i]
+                if current > target {
+                    break
+                }
+                combination.append(current)
+                dfs(start, target: target - current)
+                combination.removeLast()
+            }
+        }
+        dfs(0, target: steps)
+        return combinations
+    }
+}
+
+class CanPartitionKSubsets {
+    func canPartitionKSubsets(_ nums: [Int], _ k: Int) -> Bool {
+        let sum = nums.reduce(0, +)
+        if sum % k != 0 {
+            return false
+        }
+        let target = sum/k
+        let index = nums.count - 1
+        var groupToKArr = Array(repeating: 0, count: k), numbers = nums.sorted()
+        
+        if numbers[index] > target {
+            return false
+        }
+        
+        func dfs(index: Int) -> Bool {
+            if index < 0 {
+                return true
+            }
+            let currentNum = numbers[index]
+            for i in 0..<groupToKArr.count {
+                if groupToKArr[i] + currentNum <= target {
+                    groupToKArr[i] += currentNum
+                    if dfs(index: index-1) {
+                        return true
+                    }
+                    groupToKArr[i] -= currentNum
+                }
+                
+                if groupToKArr[i] == 0 {
+                    break
+                }
+            }
+            return false
+        }
+        return dfs(index: index)
+    }
+}
+
+struct WordSquares {
+    func callAsFunction(wordList: [String]) -> [[String]] {
+        let count = wordList.first!.count
+        var combinations = [[String]](),
+            combination = [[Character]](
+                repeating: [Character](repeating: Character("."),
+                                       count: count),
+                count: count
+            ),
+            visited = Set<String>()
+        
+        func dfs(start: Int, prefix: String) {
+            if start == count {
+                combinations.append(combination.map{String($0)})
+                return
+            }
+            
+            var prefixWords = [String]()
+            for word in wordList {
+                if !visited.contains(word) && word.hasPrefix(prefix) {
+                    prefixWords.append(word)
+                }
+            }
+            
+            for i in 0..<prefixWords.count {
+                let currentWord = prefixWords[i]
+                let pChars = Array(currentWord)
+                visited.insert(currentWord)
+                for index in 0..<pChars.count {
+                    combination[start][index] = pChars[index]
+                    combination[index][start] = pChars[index]
+                }
+                var nextPrefix = ""
+                if start+1 < count {
+                    for i in 0..<start+1 {
+                        nextPrefix.append(combination[start+1][i])
+                    }
+                }
+                dfs(start: start+1, prefix: nextPrefix)
+                visited.remove(prefixWords[i])
+                for index in 0..<pChars.count {
+                    combination[start][index] = Character(".")
+                    combination[index][start] = Character(".")
+                }
+            }
+        }
+        dfs(start: 0, prefix: "")
+        return combinations
+    }
+    
+    func wordSquaresUsingMap(wordList: [String]) -> [[String]] {
+        let count = wordList.first!.count
+        var combinations = [[String]](),
+            combination = [[Character]](
+                repeating: [Character](repeating: Character("."),count: count),
+                count: count
+            ),
+            map = [String: [String]](),
+            visited = Set<String>()
+        
+        func createPrefixMap() {
+            for word in wordList {
+                for i in 1...count {
+                    map[String(word.prefix(i)), default: []].append(word)
+                }
+            }
+        }
+        
+        createPrefixMap()
+        
+        func dfs(start: Int, prefix: String) {
+            if start == count {
+                combinations.append(combination.map{String($0)})
+                return
+            }
+            
+            let prefixWords = map[prefix] ?? wordList
+            
+            for currentWord in prefixWords {
+                let pChars = Array(currentWord)
+//                visited.insert(currentWord)
+                for index in 0..<pChars.count {
+                    combination[start][index] = pChars[index]
+                    combination[index][start] = pChars[index]
+                }
+                var nextPrefix = ""
+                if start+1 < count {
+                    for i in 0..<start+1 {
+                        nextPrefix.append(combination[start+1][i])
+                    }
+                }
+                dfs(start: start+1, prefix: nextPrefix)
+//                visited.remove(prefixWords[i])
+                for index in 0..<pChars.count {
+                    combination[start][index] = Character(".")
+                    combination[index][start] = Character(".")
+                }
+            }
+        }
+        dfs(start: 0, prefix: "")
+        return combinations
+    }
+}
+
+class WordPatternII {
+    func wordPatternMatch(_ pattern: String, _ str: String) -> Bool {
+        func dfs(_ pattern: String, _ str: String, _ patternToWord: [Character: String]) -> Bool {
+            guard let patternFirstChar = pattern.first, str.count > 0 else {
+                return str.isEmpty && pattern.isEmpty
+            }
+            let newPattern = String(pattern.suffix(pattern.count - 1))
+            
+            if let existingWord = patternToWord[patternFirstChar] {
+                if str.hasPrefix(existingWord) {
+                    return dfs(newPattern, String(str.suffix(str.count - existingWord.count)), patternToWord)
+                } else {
+                    return false
+                }
+            }
+            
+            for i in 0..<str.count {
+                let word = String(str.prefix(i + 1))
+                if patternToWord.values.contains(word) {
+                    continue
+                }
+                
+                var patternToWord = patternToWord
+                patternToWord[patternFirstChar] = word
+                if dfs(newPattern, String(str.suffix(str.count - word.count)), patternToWord) {
+                    return true
+                }
+            }
+            return false
+        }
+        return dfs(pattern, str, [:])
+    }
+}
+
+/*
+ link: https://leetcode.com/problems/count-sub-islands/
+ explanation: https://www.youtube.com/watch?v=mLpW3qfbNJ8&list=PLot-Xpze53ldBT_7QA8NVot219jFNr_GI&index=17
+ primary idea:
+ - Second grid's island should be present in first grid
+ - Traverse through second grid's island even if it doesnt meet conditions, as we want it to be visited
+ - return true if both conditions meet and traversed through island
+ Time Complexity: O(n * m)
+ Space Complexity: O(n * m)
+ */
+class CountSubIslands {
+    func callAsFunction(_ grid1: [[Int]], _ grid2: [[Int]]) -> Int {
+        var result = 0
+        if grid2.isEmpty || grid2.first!.isEmpty || grid1.count != grid2.count || grid1.first!.count != grid2.first!.count  {
+            return result
+        }
+        let (m, n) = (grid2.count, grid2.first!.count)
+        var visited = Set<[Int]>()
+        
+        func dfs(row: Int, col: Int) -> Bool {
+            if !(0..<m).contains(row) || !(0..<n).contains(col) || grid2[row][col] == 0 || visited.contains([row, col]) {
+                return true
+            }
+            visited.insert([row, col])
+            var result = true
+            if grid1[row][col] == 0 {
+                result = false
+            }
+            
+            let ranges = [(row+1, col), (row, col+1), (row - 1, col), (row, col - 1)]
+            for range in ranges {
+                result =  dfs(row: range.0, col: range.1) && result
+            }
+            return result
+        }
+        
+        for row in 0..<m {
+            for col in 0..<n where grid2[row][col] == 1 && !visited.contains([row, col]) && dfs(row: row, col: col) {
+                result += 1
+            }
+        }
         return result
     }
 }
