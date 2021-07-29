@@ -248,7 +248,7 @@
 ## Depth-first search
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
-[Permutations](https://leetcode.com/problems/permutations/)| [Swift](./DFS/Permutations.swift)| Medium| O(n^n)| O(n)|
+[Permutations](https://leetcode.com/problems/permutations/)| [Swift](./LeetcodePractice/DFS/Leetcode/DFSLeetcode.swift)| Medium| O(n^n)| O(n)|
 [Permutations II](https://leetcode.com/problems/permutations-ii/)| [Swift](./DFS/PermutationsII.swift)| Medium| O(n^n)| O(n)|
 [Subsets](https://leetcode.com/problems/subsets/)| [Swift](./DFS/Subsets.swift)| Medium| O(n^n)| O(n)|
 [Subsets II](https://leetcode.com/problems/subsets-ii/)| [Swift](./DFS/SubsetsII.swift)| Medium| O(n^n)| O(n)|
