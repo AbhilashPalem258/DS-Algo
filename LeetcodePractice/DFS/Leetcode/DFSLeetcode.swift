@@ -1031,3 +1031,42 @@ class CountSubIslands {
         return result
     }
 }
+
+class PacificAtlantic {
+    func callAsFunction(_ heights: [[Int]]) -> [[Int]] {
+        let m = heights.count, n = heights[0].count
+        var pac = Set<[Int]>(), atl = Set<[Int]>()
+        
+        func dfs(row: Int, col: Int, isPacific: Bool, prevHeight: Int) {
+            if !(0..<m).contains(row) || !(0..<n).contains(col) || heights[row][col] < prevHeight {
+                return
+            }
+            if isPacific && pac.contains([row, col]) || !isPacific && atl.contains([row, col]) {
+                return
+            }
+            _ = isPacific ? pac.insert([row, col]) : atl.insert([row, col])
+            for range in [(row + 1, col), (row, col + 1), (row - 1, col), (row, col - 1)] {
+                dfs(row: range.0, col: range.1, isPacific: isPacific, prevHeight: heights[row][col])
+            }
+        }
+        
+        for col in 0..<n {
+            dfs(row: 0, col: col, isPacific: true, prevHeight: heights[0][col])
+            dfs(row: m - 1, col: col, isPacific: false, prevHeight: heights[m - 1][col])
+        }
+        
+        for row in 0..<m {
+            dfs(row: row, col: 0, isPacific: true, prevHeight: heights[row][0])
+            dfs(row: row, col: n - 1, isPacific: false, prevHeight: heights[row][n - 1])
+        }
+        
+        var result = [[Int]]()
+        for row in 0..<m {
+            for col in 0..<n where pac.contains([row, col]) && atl.contains([row, col]) {
+                result.append([row, col])
+            }
+        }
+        
+        return result
+    }
+}

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00168B6C26AFC76700123087 /* UFLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00168B6B26AFC76700123087 /* UFLeetcode.swift */; };
+		00168B7026AFCAC900123087 /* UFLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00168B6F26AFCAC900123087 /* UFLeetcode.swift */; };
+		00168B7426B1627A00123087 /* TopologicalSortLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00168B7326B1627A00123087 /* TopologicalSortLeetcode.swift */; };
+		00168B7826B1675D00123087 /* TopologicalSortLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00168B7726B1675D00123087 /* TopologicalSortLeetcode.swift */; };
 		002BA836269A0B5600367D72 /* BinarySearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BA835269A0B5600367D72 /* BinarySearch.swift */; };
 		002BA83A269A0E4200367D72 /* BinarySearchConcept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BA839269A0E4200367D72 /* BinarySearchConcept.swift */; };
 		002BA83D269AE3CB00367D72 /* SearchLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002BA83C269AE3CB00367D72 /* SearchLeetcode.swift */; };
@@ -30,6 +34,8 @@
 		004C92CA267CFC860094CC50 /* LL155.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C9267CFC860094CC50 /* LL155.swift */; };
 		004C92CC267D828C0094CC50 /* MaxStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92CB267D828C0094CC50 /* MaxStack.swift */; };
 		004C92CE267DACB60094CC50 /* longestParentheses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92CD267DACB60094CC50 /* longestParentheses.swift */; };
+		007738C426B49B2F001E5422 /* DPLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007738C326B49B2F001E5422 /* DPLeetcode.swift */; };
+		007738C826B49D11001E5422 /* DPLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007738C726B49D11001E5422 /* DPLeetcode.swift */; };
 		007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35DE267E260D0054CFE9 /* StackLeetcode.swift */; };
 		007A35E1267E27030054CFE9 /* StackTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35E0267E27030054CFE9 /* StackTestCases.swift */; };
 		007A35EB267F40B90054CFE9 /* QueueProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35EA267F40B90054CFE9 /* QueueProtocol.swift */; };
@@ -56,6 +62,7 @@
 		008BB10C26AC4FB6008462E7 /* BFSLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008BB10B26AC4FB6008462E7 /* BFSLeetcode.swift */; };
 		008C67EB26AE7D6800BDF6D7 /* GraphLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008C67EA26AE7D6800BDF6D7 /* GraphLeetcode.swift */; };
 		008C67EE26AE82BE00BDF6D7 /* GraphLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008C67ED26AE82BE00BDF6D7 /* GraphLeetcode.swift */; };
+		008EE83326B1C126002889EB /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008EE83226B1C126002889EB /* Heap.swift */; };
 		008FDB57269D473900A88584 /* LeetcodeSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008FDB56269D473900A88584 /* LeetcodeSort.swift */; };
 		008FDB5B269D476F00A88584 /* SortLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008FDB5A269D476F00A88584 /* SortLeetcode.swift */; };
 		008FDB5E269D8D9A00A88584 /* SortConcept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008FDB5D269D8D9A00A88584 /* SortConcept.swift */; };
@@ -86,6 +93,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		00168B6B26AFC76700123087 /* UFLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFLeetcode.swift; sourceTree = "<group>"; };
+		00168B6F26AFCAC900123087 /* UFLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UFLeetcode.swift; sourceTree = "<group>"; };
+		00168B7326B1627A00123087 /* TopologicalSortLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopologicalSortLeetcode.swift; sourceTree = "<group>"; };
+		00168B7726B1675D00123087 /* TopologicalSortLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopologicalSortLeetcode.swift; sourceTree = "<group>"; };
 		002BA835269A0B5600367D72 /* BinarySearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinarySearch.swift; sourceTree = "<group>"; };
 		002BA839269A0E4200367D72 /* BinarySearchConcept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinarySearchConcept.swift; sourceTree = "<group>"; };
 		002BA83C269AE3CB00367D72 /* SearchLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLeetcode.swift; sourceTree = "<group>"; };
@@ -116,6 +127,8 @@
 		004C92C9267CFC860094CC50 /* LL155.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LL155.swift; sourceTree = "<group>"; };
 		004C92CB267D828C0094CC50 /* MaxStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxStack.swift; sourceTree = "<group>"; };
 		004C92CD267DACB60094CC50 /* longestParentheses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longestParentheses.swift; sourceTree = "<group>"; };
+		007738C326B49B2F001E5422 /* DPLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPLeetcode.swift; sourceTree = "<group>"; };
+		007738C726B49D11001E5422 /* DPLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPLeetcode.swift; sourceTree = "<group>"; };
 		007A35DE267E260D0054CFE9 /* StackLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackLeetcode.swift; sourceTree = "<group>"; };
 		007A35E0267E27030054CFE9 /* StackTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTestCases.swift; sourceTree = "<group>"; };
 		007A35EA267F40B90054CFE9 /* QueueProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueProtocol.swift; sourceTree = "<group>"; };
@@ -142,6 +155,7 @@
 		008BB10B26AC4FB6008462E7 /* BFSLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFSLeetcode.swift; sourceTree = "<group>"; };
 		008C67EA26AE7D6800BDF6D7 /* GraphLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphLeetcode.swift; sourceTree = "<group>"; };
 		008C67ED26AE82BE00BDF6D7 /* GraphLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphLeetcode.swift; sourceTree = "<group>"; };
+		008EE83226B1C126002889EB /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 		008FDB56269D473900A88584 /* LeetcodeSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeetcodeSort.swift; sourceTree = "<group>"; };
 		008FDB5A269D476F00A88584 /* SortLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortLeetcode.swift; sourceTree = "<group>"; };
 		008FDB5D269D8D9A00A88584 /* SortConcept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortConcept.swift; sourceTree = "<group>"; };
@@ -179,6 +193,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00168B6926AFC74C00123087 /* UnionFind */ = {
+			isa = PBXGroup;
+			children = (
+				00168B6A26AFC75500123087 /* Leetcode */,
+			);
+			path = UnionFind;
+			sourceTree = "<group>";
+		};
+		00168B6A26AFC75500123087 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				00168B6B26AFC76700123087 /* UFLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		00168B6D26AFCAA000123087 /* UnionFind */ = {
+			isa = PBXGroup;
+			children = (
+				00168B6E26AFCAB200123087 /* Leetcode */,
+			);
+			path = UnionFind;
+			sourceTree = "<group>";
+		};
+		00168B6E26AFCAB200123087 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				00168B6F26AFCAC900123087 /* UFLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		00168B7126B1624100123087 /* TopologicalSort */ = {
+			isa = PBXGroup;
+			children = (
+				00168B7226B1624B00123087 /* Leetcode */,
+			);
+			path = TopologicalSort;
+			sourceTree = "<group>";
+		};
+		00168B7226B1624B00123087 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				00168B7326B1627A00123087 /* TopologicalSortLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		00168B7526B1672900123087 /* TopologicalSort */ = {
+			isa = PBXGroup;
+			children = (
+				00168B7626B1673400123087 /* Leetcode */,
+			);
+			path = TopologicalSort;
+			sourceTree = "<group>";
+		};
+		00168B7626B1673400123087 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				00168B7726B1675D00123087 /* TopologicalSortLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
 		002BA833269A0B2400367D72 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +330,10 @@
 		004C9284267A24AC0094CC50 /* LeetcodePractice */ = {
 			isa = PBXGroup;
 			children = (
+				007738C126B49B0F001E5422 /* DP */,
+				008EE83126B1C10E002889EB /* Heap */,
+				00168B7126B1624100123087 /* TopologicalSort */,
+				00168B6926AFC74C00123087 /* UnionFind */,
 				008BB10526AC48EA008462E7 /* BFS */,
 				00FEA98226A5324C006D324B /* DFS */,
 				00FEA97926A41223006D324B /* Graph */,
@@ -287,6 +369,9 @@
 		004C9297267A24AE0094CC50 /* LeetcodePracticeTests */ = {
 			isa = PBXGroup;
 			children = (
+				007738C526B49CFE001E5422 /* DP */,
+				00168B7526B1672900123087 /* TopologicalSort */,
+				00168B6D26AFCAA000123087 /* UnionFind */,
 				008BB10926AC4F9C008462E7 /* BFS */,
 				00FEA98626A54325006D324B /* DFS */,
 				00FEA97E26A44659006D324B /* Graph */,
@@ -356,6 +441,38 @@
 				007A35DE267E260D0054CFE9 /* StackLeetcode.swift */,
 			);
 			path = Stack;
+			sourceTree = "<group>";
+		};
+		007738C126B49B0F001E5422 /* DP */ = {
+			isa = PBXGroup;
+			children = (
+				007738C226B49B1F001E5422 /* Leetcode */,
+			);
+			path = DP;
+			sourceTree = "<group>";
+		};
+		007738C226B49B1F001E5422 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007738C326B49B2F001E5422 /* DPLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		007738C526B49CFE001E5422 /* DP */ = {
+			isa = PBXGroup;
+			children = (
+				007738C626B49D04001E5422 /* Leetcode */,
+			);
+			path = DP;
+			sourceTree = "<group>";
+		};
+		007738C626B49D04001E5422 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				007738C726B49D11001E5422 /* DPLeetcode.swift */,
+			);
+			path = Leetcode;
 			sourceTree = "<group>";
 		};
 		007A35E2267F09AC0054CFE9 /* Queue */ = {
@@ -597,6 +714,14 @@
 				008C67ED26AE82BE00BDF6D7 /* GraphLeetcode.swift */,
 			);
 			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		008EE83126B1C10E002889EB /* Heap */ = {
+			isa = PBXGroup;
+			children = (
+				008EE83226B1C126002889EB /* Heap.swift */,
+			);
+			path = Heap;
 			sourceTree = "<group>";
 		};
 		008FDB54269D472000A88584 /* Sort */ = {
@@ -896,6 +1021,7 @@
 				007A35F7267F9BB70054CFE9 /* Leetcode.swift in Sources */,
 				007A35EB267F40B90054CFE9 /* QueueProtocol.swift in Sources */,
 				007A3603268047E80054CFE9 /* BinaryTree.swift in Sources */,
+				00168B7426B1627A00123087 /* TopologicalSortLeetcode.swift in Sources */,
 				008FDB5E269D8D9A00A88584 /* SortConcept.swift in Sources */,
 				007A3619268DEC9D0054CFE9 /* ArraysLeetcode.swift in Sources */,
 				004C92B7267A60420094CC50 /* Array905.swift in Sources */,
@@ -910,10 +1036,13 @@
 				007A36112686152D0054CFE9 /* StringsLeetcode.swift in Sources */,
 				004C92C5267C3D3E0094CC50 /* 143.swift in Sources */,
 				002BA83D269AE3CB00367D72 /* SearchLeetcode.swift in Sources */,
+				008EE83326B1C126002889EB /* Heap.swift in Sources */,
+				007738C426B49B2F001E5422 /* DPLeetcode.swift in Sources */,
 				007A35ED267F41540054CFE9 /* Queue.swift in Sources */,
 				004C92CC267D828C0094CC50 /* MaxStack.swift in Sources */,
 				007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */,
 				008FDB57269D473900A88584 /* LeetcodeSort.swift in Sources */,
+				00168B6C26AFC76700123087 /* UFLeetcode.swift in Sources */,
 				00FEA97D26A42C6C006D324B /* AdjacencyList.swift in Sources */,
 				007A35F1267F45370054CFE9 /* OptimizedQueue.swift in Sources */,
 				007A360D26849EBC0054CFE9 /* BinarySearchTree.swift in Sources */,
@@ -927,13 +1056,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00168B7826B1675D00123087 /* TopologicalSortLeetcode.swift in Sources */,
 				007A35E1267E27030054CFE9 /* StackTestCases.swift in Sources */,
 				004C9299267A24AE0094CC50 /* LeetcodePracticeTests.swift in Sources */,
 				002BA83F269AE7B500367D72 /* SearchLeetcode.swift in Sources */,
 				007A360926806F550054CFE9 /* TreeLeetcodeTests.swift in Sources */,
+				007738C826B49D11001E5422 /* DPLeetcode.swift in Sources */,
 				00FEA98926A54347006D324B /* DFSLeetcode.swift in Sources */,
 				007A360126803B4F0054CFE9 /* TreeConceptTests.swift in Sources */,
 				007A3615268618A50054CFE9 /* StringsLeetcodeTests.swift in Sources */,
+				00168B7026AFCAC900123087 /* UFLeetcode.swift in Sources */,
 				007A3622268FF0740054CFE9 /* JulyLeetcodeChallenge.swift in Sources */,
 				00FEA98126A44687006D324B /* GraphAdjacencyList.swift in Sources */,
 				007A35EF267F42870054CFE9 /* QueueConceptTests.swift in Sources */,

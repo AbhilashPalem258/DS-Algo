@@ -96,3 +96,118 @@ class CloneGraph {
          return dfs(source: node)
     }
 }
+
+struct AlienDictionary {
+    func callAsFunction(_ wordList: [String]) -> String {
+        var adjList = [Character: Set<Character>]()
+        
+        for i in 0..<wordList.count - 1 {
+            let word1 = wordList[i], word2 = wordList[i + 1]
+            let minLength = min(word1.count, word2.count)
+            if word1.count > word2.count, word1.prefix(minLength) == word2.prefix(minLength) {
+                return ""
+            }
+            for j in 0..<minLength {
+                let firstWChar = word1[word1.index(word1.startIndex, offsetBy: j)]
+                let secondWChar = word2[word2.index(word2.startIndex, offsetBy: j)]
+                if firstWChar != secondWChar {
+                    adjList[firstWChar, default: Set()].insert(secondWChar)
+                }
+            }
+        }
+        
+        var visited = [Character: Bool](), res = [Character]()
+        func dfs(_ c: Character) -> Bool {
+            if visited[c] != nil {
+                return visited[c]!
+            }
+            visited[c] = true
+            for neighbour in adjList[c] ?? [] {
+                if dfs(neighbour) {
+                    return true
+                }
+            }
+            visited[c] = false
+            res.append(c)
+            return false
+        }
+        
+        for c in adjList.keys {
+            if dfs(c) {
+                return ""
+            }
+        }
+        res = res.reversed()
+        return String(res)
+    }
+}
+
+struct GraphValidTree {
+    func callAsFunction(n: Int, edges: [[Int]]) -> Bool {
+        typealias Node = Int
+        
+        var adjList = [Node: [Node]]()
+        func createAdjList() {
+            for edge in edges {
+                adjList[edge[0], default: []].append(edge[1])
+                adjList[edge[1], default: []].append(edge[0])
+            }
+        }
+        createAdjList()
+        
+        var visited = Set<Node>()
+        func dfs(_ node: Node, prev: Node) -> Bool {
+            if visited.contains(node) {
+                return false
+            }
+            
+            visited.insert(node)
+            for neighbour in adjList[node] ?? [] {
+                if neighbour == prev {
+                    continue
+                }
+                if !dfs(neighbour, prev: node) {
+                    return false
+                }
+            }
+            return true
+        }
+
+        return dfs(0, prev: -1) && visited.count == n
+    }
+}
+
+struct MinReorder {
+    func callAsFunction(_ n: Int, _ connections: [[Int]]) -> Int {
+        
+        var edges = Set<[Int]>()
+        for connection in connections {
+            edges.insert(connection)
+        }
+        
+        var adjList = [Int: [Int]]()
+        for connection in connections {
+            let from = connection[0], to = connection[1]
+            adjList[from, default: []].append(to)
+            adjList[to, default: []].append(from)
+        }
+        
+        var visited = Set<Int>(), changes = 0
+        visited.insert(0)
+        
+        func dfs(city: Int) {
+            for neighbour in adjList[city] ?? [] {
+                if visited.contains(neighbour) {
+                    continue
+                }
+                if !edges.contains([neighbour, city]) {
+                    changes += 1
+                }
+                visited.insert(neighbour)
+                dfs(city: neighbour)
+            }
+        }
+        dfs(city: 0)
+        return changes
+    }
+}
