@@ -31,6 +31,12 @@ class DPLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.dp([1,100,1,1,1,100,1,1,100,1]), 6)
     }
     
+    func testPaintFence() {
+        let obj = PaintFence()
+        XCTAssertEqual(obj.numWays(3, 2), 6)
+        XCTAssertEqual(obj.numWays(2, 2), 4)
+    }
+    
     func testUniquePathsII() {
         let obj = UniquePathsII()
         XCTAssertEqual(obj.uniquePathsWithObstaclesOnlyDFS([[0,0,0],[0,1,0],[0,0,0]]), 2)

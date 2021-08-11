@@ -93,6 +93,283 @@ class HouseRobberyII {
     }
 }
 
+class DecodeWays {
+    /*
+     Approach: Iterative + Memoization (Top Bottom Iterative Approach)
+     TimeComplexity: O(n)
+     SpaceComplexity: O(n)
+     */
+    func numDecodings(_ s: String) -> Int {
+        if s.isEmpty {
+            return 0
+        }
+        let sChars = Array(s)
+        var dp = Array(repeating: 0, count: s.count+1)
+        dp[0] = 1
+        dp[1] = s.prefix(1) == "0" ? 0 : 1
+        
+        for i in 2..<s.count+1 {
+            let integerOneVal = Int(String(sChars[i-1]))
+            let integerTwoVal = Int(String(sChars[i-2..<i]))
+            
+            if integerOneVal! > 0 && integerOneVal! <= 9 {
+                dp[i] += dp[i-1]
+            }
+            if integerTwoVal! >= 10 && integerTwoVal! <= 26 {
+                dp[i] += dp[i-2]
+            }
+        }
+        
+        return dp[s.count]
+    }
+    
+    /*
+     Approach: Iterative + Memoization (Top Bottom Iterative Approach)
+     TimeComplexity: O(n)
+     SpaceComplexity: O(1)
+     */
+    func numDecodingsLinearWithConstantSpace(_ s: String) -> Int {
+        //dp2 dp1 dp
+        //    dp2 dp1 dp
+        let sChars = Array(s)
+        var dp2 = 1, dp1 = sChars[0] == "0" ? 0 : 1
+        
+        for i in 2..<s.count+1 {
+            let integerOneValue = Int(String(sChars[i-1]))
+            let integerTwoValue = Int(String(sChars[i-2..<i]))
+            
+            var dp = 0
+            if integerOneValue! > 0 && integerOneValue! <= 9 {
+                dp += dp1
+            }
+            if integerTwoValue! >= 10 && integerTwoValue! <= 26 {
+                dp += dp2
+            }
+            
+            dp2 = dp1
+            dp1 = dp
+        }
+        return dp1
+    }
+}
+
+/*
+ problem:
+ There is a fence with n posts, each post can be painted with one of the k colors.
+ You have to paint all the posts such that no more than two adjacent fence posts have the same color.
+ Return the total number of ways you can paint the fence.
+ 
+ n and k are non-negative integers.
+
+ Testcases:
+ Input: n=3, k=2
+ Output: 6
+ 
+ Input: n=2, k=2
+ Output: 4
+  
+ link: https://www.lintcode.com/problem/514
+ explanation: https://www.youtube.com/watch?v=ju8vrEAsa3Q&t=731s
+ primary idea:
+ - Classic DP Fibonacci Approach
+ - Solve subproblems by solving for fence from 2..n
+ - Calculate and add no of ways we can paint the fence till nth fence such that no more than two consecutive fence have same color
+    - with last two fences having same color
+    - with last two fences having different color
+ - n - 1 fence's total combination's * (k - 1) give total number of ways with n fences.
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
+class PaintFence {
+    func numWays(_ n: Int, _ k: Int) -> Int {
+        if n == 0 || k == 0 {
+            return 0
+        }
+        if n == 1 {
+            return k
+        }
+        
+        var lastSame = k * 1
+        var lastDiff = k * (k - 1)
+        for _ in 3..<n+1 {
+            (lastSame, lastDiff) = (lastDiff, (lastSame + lastDiff) * (k - 1))
+        }
+        return lastSame + lastDiff
+    }
+}
+
+struct LongestIncreasingSubsequence {
+    func dfsWithMemo(_ arr: [Int]) -> Int {
+        var lis = 0, dp = [Int: Int]()
+        func backtrack(_ start: Int, lastElement: Int, length: Int) {
+            lis = max(lis, length)
+            
+            for i in start..<arr.count {
+                if arr[i] <= lastElement {
+                    break
+                }
+                backtrack(i + 1, lastElement: arr[i], length: length + 1)
+            }
+        }
+        backtrack(0, lastElement: 0, length: 0)
+        return lis
+    }
+    /*
+     TimeComplexity: O(n^2)
+     */
+    func dp(_ nums: [Int]) -> Int {
+        var lis = Array(repeating: 1, count: nums.count)
+        
+        var i = nums.count - 1
+        while i >= 0 {
+            for j in i+1..<nums.count {
+                if nums[i] < nums[j] {
+                    lis[i] = max(lis[i], 1+lis[j])
+                }
+            }
+            i -= 1
+        }
+        return lis.max() ?? -1
+    }
+}
+
+/*
+ problem:
+ Given an integer array nums, return the length of the longest strictly increasing subsequence.
+ 
+ Testcases:
+ Input: nums = [10,9,2,5,3,7,101,18]
+ Output: 4
+ 
+ Input: nums = [0,1,0,3,2,3]
+ Output: 4
+ 
+ Input: nums = [7,7,7,7,7,7,7]
+ Output: 1
+ 
+ Constraints:
+ 1 <= nums.length <= 2500
+ -104 <= nums[i] <= 104
+ 
+ link: https://leetcode.com/problems/longest-increasing-subsequence/
+ primary idea:
+ - Create a result arr. As soon as we found a num higher than last num in result arr, we append it into it. If not, binary search for insert position and replace item at that position. The count of result is LIS
+ Time Complexity: O(nlogn)
+ Space Complexity: O(n)
+ */
+class LISOptimized {
+    func lengthOfLIS(_ nums: [Int]) -> Int {
+       var subs = [nums[0]]
+        
+        func binarySearch(target: Int) -> Int {
+            var l = 0, r = subs.count - 1
+            while l <= r {
+                let midid = (l+r)/2
+                if subs[midid] < target {
+                    l = midid + 1
+                } else if target < subs[midid] {
+                    r = midid - 1
+                } else {
+                    return midid
+                }
+            }
+            return l
+        }
+        
+        for i in 1..<nums.count {
+            let num = nums[i]
+            if num > subs[subs.count - 1] {
+                subs.append(num)
+            } else {
+                let searchId = binarySearch(target: num)
+                subs[searchId] = num
+            }
+        }
+        
+        return subs.count
+    }
+}
+
+/*
+ problem:
+ A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+ The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+ How many possible unique paths are there?
+
+ Testcases:
+ Input: m = 3, n = 7
+ Output: 28
+ 
+ Input: m = 3, n = 2
+ Output: 3
+ 
+ Input: m = 7, n = 3
+ Output: 28
+ 
+ Input: m = 3, n = 3
+ Output: 6
+ 
+ Constraints:
+ 1 <= m, n <= 100
+ It's guaranteed that the answer will be less than or equal to 2 * 109
+ 
+ link: https://leetcode.com/problems/unique-paths/
+ explanation: https://www.youtube.com/watch?v=IlEsdxuD4lY
+ primary idea:
+ - Classic DP Iterative + Memoization (Top Bottom Iterative Approach)
+ Time Complexity: O(m*n)
+ Space Complexity: O(2n)
+ */
+class UniquePaths {
+    func uniquePaths(_ m: Int, _ n: Int) -> Int {
+        var memoRow = [Int](repeating: 1, count: n)
+        
+        for _ in 1..<m {
+            var newRow = [Int](repeating: -1, count: n)
+            for col in 0..<n {
+                if col == 0 {
+                    newRow[col] = memoRow[col]
+                } else {
+                    newRow[col] = newRow[col-1] + memoRow[col]
+                }
+            }
+            memoRow = newRow
+        }
+        return memoRow[n-1]
+    }
+}
+
+/*
+ problem:
+ A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+ The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+ Now consider if some obstacles are added to the grids. How many unique paths would there be?
+
+ An obstacle and space is marked as 1 and 0 respectively in the grid.
+ 
+ Testcases:
+ Input: obstacleGrid = [[0,0,0],[0,1,0],[0,0,0]]
+ Output: 2
+ 
+ Input: obstacleGrid = [[0,1],[0,0]]
+ Output: 1
+ 
+ Constraints:
+ m == obstacleGrid.length
+ n == obstacleGrid[i].length
+ 1 <= m, n <= 100
+ obstacleGrid[i][j] is 0 or 1.
+ 
+ link: https://leetcode.com/problems/unique-paths-ii/
+ explanation: https://www.youtube.com/watch?v=nZSXWXzn1aM
+ primary idea:
+ - Classic DP Iterative + Memoization (Top Bottom Iterative Approach)
+ - Followup for unique paths
+ */
 class UniquePathsII {
     /*
      Approach: Only DFS (Bottom Up recursive Approach)
@@ -231,22 +508,50 @@ class UniquePathsII {
     }
 }
 
-class UniquePaths {
-    /*
-     Approach: Iterative + Memoization (Top Bottom Iterative Approach)
-     TimeComplexity: O(r*c)
-     SpaceComplexity: O(r)
-     */
-    func uniquePaths(_ m: Int, _ n: Int) -> Int {
-        var memoRow = [Int](repeating: 1, count: n)
+/*
+ problem:
+ Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right, which minimizes the sum of all numbers along its path.
+
+ Note: You can only move either down or right at any point in time.
+ 
+ Testcases:
+ Input: grid = [[1,3,1],[1,5,1],[4,2,1]]
+ Output: 7
+ 
+ Input: grid = [[1,2,3],[4,5,6]]
+ Output: 12
+ 
+ Constraints:
+ m == grid.length
+ n == grid[i].length
+ 1 <= m, n <= 200
+ 0 <= grid[i][j] <= 100
+ 
+ link: https://leetcode.com/problems/minimum-path-sum/
+ explanation: https://www.youtube.com/watch?v=pGMsrvt0fpk&t=5s
+ primary idea:
+ - Classic DP Iterative + Memoization (Top Bottom Iterative Approach)
+ - For each cell, calculate min sum from ways where it can be reached
+ Time Complexity: O(m*n)
+ Space Complexity: O(n)
+ */
+class MinPathSum {
+    func minPathSumTopBottomWithMemo(_ grid: [[Int]]) -> Int {
+        let m = grid.count, n = grid[0].count
+        var memoRow = Array(repeating: 0, count: n)
+        memoRow[0] = grid[0][0]
         
-        for _ in 1..<m {
-            var newRow = [Int](repeating: -1, count: n)
+        for col in 1..<n {
+            memoRow[col] = memoRow[col - 1] + grid[0][col]
+        }
+        
+        for row in 1..<m {
+            var newRow = Array(repeating: 0, count: n)
             for col in 0..<n {
                 if col == 0 {
-                    newRow[col] = memoRow[col]
+                    newRow[col] = memoRow[col] + grid[row][col]
                 } else {
-                    newRow[col] = newRow[col-1] + memoRow[col]
+                    newRow[col] = grid[row][col] + min(newRow[col-1], memoRow[col])
                 }
             }
             memoRow = newRow
@@ -256,6 +561,32 @@ class UniquePaths {
 }
 
 /*
+ problem:
+ The demons had captured the princess and imprisoned her in the bottom-right corner of a dungeon. The dungeon consists of m x n rooms laid out in a 2D grid. Our valiant knight was initially positioned in the top-left room and must fight his way through dungeon to rescue the princess.
+
+ The knight has an initial health point represented by a positive integer. If at any point his health point drops to 0 or below, he dies immediately.
+
+ Some of the rooms are guarded by demons (represented by negative integers), so the knight loses health upon entering these rooms; other rooms are either empty (represented as 0) or contain magic orbs that increase the knight's health (represented by positive integers).
+
+ To reach the princess as quickly as possible, the knight decides to move only rightward or downward in each step.
+
+ Return the knight's minimum initial health so that he can rescue the princess.
+
+ Note that any room can contain threats or power-ups, even the first room the knight enters and the bottom-right room where the princess is imprisoned.
+ 
+ Testcases:
+ Input: dungeon = [[-2,-3,3],[-5,-10,1],[10,30,-5]]
+ Output: 7
+ 
+ Input: dungeon = [[0]]
+ Output: 1
+ 
+ Constraints:
+ m == dungeon.length
+ n == dungeon[i].length
+ 1 <= m, n <= 200
+ -1000 <= dungeon[i][j] <= 1000
+ 
  link: https://leetcode.com/problems/dungeon-game/
  explanation: https://www.youtube.com/watch?v=LbC0ejgACkE
  primary idea:
@@ -297,6 +628,86 @@ class DungeonGame {
         }
         
         return memo[0]
+    }
+}
+
+/*
+ problem:
+ There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color, and you need to cost the least. Return the minimum cost.
+
+ The cost of painting each house with a certain color is represented by a n x 3 cost matrix. For example, costs[0][0] is the cost of painting house 0 with color red; costs[1][2] is the cost of painting house 1 with color green, and so on... Find the minimum cost to paint all houses.
+ 
+ Testcases:
+ Input: [[14,2,11],[11,14,5],[14,3,10]]
+ Output: 10
+ 
+ Input: [[1,2,3],[1,4,6]]
+ Output: 3
+  
+ link: https://www.lintcode.com/problem/515/
+ explanation: https://www.youtube.com/watch?v=-w67-4tnH5U&t=442s
+ primary idea:
+ - Classic DP Memoization Approach
+ Time Complexity: O(m*n)
+ Space Complexity: O(n)
+ */
+struct PaintHouse {
+    func callAsFunction(_ costs: [[Int]]) -> Int {
+        var memo = (0,0,0)
+        for house in 0..<costs.count {
+            memo = (
+                costs[house][0] + min(memo.1, memo.2),
+                costs[house][1] + min(memo.0, memo.2),
+                costs[house][2] + min(memo.0, memo.1)
+            )
+        }
+        return min(memo.0, memo.1, memo.2)
+    }
+}
+
+/*
+ problem:
+ There are a row of n houses, each house can be painted with one of the k colors. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color.
+
+ The cost of painting each house with a certain color is represented by a n x k cost matrix. For example, costs[0][0] is the cost of painting house 0 with color 0; costs[1][2] is the cost of painting house 1 with color 2, and so on... Find the minimum cost to paint all houses.
+ 
+ Challenge: Could you solve it in O(nk)
+ 
+ Testcases:
+ costs = [[14,2,11],[11,14,5],[14,3,10]]
+ Output: 10
+ 
+ costs = [[5]]
+ Output: 5
+  
+ link: https://www.lintcode.com/problem/516/
+ primary idea:
+ - Keep track of three things like prev color, prev Min and prev second min and traverse through data and store intermediate results
+ Time Complexity: O(n*k)
+ Space Complexity: O(1)
+ */
+struct PaintHouseII {
+    func callAsFunction(_ costs: [[Int]]) -> Int {
+        var prevColor = -1, prevMin = 0, prevSecMin = 0
+        
+        for house in 0..<costs.count {
+            var currentColor = -1, currentMin = Int.max, currentSecMin = Int.max
+            
+            for color in 0..<costs[house].count {
+                let sum = costs[house][color] + (prevColor != color ? prevMin : prevSecMin)
+                if sum < currentMin {
+                    currentSecMin = currentMin
+                    currentMin = sum
+                    currentColor = color
+                } else if sum < currentSecMin {
+                    currentSecMin = sum
+                }
+            }
+            prevColor = currentColor
+            prevMin = currentMin
+            prevSecMin = currentSecMin
+        }
+        return prevMin
     }
 }
 
@@ -372,95 +783,7 @@ class FlipGameII {
         return helper(Array(s))
     }
 }
-class DecodeWays {
-    /*
-     Approach: Iterative + Memoization (Top Bottom Iterative Approach)
-     TimeComplexity: O(n)
-     SpaceComplexity: O(n)
-     */
-    func numDecodings(_ s: String) -> Int {
-        if s.isEmpty {
-            return 0
-        }
-        let sChars = Array(s)
-        var dp = Array(repeating: 0, count: s.count+1)
-        dp[0] = 1
-        dp[1] = s.prefix(1) == "0" ? 0 : 1
-        
-        for i in 2..<s.count+1 {
-            let integerOneVal = Int(String(sChars[i-1]))
-            let integerTwoVal = Int(String(sChars[i-2..<i]))
-            
-            if integerOneVal! > 0 && integerOneVal! <= 9 {
-                dp[i] += dp[i-1]
-            }
-            if integerTwoVal! >= 10 && integerTwoVal! <= 26 {
-                dp[i] += dp[i-2]
-            }
-        }
-        
-        return dp[s.count]
-    }
-    
-    /*
-     Approach: Iterative + Memoization (Top Bottom Iterative Approach)
-     TimeComplexity: O(n)
-     SpaceComplexity: O(1)
-     */
-    func numDecodingsLinearWithConstantSpace(_ s: String) -> Int {
-        //dp2 dp1 dp
-        //    dp2 dp1 dp
-        let sChars = Array(s)
-        var dp2 = 1, dp1 = sChars[0] == "0" ? 0 : 1
-        
-        for i in 2..<s.count+1 {
-            let integerOneValue = Int(String(sChars[i-1]))
-            let integerTwoValue = Int(String(sChars[i-2..<i]))
-            
-            var dp = 0
-            if integerOneValue! > 0 && integerOneValue! <= 9 {
-                dp += dp1
-            }
-            if integerTwoValue! >= 10 && integerTwoValue! <= 26 {
-                dp += dp2
-            }
-            
-            dp2 = dp1
-            dp1 = dp
-        }
-        return dp1
-    }
-}
 
-class MinPathSum {
-    /*
-     Approach: Iterative + Memoization (Top Bottom Iterative Approach)
-     TimeComplexity: O(m*n)
-     SpaceComplexity: O(n)
-     */
-    func minPathSumTopBottomWithMemo(_ grid: [[Int]]) -> Int {
-        let m = grid.count, n = grid[0].count
-        var memoRow = Array(repeating: 0, count: n)
-        memoRow[0] = grid[0][0]
-        
-        for col in 1..<n {
-            memoRow[col] = memoRow[col - 1] + grid[0][col]
-        }
-        
-        for row in 1..<m {
-            var newRow = Array(repeating: 0, count: n)
-            for col in 0..<n {
-                if col == 0 {
-                    newRow[col] = memoRow[col] + grid[row][col]
-                } else {
-                    newRow[col] = min(newRow[col-1] + grid[row][col], memoRow[col] + grid[row][col])
-                }
-            }
-            memoRow = newRow
-        }
-        return memoRow[n-1]
-    }
-}
 class GenerateParentheses {
     /*
      Approach: DFS
@@ -651,112 +974,6 @@ class BestTimeToBuyAndSellStockWithCoolDownTime {
             (sold, held, reset) = (held + price, max(held, reset - price), max(reset, sold))
         }
         return max(sold, reset)
-    }
-}
-
-struct PaintHouse {
-    func callAsFunction(_ costs: [[Int]]) -> Int {
-        var memo = (0,0,0)
-        for house in 0..<costs.count {
-            memo = (
-                costs[house][0] + min(memo.1, memo.2),
-                costs[house][1] + min(memo.0, memo.2),
-                costs[house][2] + min(memo.0, memo.1)
-            )
-        }
-        return min(memo.0, memo.1, memo.2)
-    }
-}
-
-struct PaintHouseII {
-    func callAsFunction(_ costs: [[Int]]) -> Int {
-        var prevColor = -1, prevMin = 0, prevSecMin = 0
-        
-        for house in 0..<costs.count {
-            var currentColor = -1, currentMin = Int.max, currentSecMin = Int.max
-            
-            for color in 0..<costs[house].count {
-                let sum = costs[house][color] + (prevColor != color ? prevMin : prevSecMin)
-                if sum < currentMin {
-                    currentSecMin = currentMin
-                    currentMin = sum
-                    currentColor = color
-                } else if sum < currentSecMin {
-                    currentSecMin = sum
-                }
-            }
-            prevColor = currentColor
-            prevMin = currentMin
-            prevSecMin = currentSecMin
-        }
-        return prevMin
-    }
-}
-
-struct LongestIncreasingSubsequence {
-    func dfsWithMemo(_ arr: [Int]) -> Int {
-        var lis = 0, dp = [Int: Int]()
-        func backtrack(_ start: Int, lastElement: Int, length: Int) {
-            lis = max(lis, length)
-            
-            for i in start..<arr.count {
-                if arr[i] <= lastElement {
-                    break
-                }
-                backtrack(i + 1, lastElement: arr[i], length: length + 1)
-            }
-        }
-        backtrack(0, lastElement: 0, length: 0)
-        return lis
-    }
-    /*
-     TimeComplexity: O(n^2)
-     */
-    func dp(_ nums: [Int]) -> Int {
-        var lis = Array(repeating: 1, count: nums.count)
-        
-        var i = nums.count - 1
-        while i >= 0 {
-            for j in i+1..<nums.count {
-                if nums[i] < nums[j] {
-                    lis[i] = max(lis[i], 1+lis[j])
-                }
-            }
-            i -= 1
-        }
-        return lis.max() ?? -1
-    }
-}
-class LISOptimized {
-    func lengthOfLIS(_ nums: [Int]) -> Int {
-       var subs = [nums[0]]
-        
-        func binarySearch(target: Int) -> Int {
-            var l = 0, r = subs.count - 1
-            while l <= r {
-                let midid = (l+r)/2
-                if subs[midid] < target {
-                    l = midid + 1
-                } else if target < subs[midid] {
-                    r = midid - 1
-                } else {
-                    return midid
-                }
-            }
-            return l
-        }
-        
-        for i in 1..<nums.count {
-            let num = nums[i]
-            if num > subs[subs.count - 1] {
-                subs.append(num)
-            } else {
-                let searchId = binarySearch(target: num)
-                subs[searchId] = num
-            }
-        }
-        
-        return subs.count
     }
 }
 

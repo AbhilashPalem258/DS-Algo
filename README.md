@@ -233,6 +233,7 @@
 [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
 [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)| [Swift](./DP/MaximumProductSubarray.swift)| Medium| O(n)| O(1)|
 [Maximal Square](https://leetcode.com/problems/maximal-square/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
+[Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
 [Edit Distance](https://leetcode.com/problems/edit-distance/)| [Swift](./DP/EditDistance.swift)| Hard| O(mn)| O(mn)|
 [Wildcard Matching](https://leetcode.com/problems/wildcard-matching/)| [Swift](./DP/WildcardMatching.swift)| Hard| O(mn)| O(mn)|
 [Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)| [Swift](./DP/RegularExpressionMatching.swift)| Hard| O(mn)| O(mn)|
@@ -244,6 +245,7 @@
 [Word Break](https://leetcode.com/problems/word-break/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Word Break II](https://leetcode.com/problems/word-break-ii/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Partition Equal Subset Sum](https://leetcode.com/problems/partition-equal-subset-sum/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
+[Target Sum](https://leetcode.com/problems/target-sum/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Interleaving String](https://leetcode.com/problems/interleaving-string/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Number of Ways to Rearrange Sticks With K Sticks Visible](https://leetcode.com/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/)| [Swift](./DP/JumpGame.swift)| Hard| O(n)| O(1)|
@@ -386,6 +388,11 @@
 [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/)| [Swift](./Graph/NumberIslandsII.swift)| Hard| O(klogmn)| O(mn)|
 [Course Schedule](https://leetcode.com/problems/course-schedule/)| [Swift](./Graph/CourseSchedule.swift)| Medium| O(n)| O(n)|
 [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)| [Swift](./Graph/CourseScheduleII.swift)| Medium| O(n)| O(n)|
+[Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Possible Bipartition](https://leetcode.com/problems/possible-bipartition/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Path with Maximum Gold](https://leetcode.com/problems/path-with-maximum-gold/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+
 
 ## Design
 | Title | Solution | Difficulty | Time | Space |
