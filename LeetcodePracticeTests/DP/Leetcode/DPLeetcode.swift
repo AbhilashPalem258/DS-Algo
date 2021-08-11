@@ -70,6 +70,25 @@ class DPLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.calculateMinimumHP([[0]]), 1)
     }
     
+    func testMinCoinChange() {
+        let obj = MinCoinChange()
+        XCTAssertEqual(obj([1,2,5], 11), 3)
+        XCTAssertEqual(obj([2], 3), -1)
+        XCTAssertEqual(obj([1], 0), 0)
+    }
+    
+    func testPerfectSquares() {
+        let obj = PerfectSquares()
+        XCTAssertEqual(obj.numSquares(12), 3)
+    }
+    
+    func testCoinChange2() {
+        let obj = CoinChange2()
+        XCTAssertEqual(obj.change(5, [1,2,5]), 4)
+        XCTAssertEqual(obj.change(3, [2]), 0)
+        XCTAssertEqual(obj.change(10, [10]), 1)
+    }
+    
     func testFlipGameII() {
         let obj = FlipGameII()
         XCTAssertEqual(obj.canWin("++++"), true)

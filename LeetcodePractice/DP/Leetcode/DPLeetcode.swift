@@ -631,6 +631,212 @@ class DungeonGame {
     }
 }
 
+
+/*
+ problem:
+ You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+ Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+ You may assume that you have an infinite number of each kind of coin.
+ 
+ Testcases:
+ Input: coins = [1,2,5], amount = 11
+ Output: 3
+ Explanation: 11 = 5 + 5 + 1
+ 
+ Input: coins = [2], amount = 3
+ Output: -1
+ 
+ Input: coins = [1], amount = 0
+ Output: 0
+ 
+ Input: coins = [1], amount = 1
+ Output: 1
+ 
+ Input: coins = [1], amount = 2
+ Output: 2
+ 
+ Constraints:
+ 1 <= coins.length <= 12
+ 1 <= coins[i] <= 231 - 1
+ 0 <= amount <= 104
+ 
+ link: https://leetcode.com/problems/coin-change/
+ explanation: https://www.youtube.com/watch?v=J2eoCvk59Rc&t=1067s
+ primary idea:
+ - Evaluate only if a coin is less than amount, if not however memo already has above row values
+ - Subproblems should be from that specific coin to target, no point in solving for subproblem target less than coin
+ - Current sub problem result is a min of min number of coins possible when current coin is excluded and included
+ Time Complexity: O(n^2)
+ Space Complexity: O(n)
+ */
+class MinCoinChange {
+    func callAsFunction(_ coins: [Int], _ amount: Int) -> Int {
+        if amount < 0 {
+            return amount
+        }
+        
+        var memo = Array(repeating: Int.max, count: amount + 1)
+        //Min of coins need to sum up to zero is 0
+        memo[0] = 0
+        
+        for coin in coins where coin <= amount {
+            for target in coin..<amount+1 where memo[target - coin] < Int.max {
+                memo[target] = min(memo[target], 1 + memo[target - coin])
+            }
+        }
+        
+        return memo[amount] == Int.max ? -1 : memo[amount]
+    }
+}
+
+/*
+ problem:
+ Given an integer n, return the least number of perfect square numbers that sum to n.
+
+ A perfect square is an integer that is the square of an integer; in other words, it is the product of some integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+ 
+ Testcases:
+ Input: n = 12
+ Output: 3
+ Explanation: 12 = 4 + 4 + 4.
+ 
+ Input: n = 13
+ Output: 2
+ Explanation: 13 = 4 + 9.
+ 
+ Constraints:
+ 1 <= n <= 104
+ 
+ link: https://leetcode.com/problems/perfect-squares/
+ primary idea:
+ - Mostly identical problem to Coin change. The square root of a num will alwyas be in range 1...(n/2 + 1)
+ Time Complexity: O(n/2 + n^2)
+ Space Complexity: O(n)
+ */
+class PerfectSquares {
+    func numSquares(_ n: Int) -> Int {
+        var squares = [Int]()
+        for num in 0..<n/2+2 {
+            let val = num * num
+            if val > n {
+                break
+            }
+            squares.append(val)
+        }
+        
+        var memo = Array(repeating: Int.max, count: n+1)
+        //Min of squares need to sum up to zero is 0
+        memo[0] = 0
+        
+        for square in squares where square <= n {
+            for target in square..<n+1 where memo[target - square] < Int.max {
+                memo[target] = min(memo[target], 1 + memo[target - square])
+            }
+        }
+        return memo[n] == Int.max ? -1 : memo[n]
+    }
+}
+
+/*
+ problem:
+ You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+ Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination of the coins, return 0.
+ You may assume that you have an infinite number of each kind of coin.
+ The answer is guaranteed to fit into a signed 32-bit integer.
+ 
+ Testcases:
+ Input: amount = 5, coins = [1,2,5]
+ Output: 4
+ 
+ Input: amount = 3, coins = [2]
+ Output: 0
+ 
+ Input: amount = 10, coins = [10]
+ Output: 1
+ 
+ Constraints:
+ 1 <= coins.length <= 300
+ 1 <= coins[i] <= 5000
+ All the values of coins are unique.
+ 0 <= amount <= 5000
+ 
+ link: https://leetcode.com/problems/coin-change-2/
+ primary idea:
+ - Evaluate only if a coin is less than amount, if not however memo already has above row values
+ - Subproblems should be from that specific coin to target, no point in solving for subproblem target less than coin
+ - Current sub problem result is a addition of min number of ways when current coin is excluded and included
+ - The num of ways does contains duplicate combinations like 1+2+1 == 1+1+2 == 4, either of one is considered. This is where Combination Sum IV and this problem differentiates
+ Time Complexity: O(coins*amount)
+ Space Complexity: O(amount)
+ */
+class CoinChange2 {
+    func change(_ amount: Int, _ coins: [Int]) -> Int {
+        if amount < 0{
+            return amount
+        }
+        
+        var memo = Array(repeating: 0, count: amount+1)
+        memo[0] = 1
+        
+        for coin in coins where coin <= amount {
+            for target in coin..<amount+1 where memo[target - coin] > 0 {
+                memo[target] += memo[target - coin]
+            }
+        }
+        return memo[amount]
+    }
+}
+
+/*
+ problem:
+ Given an array of distinct integers nums and a target integer target, return the number of possible combinations that add up to target.
+ The answer is guaranteed to fit in a 32-bit integer.
+ 
+ Testcases:
+ Input: nums = [1,2,3], target = 4
+ Output: 7
+ 
+ Input: nums = [9], target = 3
+ Output: 0
+ 
+ Constraints:
+ 1 <= nums.length <= 200
+ 1 <= nums[i] <= 1000
+ All the elements of nums are unique.
+ 1 <= target <= 1000
+ 
+ link: https://leetcode.com/problems/combination-sum-iv/
+ primary idea:
+ - DFS with Memoization, dfs function returns number of combinations(including duplicates) possible.
+ Time Complexity:
+ Space Complexity:
+ */
+class CombinationSum4 {
+    func combinationSum4(_ nums: [Int], _ target: Int) -> Int {
+        var cache = [Int: Int]()
+        
+        func dfs(_ target: Int) -> Int {
+            if let val = cache[target] {
+                return val
+            }
+            if target == 0 {
+                return 1
+            }
+            
+            var res = 0
+            for num in nums {
+                if num > target {
+                    continue
+                }
+                res += dfs(target - num)
+            }
+            cache[target] = res
+            return res
+        }
+        return dfs(target)
+    }
+}
+
 /*
  problem:
  There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. The cost of painting each house with a certain color is different. You have to paint all the houses such that no two adjacent houses have the same color, and you need to cost the least. Return the minimum cost.
@@ -711,6 +917,48 @@ struct PaintHouseII {
     }
 }
 
+/*
+ problem:
+ Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.
+
+ A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+
+ For example, "ace" is a subsequence of "abcde".
+ A common subsequence of two strings is a subsequence that is common to both strings.
+ 
+ Testcases:
+ Input: text1 = "abcde", text2 = "ace"
+ Output: 3
+ Explanation: The longest common subsequence is "ace" and its length is 3.
+ 
+ Input: text1 = "abc", text2 = "abc"
+ Output: 3
+ Explanation: The longest common subsequence is "abc" and its length is 3.
+ 
+ Input: text1 = "abc", text2 = "def"
+ Output: 0
+ Explanation: There is no such common subsequence, so the result is 0.
+ 
+ Constraints:
+ 1 <= text1.length, text2.length <= 1000
+ text1 and text2 consist of only lowercase English characters.
+ 
+ link: https://leetcode.com/problems/longest-common-subsequence/
+ explanation: https://www.youtube.com/watch?v=Ua0GhsJSlWM&t=363s
+ primary idea:
+ - Top Down Approach + Memoization
+ - if characters at i and j match, then the result will be 1 + LCS of rest of characters ( + one step in negative diagonal)
+    adb
+    acb, here b at index 2 match then result will be 1 + LCS of ad and ac.
+ - if characters at i and j does not match, then the result of max of removing i or j characters
+    adb
+    ade, here b and e at index 2 does not match, then result will be max of [removing b from adb and ade] or [adb and removing e character from ade]
+    adb OR ad
+    ad     ade
+    value = max([row -1, col], [row][col - 1])
+ Time Complexity: O(m * n) where m is length of longerText and n is length of shorter text
+ Space Complexity: O(m * n) where m is length of longerText and n is length of shorter text
+ */
 class LCS {
     func longestCommonSubsequence(_ text1: String, _ text2: String) -> Int {
        var longerText = Array(text1), shorterText = Array(text2)
@@ -735,6 +983,7 @@ class LCS {
         return prev.last!
     }
 }
+
 class DistinctSubsequences {
     //Time&Space: O(n*m) where n is length of s and m is length of t
     func numDistinct(_ s: String, _ t: String) -> Int {
@@ -759,6 +1008,8 @@ class DistinctSubsequences {
         return dfs(i: 0, j: 0)
     }
 }
+
+
 class FlipGameII {
     func canWin(_ s: String) -> Bool {
         if s.count < 2 {
@@ -1242,39 +1493,6 @@ class RegularExpressionMatching {
         }
         
         return memo[n - 1]
-    }
-}
-
-/*
- link: https://leetcode.com/problems/combination-sum-iv/
- primary idea:
- - DFS with memoization
- Time Complexity:
- Space Complexity:
- */
-class CombinationSum4 {
-    func combinationSum4(_ nums: [Int], _ target: Int) -> Int {
-        var cache = [Int: Int]()
-        
-        func dfs(_ target: Int) -> Int {
-            if let val = cache[target] {
-                return val
-            }
-            if target == 0 {
-                return 1
-            }
-            
-            var res = 0
-            for num in nums {
-                if num > target {
-                    continue
-                }
-                res += dfs(target - num)
-            }
-            cache[target] = res
-            return res
-        }
-        return dfs(target)
     }
 }
 

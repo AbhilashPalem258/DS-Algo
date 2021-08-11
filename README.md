@@ -215,7 +215,12 @@
 [Dungeon Game](https://leetcode.com/problems/dungeon-game/)| [Swift](./DP/DungeonGame.swift)| Hard| O(nm)| O(nm)|
 [Paint House &hearts;](https://www.lintcode.com/problem/515/)| [Swift](./DP/PaintHouse.swift)| Easy| O(n)| O(n)|
 [Paint House II &hearts;](https://www.lintcode.com/problem/516/)| [Swift](./DP/PaintHouseII.swift)| Hard| O(n)| O(1)|
-[Flip Game II](https://leetcode.com/problems/flip-game-ii/)| [Swift](./DP/FlipGameII.swift)| Medium| O(n)| O(n)|
+[Coin Change](https://leetcode.com/problems/coin-change/)| [Swift](./DP/CoinChange.swift)| Medium| O(n^2)| O(n)|
+[Coin Change II](https://leetcode.com/problems/coin-change-ii/)| [Swift](./DP/CoinChangeII.swift)| Medium| O(n^2)| O(n)|
+[Perfect Squares](https://leetcode.com/problems/perfect-squares/)| [Swift](./DP/PerfectSquares.swift)| Medium| O(n^2)| O(n)|
+[Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)| [Swift](./DP/CombinationSumIV.swift)| Medium| O(2^n)| O(n)|
+[Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)| [Swift](./DP/CombinationSumIV.swift)| Medium| O(m*n)| O(m*n)|
+[Flip Game II &hearts;](https://leetcode.com/problems/flip-game-ii/)| [Swift](./DP/FlipGameII.swift)| Medium| O(n)| O(n)|
 [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)| [Swift](./DP/GenerateParentheses.swift)| Medium| O(2^n)| O(n)|
 [Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/)| [Swift](./DP/DifferentWaysAddParentheses.swift)| Medium| O(n^n)| O(n)|
 [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)| [Swift](./DP/BestTimeBuySellStock.swift)| Easy| O(n)| O(1)|
@@ -224,10 +229,6 @@
 [Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)| [Swift](./DP/BestTimeBuySellStockIII.swift)| Hard| O(n)| O(n)|
 [Best Time to Buy and Sell Stock IV](https://leetcode.com/problems/https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iv/)| [Swift](./DP/BestTimeBuySellStockIV.swift)| Hard| O(n^2)| O(n)|
 [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)| [Swift](./DP/BestTimeBuySellStockCooldown.swift)| Medium| O(n^2)| O(n)|
-[Coin Change](https://leetcode.com/problems/coin-change/)| [Swift](./DP/CoinChange.swift)| Medium| O(n^2)| O(n)|
-[Coin Change II](https://leetcode.com/problems/coin-change-ii/)| [Swift](./DP/CoinChangeII.swift)| Medium| O(n^2)| O(n)|
-[Perfect Squares](https://leetcode.com/problems/perfect-squares/)| [Swift](./DP/PerfectSquares.swift)| Medium| O(n^2)| O(n)|
-[Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)| [Swift](./DP/CombinationSumIV.swift)| Medium| O(2^n)| O(n)|
 [Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)| [Swift](./DP/PalindromicSubstrings.swift)| Medium| O(n^2)| O(n^2)|
 [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)| [Swift](./DP/LongestPalindromicSubstring.swift)| Medium| O(n^2)| O(n^2)|
 [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
