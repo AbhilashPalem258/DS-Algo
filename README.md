@@ -199,19 +199,22 @@
 ## Dynamic programming
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
-[Nested List Weight Sum](https://www.lintcode.com/problem/551/)| [Swift](./DP/NestedListWeightSum.swift)| Easy| O(n)| O(1)|
-[Nested List Weight Sum II](https://www.lintcode.com/problem/905/)| [Swift](./DP/NestedListWeightSumII.swift)| Medium| O(n)| O(n)|
+[Nested List Weight Sum &hearts;](https://www.lintcode.com/problem/551/)| [Swift](./DP/NestedListWeightSum.swift)| Easy| O(n)| O(1)|
+[Nested List Weight Sum II &hearts;](https://www.lintcode.com/problem/905/)| [Swift](./DP/NestedListWeightSumII.swift)| Medium| O(n)| O(n)|
 [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)| [Swift](./DP/ClimbingStairs.swift)| Easy| O(n)| O(1)|
 [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)| [Swift](./DP/ClimbingStairs.swift)| Easy| O(n)| O(1)|
 [Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)| [Swift](./DP/MinCostClimbingStairs.swift)| Easy| O(n)| O(n)|
 [House Robber](https://leetcode.com/problems/house-robber/)| [Swift](./DP/HouseRobber.swift)| Easy| O(n)| O(1)|
 [House Robber II](https://leetcode.com/problems/house-robber-ii/)| [Swift](./DP/HouseRobberII.swift)| Medium| O(n)| O(1)|
 [Decode Ways](https://leetcode.com/problems/decode-ways/)| [Swift](./DP/DecodeWays.swift) | Medium| O(n)|O(n)|
+[Paint Fence &hearts;](https://www.lintcode.com/problem/514)| [Swift](./DP/PaintFence.swift)| Easy| O(n)| O(n)|
 [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)| [Swift](./DP/LongestIncreasingSubsequence.swift)| Medium| O(nlogn)| O(n)|
 [Unique Paths](https://leetcode.com/problems/unique-paths/)| [Swift](./DP/UniquePaths.swift)| Medium| O(mn)| O(mn)|
 [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)| [Swift](./DP/UniquePathsII.swift)| Medium| O(mn)| O(mn)|
 [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)| [Swift](./DP/MinimumPathSum.swift)| Medium| O(mn)| O(mn)|
 [Dungeon Game](https://leetcode.com/problems/dungeon-game/)| [Swift](./DP/DungeonGame.swift)| Hard| O(nm)| O(nm)|
+[Paint House &hearts;](https://www.lintcode.com/problem/515/)| [Swift](./DP/PaintHouse.swift)| Easy| O(n)| O(n)|
+[Paint House II &hearts;](https://www.lintcode.com/problem/516/)| [Swift](./DP/PaintHouseII.swift)| Hard| O(n)| O(1)|
 [Flip Game II](https://leetcode.com/problems/flip-game-ii/)| [Swift](./DP/FlipGameII.swift)| Medium| O(n)| O(n)|
 [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)| [Swift](./DP/GenerateParentheses.swift)| Medium| O(2^n)| O(n)|
 [Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/)| [Swift](./DP/DifferentWaysAddParentheses.swift)| Medium| O(n^n)| O(n)|
@@ -225,11 +228,8 @@
 [Coin Change II](https://leetcode.com/problems/coin-change-ii/)| [Swift](./DP/CoinChangeII.swift)| Medium| O(n^2)| O(n)|
 [Perfect Squares](https://leetcode.com/problems/perfect-squares/)| [Swift](./DP/PerfectSquares.swift)| Medium| O(n^2)| O(n)|
 [Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)| [Swift](./DP/CombinationSumIV.swift)| Medium| O(2^n)| O(n)|
-[Paint House](https://leetcode.com/problems/paint-house/)| [Swift](./DP/PaintHouse.swift)| Easy| O(n)| O(n)|
-[Paint House II](https://leetcode.com/problems/paint-house-ii/)| [Swift](./DP/PaintHouseII.swift)| Hard| O(n)| O(1)|
 [Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)| [Swift](./DP/PalindromicSubstrings.swift)| Medium| O(n^2)| O(n^2)|
 [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)| [Swift](./DP/LongestPalindromicSubstring.swift)| Medium| O(n^2)| O(n^2)|
-[Paint Fence](https://leetcode.com/problems/paint-fence/)| [Swift](./DP/PaintFence.swift)| Easy| O(n)| O(n)|
 [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
 [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)| [Swift](./DP/MaximumProductSubarray.swift)| Medium| O(n)| O(1)|
 [Maximal Square](https://leetcode.com/problems/maximal-square/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
