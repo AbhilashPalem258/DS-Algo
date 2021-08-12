@@ -153,6 +153,81 @@ class DecodeWays {
     }
 }
 
+class WordBreak {
+    var memo = [String: Bool]()
+    func wordBreak(_ s: String, _ wordDict: [String]) -> Bool {
+        if s.isEmpty {
+            return true
+        }
+        if let val = memo[s] {
+            return val
+        }
+        var breakable = false
+        for word in wordDict {
+            if s.hasPrefix(word) {
+                breakable = breakable || wordBreak(String(s.dropFirst(word.count)), wordDict)
+            }
+        }
+        memo[s] = breakable
+        return breakable
+    }
+}
+
+class WordBreakII {
+    var memo = [String: Bool]()
+    func wordBreak(_ s: String, _ wordDict: [String]) -> [String] {
+        if s.isEmpty {
+            return []
+        }
+        var combinations = [String](), memo = [String: Bool]()
+        func backtrack(_ s: String, current: String) -> Bool {
+            if s.isEmpty {
+                combinations.append(current)
+                return true
+            }
+            if let val = memo[s], val == false {
+                return false
+            }
+            
+            var breakable = false
+            for word in wordDict {
+                if s.hasPrefix(word) {
+                    let nextCurrent = current == "" ? "\(word)" : "\(current) \(word)"
+                    if backtrack(String(s.dropFirst(word.count)), current: nextCurrent) {
+                        breakable = true
+                    }
+                }
+            }
+            memo[s] = breakable
+            return breakable
+        }
+        
+        return backtrack(s, current: "") ? combinations : []
+    }
+}
+
+class PascalTriangle {
+    func generate(_ numRows: Int) -> [[Int]] {
+        if numRows == 0 {
+            return []
+        }
+        
+        var result = Array(repeating: [Int](), count: numRows)
+        result[0].append(1)
+        
+        for row in 1..<numRows {
+            result[row].append(1)
+            let prevRow = result[row - 1]
+            for col in 1..<row {
+                result[row].append(prevRow[col - 1] + prevRow[col])
+            }
+            result[row].append(1)
+        }
+        
+        return result
+    }
+}
+
 /*
  problem:
  There is a fence with n posts, each post can be painted with one of the k colors.
@@ -631,6 +706,58 @@ class DungeonGame {
     }
 }
 
+/*
+ problem:
+ Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
+
+ Testcases:
+ Input: matrix = [["1","0","1","0","0"],["1","0","1","1","1"],["1","1","1","1","1"],["1","0","0","1","0"]]
+ Output: 4
+ 
+ Input: matrix = [["0","1"],["1","0"]]
+ Output: 1
+ 
+ Input: matrix = [["0"]]
+ Output: 0
+ 
+ Constraints:
+ m == matrix.length
+ n == matrix[i].length
+ 1 <= m, n <= 300
+ matrix[i][j] is '0' or '1'.
+ 
+ link: https://leetcode.com/problems/maximal-square/
+ explanation: https://www.youtube.com/watch?v=6X7Ha2PrDmM&list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO&index=15
+ primary idea:
+ - If cell value is 1, then add it with min of corresponding cell to get result of sub problem
+ - Maintain track of max val while traversing
+ Time Complexity: O(m * n)
+ Space Complexity: O(2n)
+ */
+class MaximalSquare {
+    func callAsFunction(_ matrix: [[Character]]) -> Int {
+        let m = matrix.count, n = matrix[0].count
+        var maxValue = 0
+        var memo = Array(repeating: 0, count: n)
+                
+        for row in 0..<m {
+            var newRow = Array(repeating: 0, count: n)
+            for col in 0..<n {
+                if col == 0 || row == 0 {
+                    newRow[col] = matrix[row][col].wholeNumberValue!
+                } else {
+                    if matrix[row][col] == "1" {
+                        newRow[col] = 1 + min(memo[col], memo[col - 1], newRow[col - 1])
+                    }
+                }
+                maxValue = max(maxValue, newRow[col])
+            }
+            memo = newRow
+        }
+        return maxValue * maxValue
+    }
+}
+
 
 /*
  problem:
@@ -984,6 +1111,269 @@ class LCS {
     }
 }
 
+/*
+ problem:
+ Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+
+ You have the following three operations permitted on a word:
+
+ Insert a character
+ Delete a character
+ Replace a character
+ 
+ Testcases:
+ Input: word1 = "horse", word2 = "ros"
+ Output: 3
+ 
+ Input: word1 = "intention", word2 = "execution"
+ Output: 5
+ 
+ Constraints:
+ 0 <= word1.length, word2.length <= 500
+ word1 and word2 consist of lowercase English letters.
+ 
+ link: https://leetcode.com/problems/edit-distance/
+ explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ primary idea:
+ - Iterative Bottom Up approach with Tabulation
+ - Tabulation row characters are from word1 and col characters are from word2
+ - If character at row and col both match, then no additional operation need. we just need to check for min operations for rest of characters
+    abd
+    acd, a and a  match. no additional operation needed. we just need to know the min operations excluding a leaving ab, ac
+ - if character at row and col does not match, we brute force through all 3 operations like replace, insert and delete which will lead us to min operations
+ Time Complexity:  O(m * n)
+ Space Complexity: O(2n)
+ */
+class EditDistance {
+    func minDistance(_ word1: String, _ word2: String) -> Int {
+        let m = word1.count + 1, n = word2.count + 1
+        let word1 = Array(word1), word2 = Array(word2)
+        var memo = Array(repeating: -1, count: n)
+        
+        var col = n - 1
+        while col >= 0 {
+            memo[col] = n - 1 - col
+            col -= 1
+        }
+        
+        var row = m - 2
+        while row >= 0 {
+            
+            var newRow = Array(repeating: -1, count: n)
+            var col = n - 1
+            while col >= 0 {
+                if col == (n-1) {
+                    newRow[col] = m - 1 - row
+                } else {
+                    if word1[row] == word2[col] {
+                        newRow[col] = memo[col + 1]
+                    } else {
+                        // 1 + min(operationWhenInserted, operationWhenDeleted, operationWhenReplaced)
+                        newRow[col] = 1 + min(newRow[col + 1], memo[col], memo[col + 1])
+                    }
+                }
+                col -= 1
+            }
+            memo = newRow
+            
+            row -= 1
+        }
+        return memo[0]
+    }
+}
+
+/*
+ problem:
+ Given an input string (s) and a pattern (p), implement wildcard pattern matching with support for '?' and '*' where:
+
+ '?' Matches any single character.
+ '*' Matches any sequence of characters (including the empty sequence).
+ The matching should cover the entire input string (not partial).
+ 
+ Testcases:
+ Input: s = "aa", p = "a"
+ Output: false
+ Explanation: "a" does not match the entire string "aa".
+ 
+ Input: s = "aa", p = "*"
+ Output: true
+ Explanation: '*' matches any sequence.
+ 
+ Input: s = "cb", p = "?a"
+ Output: false
+ Explanation: '?' matches 'c', but the second letter is 'a', which does not match 'b'.
+ 
+ Input: s = "adceb", p = "*a*b"
+ Output: true
+ Explanation: The first '*' matches the empty sequence, while the second '*' matches the substring "dce".
+ 
+ Input: s = "acdcb", p = "a*c?b"
+ Output: false
+ 
+ Constraints:
+ 0 <= s.length, p.length <= 2000
+ s contains only lowercase English letters.
+ p contains only lowercase English letters, '?' or '*'
+ 
+ link: https://leetcode.com/problems/wildcard-matching/
+ explanation: https://www.youtube.com/watch?v=7SHV_QfVROE
+ primary idea:
+ - Iterative with memoization
+ - DP first row and first column mean empty string and empty pattern respectively (Base case)
+ - if row and col values match then check one step negative diagonal. It means current values are matched, check rest string and pattern and update result
+ - if col value is a *, then check for below two cases. Any one of them should be true
+    - Empty occurence case (DP[row][col - 1]). we need to check one value before for empty occurence case. OR
+    - One or more occurence case. Check with result from DP[row - 1][col]
+ Time Complexity:  O(n + n*m)
+ Space Complexity:  O(2n)
+ */
+class WildcardMatching {
+    func isMatch(_ s: String, _ p: String) -> Bool {
+        let s = Array(s)
+        var p = Array(p)
+        if p.count > 1 {
+            var res = [Character]()
+            for i in 0..<p.count {
+                if i == 0 && p[i] == "*" {
+                    continue
+                }
+                if i > 0 && p[i] == "*" && p[i - 1] == "*" {
+                    continue
+                }
+                res.append(p[i])
+            }
+            p = res
+        }
+        let m = s.count + 1, n = p.count + 1
+        var memo = Array(repeating: false, count: n)
+        memo[0] = true
+        
+        for col in 1..<n {
+            memo[col] = p[col - 1] == "*" ? memo[col - 1] : false
+        }
+        
+        for row in 1..<m {
+            var newRow = Array(repeating: false, count: n)
+            for col in 0..<n {
+                if col == 0 {
+                    newRow[col] = false
+                } else {
+                    if s[row - 1] == p[col - 1] || p[col - 1] == "?" {
+                        newRow[col] = memo[col - 1]
+                    } else if p[col - 1] == "*" {
+                        newRow[col] = newRow[col - 1] || memo[col]
+                    } else {
+                        newRow[col] = false
+                    }
+                }
+            }
+            memo = newRow
+        }
+        return memo[n - 1]
+    }
+}
+
+/*
+ problem:
+ Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where:
+
+ '.' Matches any single character.
+ '*' Matches zero or more of the preceding element.
+ The matching should cover the entire input string (not partial).
+ 
+ Testcases:
+ Input: s = "aa", p = "a"
+ Output: false
+ Explanation: "a" does not match the entire string "aa".
+ 
+ Input: s = "aa", p = "a*"
+ Output: true
+ Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
+ 
+ Input: s = "ab", p = ".*"
+ Output: true
+ Explanation: ".*" means "zero or more (*) of any character (.)".
+ 
+ Input: s = "aab", p = "c*a*b"
+ Output: true
+ Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches "aab".
+ 
+ Input: s = "mississippi", p = "mis*is*p*."
+ Output: false
+ 
+ Constraints:
+ 1 <= s.length <= 20
+ 1 <= p.length <= 30
+ s contains only lowercase English letters.
+ p contains only lowercase English letters, '.', and '*'.
+ It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
+ 
+ link: https://leetcode.com/problems/regular-expression-matching/
+ explanation: https://www.youtube.com/watch?v=l3hda49XcDE
+ primary idea:
+ - Iterative with memoization
+ - DP first row and first column mean empty string and empty pattern respectively (Base case)
+ - if row and col values match then check one step negative diagonal. It means current values are matched, check rest string and pattern and update result
+ - if col value is a *, then check for below two cases. Any one of them should be true
+    - No occurence case (DP[row][col - 2]). we need to check 2 values before for no occurence case. OR
+    - One or more occurence case. Check the pattern character before * and current row character match, if yes, then update with result from DP[row - 1][col]
+ - Other than above 2 cases, it's always failed to match.
+ Time Complexity: O(n + n*m)
+ Space Complexity: O(2n)
+ */
+class RegularExpressionMatching {
+    func isMatch(_ s: String, _ p: String) -> Bool {
+        let s = Array(s), m = s.count + 1, n = p.count + 1
+        var p = Array(p)
+        if p.count > 1 {
+            var res = [Character]()
+            for i in 0..<p.count {
+                if i == 0 && p[i] == "*" {
+                    continue
+                }
+                if i > 0 && p[i] == "*" && p[i - 1] == "*" {
+                    continue
+                }
+                res.append(p[i])
+            }
+            p = res
+        }
+        
+        var memo = Array(repeating: false, count: n)
+        memo[0] = true
+        for col in 1..<n {
+            memo[col] = p[col - 1] == "*" ? memo[col - 2] : false
+        }
+        
+        for row in 1..<m {
+            var newRow = Array(repeating: false, count: n)
+            for col in 0..<n {
+                if col == 0 {
+                    newRow[col] = false
+                } else {
+                    if s[row - 1] == p[col - 1] || p[col - 1] == "." {
+                        newRow[col] = memo[col - 1]
+                    } else if p[col - 1] == "*" {
+                        if newRow[col - 2]  {
+                            newRow[col] = true
+                        } else if s[row - 1] == p[col - 2] || p[col - 2] == "." {
+                            newRow[col] = memo[col]
+                        } else {
+                            newRow[col] = false
+                        }
+                    } else {
+                        newRow[col] = false
+                    }
+                }
+            }
+            memo = newRow
+        }
+        
+        return memo[n - 1]
+    }
+}
+
+
 class DistinctSubsequences {
     //Time&Space: O(n*m) where n is length of s and m is length of t
     func numDistinct(_ s: String, _ t: String) -> Int {
@@ -1009,7 +1399,32 @@ class DistinctSubsequences {
     }
 }
 
+/*
+ problem:
+ You are playing the following Flip Game with your friend: Given a string that contains only these two characters: + and -, you and your friend take turns to flip two consecutive "++" into "--". The game ends when a person can no longer make a move and therefore the other person will be the winner.
 
+ Write a function to determine if the starting player can guarantee a win.
+ 
+ Testcases:
+ Input:  s = "++++"
+ Output: true
+ Explanation:
+ The starting player can guarantee a win by flipping the middle "++" to become "+--+".
+ 
+ Input: s = "+++++"
+ Output: false
+ Explanation:
+ The starting player can not win
+ "+++--" --> "+----"
+ "++--+" --> "----+"
+  
+ link: https://www.lintcode.com/problem/913/
+ explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ primary idea:
+ - DFS with Memoization
+ Time Complexity:
+ Space Complexity:
+ */
 class FlipGameII {
     func canWin(_ s: String) -> Bool {
         if s.count < 2 {
@@ -1301,6 +1716,10 @@ fileprivate extension StringProtocol {
     subscript(offset: Int) -> Character {
         self[index(startIndex, offsetBy: offset)]
     }
+    
+    subscript(range: Range<Int>) -> String {
+        String(self[index(startIndex, offsetBy: range.startIndex)..<index(startIndex, offsetBy: range.endIndex)])
+    }
 }
 
 class MaxSubArray {
@@ -1351,186 +1770,32 @@ class MaxAlternatingSum {
         return res
     }
 }
+
 /*
- link: https://leetcode.com/problems/edit-distance/
- explanation: https://www.youtube.com/watch?v=XYi2-LPrwm4&list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO&index=24
+ problem:
+ You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+
+ Return true if you can reach the last index, or false otherwise.
+ 
+ Testcases:
+ Input: nums = [2,3,1,1,4]
+ Output: true
+ Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+ 
+ Input: nums = [3,2,1,0,4]
+ Output: false
+ Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+ 
+ Constraints:
+ 1 <= nums.length <= 104
+ 0 <= nums[i] <= 105
+ 
+ link: https://leetcode.com/problems/jump-game/
+ explanation: https://www.youtube.com/watch?v=Yan0cv2cLy8
  primary idea:
- - create Adj list, map from course to its prerequisite courses
- - perform classic DFS on Adj list
- - once we get to know that specific course is completable, mark it's adj list value as empty which helps reduce redundant operations #44
- - Given prerequites may contain un connected graphs, better to loops through evey course so that we don miss any course #67
- Time Complexity: O(m * n)
- Space Complexity: O(2n)
- */
-class EditDistance {
-    func minDistance(_ word1: String, _ word2: String) -> Int {
-        let m = word1.count + 1, n = word2.count + 1
-        let word1 = Array(word1), word2 = Array(word2)
-        var memo = Array(0..<n)
-        for i in 1..<m {
-            var newArr = Array(repeating: -1, count: n)
-            for j in 0..<n {
-                if j == 0 {
-                    newArr[j] = i
-                    continue
-                }
-                if word1[i - 1] == word2[j - 1] {
-                    newArr[j] = memo[j - 1]
-                } else {
-                    newArr[j] = 1 + min(newArr[j - 1], memo[j], memo[j - 1])
-                }
-            }
-            memo = newArr
-        }
-        return memo[n - 1]
-    }
-}
-
-
-class WildcardMatching {
-    func isMatch(_ s: String, _ p: String) -> Bool {
-        let s = Array(s)
-        var p = Array(p)
-        if p.count > 1 {
-            var res = [Character]()
-            for i in 0..<p.count {
-                if i > 0 && p[i] == "*" && p[i - 1] == "*" {
-                    continue
-                }
-                res.append(p[i])
-            }
-            p = res
-        }
-        let m = s.count + 1, n = p.count + 1
-        var memo = Array(repeating: false, count: n)
-        memo[0] = true
-        
-        for col in 1..<n {
-            memo[col] = p[col - 1] == "*" ? memo[col - 1] : false
-        }
-        
-        for row in 1..<m {
-            var newRow = Array(repeating: false, count: n)
-            for col in 0..<n {
-                if col == 0 {
-                    newRow[col] = false
-                } else {
-                    if s[row - 1] == p[col - 1] || p[col - 1] == "?" {
-                        newRow[col] = memo[col - 1]
-                    } else if p[col - 1] == "*" {
-                        newRow[col] = newRow[col - 1] || memo[col]
-                    } else {
-                        newRow[col] = false
-                    }
-                }
-            }
-            memo = newRow
-        }
-        return memo[n - 1]
-    }
-}
-
-/*
- link: https://leetcode.com/problems/regular-expression-matching/
- explanation: https://www.youtube.com/watch?v=l3hda49XcDE
- primary idea:
- - Iterative with memoization
- - DP first row and first column mean empty string and empty pattern respectively (Base case)
- - if row and col values match then check one step negative diagonal. It means current values are matched, check rest string and pattern and update result
- - if col value is a *, then check for below two cases. Any one of them should be true
-    - No occurence case (DP[row][col - 2]). we need to check 2 values before for no occurence case. OR
-    - One or more occurence case. Check the pattern character before * and current row character match, if yes, then update with result from DP[row - 1][col]
- - Other than above 2 cases, it's always failed to match.
- Time Complexity: O(n + n*m)
- Space Complexity: O(2n)
- */
-class RegularExpressionMatching {
-    func isMatch(_ s: String, _ p: String) -> Bool {
-        let s = Array(s), m = s.count + 1, n = p.count + 1
-        var p = Array(p)
-        if p.count > 1 {
-            var res = [Character]()
-            for i in 0..<p.count {
-                if i == 0 && p[i] == "*" {
-                    continue
-                }
-                if i > 0 && p[i] == "*" && p[i - 1] == "*" {
-                    continue
-                }
-                res.append(p[i])
-            }
-            p = res
-        }
-        
-        var memo = Array(repeating: false, count: n)
-        memo[0] = true
-        for col in 1..<n {
-            memo[col] = p[col - 1] == "*" ? memo[col - 2] : false
-        }
-        
-        for row in 1..<m {
-            var newRow = Array(repeating: false, count: n)
-            for col in 0..<n {
-                if col == 0 {
-                    newRow[col] = false
-                } else {
-                    if s[row - 1] == p[col - 1] || p[col - 1] == "." {
-                        newRow[col] = memo[col - 1]
-                    } else if p[col - 1] == "*" {
-                        if newRow[col - 2]  {
-                            newRow[col] = true
-                        } else if s[row - 1] == p[col - 2] || p[col - 2] == "." {
-                            newRow[col] = memo[col]
-                        } else {
-                            newRow[col] = false
-                        }
-                    } else {
-                        newRow[col] = false
-                    }
-                }
-            }
-            memo = newRow
-        }
-        
-        return memo[n - 1]
-    }
-}
-
-/*
- link: https://leetcode.com/problems/maximal-square/
- explanation: https://www.youtube.com/watch?v=6X7Ha2PrDmM&list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO&index=15
- primary idea:
- - If cell value is 1, then add it with min of corresponding cell to get result of sub problem
- - Maintain track of max val while traversing
- Time Complexity: O(m * n)
- Space Complexity: O(2n)
- */
-class MaximalSquare {
-    func callAsFunction(_ matrix: [[Character]]) -> Int {
-        let m = matrix.count, n = matrix[0].count
-        var maxValue = 0
-        var memo = Array(repeating: 0, count: n)
-                
-        for row in 0..<m {
-            var newRow = Array(repeating: 0, count: n)
-            for col in 0..<n {
-                if col == 0 || row == 0 {
-                    newRow[col] = matrix[row][col].wholeNumberValue!
-                } else {
-                    if matrix[row][col] == "1" {
-                        newRow[col] = 1 + min(memo[col], memo[col - 1], newRow[col - 1])
-                    }
-                }
-                maxValue = max(maxValue, newRow[col])
-            }
-            memo = newRow
-        }
-        return maxValue * maxValue
-    }
-}
-/*
- link: https://leetcode.com/problems/course-schedule/
- explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ - Greedy. Traverse from last second to 0 index and check if next is reachable.if yes, update goal position. After Traversing, if the goal is at 0 position then it's reachable to last index
+ Time Complexity: O(n)
+ Space Complexity: O(1)
  */
 class JumpGame {
     /*
@@ -1585,13 +1850,34 @@ class JumpGame {
     }
 }
 /*
+ problem:
+ Given an array of non-negative integers nums, you are initially positioned at the first index of the array.
+
+ Each element in the array represents your maximum jump length at that position.
+
+ Your goal is to reach the last index in the minimum number of jumps.
+
+ You can assume that you can always reach the last index.
+ 
+ Testcases:
+ Input: nums = [2,3,1,1,4]
+ Output: 2
+ Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
+ 
+ Input: nums = [2,3,0,1,4]
+ Output: 2
+ 
+ Constraints:
+ 1 <= nums.length <= 104
+ 0 <= nums[i] <= 1000
+ 
  link: https://leetcode.com/problems/jump-game-ii/
  explanation: https://www.youtube.com/watch?v=dJ7sWiOoK7g&list=PLot-Xpze53lcvx_tjrr_m2lgD2NsRHlNO&index=20
  primary idea:
  - BFS, with l and r pointers
  - Keep track of BFS levels
- Time Complexity:
- Space Complexity:
+ Time Complexity: O(n)
+ Space Complexity: O(1)
  */
 class JumpII {
     func bfs(_ nums: [Int]) -> Int {
@@ -1610,6 +1896,28 @@ class JumpII {
 }
 
 /*
+ problem:
+ A frog is crossing a river. The river is divided into some number of units, and at each unit, there may or may not exist a stone. The frog can jump on a stone, but it must not jump into the water.
+
+ Given a list of stones' positions (in units) in sorted ascending order, determine if the frog can cross the river by landing on the last stone. Initially, the frog is on the first stone and assumes the first jump must be 1 unit.
+
+ If the frog's last jump was k units, its next jump must be either k - 1, k, or k + 1 units. The frog can only jump in the forward direction.
+ 
+ Testcases:
+ Input: stones = [0,1,3,5,6,8,12,17]
+ Output: true
+ Explanation: The frog can jump to the last stone by jumping 1 unit to the 2nd stone, then 2 units to the 3rd stone, then 2 units to the 4th stone, then 3 units to the 6th stone, 4 units to the 7th stone, and 5 units to the 8th stone.
+ 
+ Input: stones = [0,1,2,3,4,8,9,11]
+ Output: false
+ Explanation: There is no way to jump to the last stone as the gap between the 5th and 6th stone is too large.
+ 
+ Constraints:
+ 2 <= stones.length <= 2000
+ 0 <= stones[i] <= 231 - 1
+ stones[0] == 0
+ stones is sorted in a strictly increasing order.
+ 
  link: https://leetcode.com/problems/frog-jump/
  primary idea:
  - Recursive Backtrack with memoization

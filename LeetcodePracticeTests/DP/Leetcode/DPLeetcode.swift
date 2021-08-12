@@ -108,6 +108,25 @@ class DPLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("226"), 3)
     }
     
+    func testWordBreak() {
+        let obj = WordBreak()
+        XCTAssertEqual(obj.wordBreak("leetcode", ["leet","code"]), true)
+        XCTAssertEqual(obj.wordBreak("catsanddog", ["cat","cats","and","sand","dog"]), true)
+    }
+    
+    func testWordBreakII() {
+        let obj = WordBreakII()
+        XCTAssertEqual(obj.wordBreak("catsanddog", ["cat","cats","and","sand","dog"]), ["cat sand dog", "cats and dog"])
+        XCTAssertEqual(obj.wordBreak("pineapplepenapple", ["apple","pen","applepen","pine","pineapple"]), ["pine apple pen apple", "pine applepen apple", "pineapple pen apple"])
+        XCTAssertEqual(obj.wordBreak("catsandog", ["cats","dog","sand","and","cat"]), [])
+    }
+    
+    func testPascalTriangle() {
+        let obj = PascalTriangle()
+        XCTAssertEqual(obj.generate(5), [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]])
+        XCTAssertEqual(obj.generate(1), [[1]])
+    }
+    
     func testMinPathSum() {
         let obj = MinPathSum()
         XCTAssertEqual(obj.minPathSumTopBottomWithMemo([[1,3,1],[1,5,1],[4,2,1]]), 7)

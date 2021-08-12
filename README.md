@@ -197,10 +197,10 @@
 [Serialize and Deserialize N-ary Tree](https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
 
 ## Dynamic programming
-|S.no| Title | Solution | Difficulty | Time | Space |
-| ---- | ----- | -------- | ---------- | ---- | ----- |
-1 | [Nested List Weight Sum &hearts;](https://www.lintcode.com/problem/551/)| [Swift](./DP/NestedListWeightSum.swift)| Easy| O(n)| O(1)|
-2 | [Nested List Weight Sum II &hearts;](https://www.lintcode.com/problem/905/)| [Swift](./DP/NestedListWeightSumII.swift)| Medium| O(n)| O(n)|
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Nested List Weight Sum &hearts;](https://www.lintcode.com/problem/551/)| [Swift](./DP/NestedListWeightSum.swift)| Easy| O(n)| O(1)|
+[Nested List Weight Sum II &hearts;](https://www.lintcode.com/problem/905/)| [Swift](./DP/NestedListWeightSumII.swift)| Medium| O(n)| O(n)|
 [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)| [Swift](./DP/ClimbingStairs.swift)| Easy| O(n)| O(1)|
 [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)| [Swift](./DP/ClimbingStairs.swift)| Easy| O(n)| O(1)|
 [Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)| [Swift](./DP/MinCostClimbingStairs.swift)| Easy| O(n)| O(n)|
@@ -213,6 +213,8 @@
 [Unique Paths II](https://leetcode.com/problems/unique-paths-ii/)| [Swift](./DP/UniquePathsII.swift)| Medium| O(mn)| O(mn)|
 [Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)| [Swift](./DP/MinimumPathSum.swift)| Medium| O(mn)| O(mn)|
 [Dungeon Game](https://leetcode.com/problems/dungeon-game/)| [Swift](./DP/DungeonGame.swift)| Hard| O(nm)| O(nm)|
+[Maximal Square](https://leetcode.com/problems/maximal-square/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
+[Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
 [Paint House &hearts;](https://www.lintcode.com/problem/515/)| [Swift](./DP/PaintHouse.swift)| Easy| O(n)| O(n)|
 [Paint House II &hearts;](https://www.lintcode.com/problem/516/)| [Swift](./DP/PaintHouseII.swift)| Hard| O(n)| O(1)|
 [Coin Change](https://leetcode.com/problems/coin-change/)| [Swift](./DP/CoinChange.swift)| Medium| O(n^2)| O(n)|
@@ -233,8 +235,6 @@
 [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)| [Swift](./DP/LongestPalindromicSubstring.swift)| Medium| O(n^2)| O(n^2)|
 [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
 [Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)| [Swift](./DP/MaximumProductSubarray.swift)| Medium| O(n)| O(1)|
-[Maximal Square](https://leetcode.com/problems/maximal-square/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
-[Maximal Rectangle](https://leetcode.com/problems/maximal-rectangle/)| [Swift](./DP/MaximalSquare.swift)| Medium| O(mn)| O(mn)|
 [Edit Distance](https://leetcode.com/problems/edit-distance/)| [Swift](./DP/EditDistance.swift)| Hard| O(mn)| O(mn)|
 [Wildcard Matching](https://leetcode.com/problems/wildcard-matching/)| [Swift](./DP/WildcardMatching.swift)| Hard| O(mn)| O(mn)|
 [Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)| [Swift](./DP/RegularExpressionMatching.swift)| Hard| O(mn)| O(mn)|
@@ -251,9 +251,10 @@
 [Interleaving String](https://leetcode.com/problems/interleaving-string/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Number of Ways to Rearrange Sticks With K Sticks Visible](https://leetcode.com/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/)| [Swift](./DP/JumpGame.swift)| Hard| O(n)| O(1)|
-[Minimum Number of Days to Eat N Oranges](https://leetcode.com/problems/minimum-number-of-days-to-eat-n-oranges/)| [Swift](./DP/CanIWin.swift)| Medium| O(2^n)| O(n)|
-[Stickers to Spell Word](https://leetcode.com/problems/stickers-to-spell-word/#:~:text=Each%20sticker%20has%20a%20lowercase,infinite%20quantities%20of%20each%20sticker.)| [Swift](./DP/JumpGame.swift)| Hard| O(n)| O(1)|
-[Maximum Sum of 3 Non-Overlapping Subarrays](https://leetcode.com/problems/maximum-sum-of-3-non-overlapping-subarrays/)| [Swift](./DP/MaximumSumThreeNonOverlappingSubarrays.swift)| Hard| O(n)| O(n)|
+[Longest Palindromic Subsequence](https://leetcode.com/problems/longest-palindromic-subsequence/)| [Swift](./DP/CanIWin.swift)| Medium| O(2^n)| O(n)|
+[Shortest Common Supersequence](https://leetcode.com/problems/shortest-common-supersequence/)| [Swift](./DP/CanIWin.swift)| Hard| O(2^n)| O(n)|
+[Shortest Common Supersequence](https://leetcode.com/problems/shortest-common-supersequence/)| [Swift](./DP/CanIWin.swift)| Hard| O(2^n)| O(n)|
+[Minimum Insertion Steps to Make a String Palindrome](https://leetcode.com/problems/minimum-insertion-steps-to-make-a-string-palindrome/)| [Swift](./DP/MaximumSumThreeNonOverlappingSubarrays.swift)| Hard| O(n)| O(n)|
 [Triangle](https://leetcode.com/problems/triangle/)| [Swift](./DP/Triangle.swift)| Medium| O(2^n)| O(m)|
 [Burst Ballons](https://leetcode.com/problems/burst-balloons/)| [Swift](./DP/BurstBalloons.swift)| Hard| O(n^3)| O(n)|
 [Wiggle Subsequence](https://leetcode.com/problems/wiggle-subsequence/)| [Swift](./DP/WiggleSubsequence.swift)| Medium| O(n)| O(1)|
@@ -422,4 +423,5 @@
 [Add and Search Word - Data structure design](https://leetcode.com/problems/add-and-search-word-data-structure-design/)| [Swift](./Design/AddSearchWord.swift)| Medium | O(24^n)| O(n)|
 [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)| [Swift](./Design/InsertDeleteGetRandom.swift)| Medium| O(1)| O(n)|
 [LRU Cache](https://leetcode.com/problems/lru-cache/)| [Swift](./Design/LRUCache.swift)| Hard| O(1)| O(n)|
+[All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/)| [Swift](./Design/AllOne.swift)| Hard| O(1)| O(n)|
 [All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/)| [Swift](./Design/AllOne.swift)| Hard| O(1)| O(n)|
