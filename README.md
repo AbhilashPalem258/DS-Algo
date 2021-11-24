@@ -361,6 +361,7 @@
 [Find Peak Element](https://leetcode.com/problems/find-peak-element/)| [Swift](./Search/FindPeakElement.swift)| Medium| O(logn)| O(1)|
 [Random Pick with Weight](https://leetcode.com/problems/random-pick-with-weight/)| [Swift](./Search/RandomPickWeight.swift)| Medium| O(logn)| O(1)|
 [Sqrt(x)](https://leetcode.com/problems/sqrtx/)| [Swift](./Search/Sqrtx.swift)| Medium| O(logn)| O(1)|
+[Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters/)| [Swift](./Search/Sqrtx.swift)| Medium| O(logn)| O(1)|
 [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
 [Minimize Max Distance to Gas Station](https://leetcode.com/problems/minimize-max-distance-to-gas-station/)| [Swift](./Search/MinimizeMaxDistanceGasStation.swift)| Hard| O(nlogm)| O(1)|
 
@@ -369,9 +370,10 @@
 | ----- | -------- | ---------- | ---- | ----- |
 [Merge Sorted Array](https://leetcode.com/problems/merge-sorted-array/)| [Swift](./Sort/MergeSortedArray.swift)| Easy| O(n)| O(1)|
 [Sort Colors](https://leetcode.com/problems/sort-colors/)| [Swift](./Sort/SortColors.swift)| Medium| O(n)| O(1)|
-[Wiggle Sort](https://leetcode.com/problems/wiggle-sort/)| [Swift](./Sort/WiggleSort.swift)| Medium| O(n)| O(1)|
+[Wiggle Sort](https://www.lintcode.com/problem/508/)| [Swift](./Sort/WiggleSort.swift)| Medium| O(n)| O(1)|
 [Wiggle Sort II](https://leetcode.com/problems/wiggle-sort-ii/)| [Swift](./Sort/WiggleSortII.swift)| Medium| O(nlogn)| O(n)|
-[Sort Transformed Array](https://leetcode.com/problems/sort-transformed-array/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
+[Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
+[Sort Transformed Array](https://www.lintcode.com/problem/906/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
 [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)| [Swift](./Sort/TopKFrequentElements.swift)| Medium| O(nlogn)| O(n)|
 [Meeting Rooms](https://leetcode.com/problems/meeting-rooms/)| [Swift](./Sort/MeetingRooms.swift)| Easy| O(nlogn)| O(1)|
 [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)| [Swift](./Sort/MeetingRoomsII.swift)| Medium| O(nlogn)| O(n)|
@@ -423,5 +425,4 @@
 [Add and Search Word - Data structure design](https://leetcode.com/problems/add-and-search-word-data-structure-design/)| [Swift](./Design/AddSearchWord.swift)| Medium | O(24^n)| O(n)|
 [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)| [Swift](./Design/InsertDeleteGetRandom.swift)| Medium| O(1)| O(n)|
 [LRU Cache](https://leetcode.com/problems/lru-cache/)| [Swift](./Design/LRUCache.swift)| Hard| O(1)| O(n)|
-[All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/)| [Swift](./Design/AllOne.swift)| Hard| O(1)| O(n)|
 [All O`one Data Structure](https://leetcode.com/problems/all-oone-data-structure/)| [Swift](./Design/AllOne.swift)| Hard| O(1)| O(n)|

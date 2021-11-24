@@ -279,7 +279,7 @@ class CombinationSumII {
         }
         
         dfs(0, target: target)
-        return Array(combinations)
+        return combinations
     }
 }
 
@@ -511,7 +511,7 @@ class IsGraphBipartite {
             }
             return true
         }
-        
+        //loop through all vertices as we are not sure if graph is connected
         for i in 0..<graph.count {
             if colorArr[i] == -1 && !isValidColor(index: i, color: 1) {
                 return false
@@ -906,8 +906,7 @@ struct WordSquares {
                 repeating: [Character](repeating: Character("."),count: count),
                 count: count
             ),
-            map = [String: [String]](),
-            visited = Set<String>()
+            map = [String: [String]]()
         
         func createPrefixMap() {
             for word in wordList {
@@ -929,7 +928,6 @@ struct WordSquares {
             
             for currentWord in prefixWords {
                 let pChars = Array(currentWord)
-//                visited.insert(currentWord)
                 for index in 0..<pChars.count {
                     combination[start][index] = pChars[index]
                     combination[index][start] = pChars[index]
@@ -941,7 +939,6 @@ struct WordSquares {
                     }
                 }
                 dfs(start: start+1, prefix: nextPrefix)
-//                visited.remove(prefixWords[i])
                 for index in 0..<pChars.count {
                     combination[start][index] = Character(".")
                     combination[index][start] = Character(".")

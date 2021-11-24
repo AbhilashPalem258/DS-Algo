@@ -78,6 +78,19 @@ struct WiggleSort {
             }
         }
     }
+    
+    //Preferred
+    func oddPositionSort(_ nums: inout [Int]) {
+        for i in 0..<nums.count where i % 2 == 1 {
+            if nums[i - 1] > nums[i] {
+                (nums[i - 1], nums[i]) = (nums[i], nums[i - 1])
+            }
+            
+            if i + 1 < nums.count && nums[i + 1] > nums[i] {
+                (nums[i + 1], nums[i]) = (nums[i], nums[i + 1])
+            }
+        }
+    }
 }
 
 struct WiggleSortII {
@@ -291,8 +304,10 @@ struct ArrayPartitionI {
     func callAsFunction(_ nums: [Int]) -> Int {
         let nums = nums.sorted()
         var sum = 0
-        for i in stride(from: 0, to: nums.count, by: 2) {
-            sum += nums[i]
+        var i = 0
+        while i < nums.count {
+            sum += min(nums[i], nums[i+1])
+            i += 2
         }
         return sum
     }
@@ -362,16 +377,13 @@ struct TopKFrequentElements {
             countToElementArr[count].append(element)
         }
         var j = topFCount
-        while j >= 0 {
+        outerloop: while j >= 0 {
             for element in countToElementArr[j] {
                 result.append(element)
                 k -= 1
                 if k == 0 {
-                    break
+                    break outerloop
                 }
-            }
-            if k == 0 {
-                break
             }
             j -= 1
         }

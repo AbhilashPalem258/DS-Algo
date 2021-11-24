@@ -12,11 +12,13 @@ class FibonacciNumbers {
         if n == 0 { return 0 }
         if n == 1 { return 1 }
         
-        var prev = 1, postPrev = 0
-        for _ in 2...n {
-            (prev, postPrev) = (prev + postPrev, prev)
+        //dp2 dp1 dp
+        //    dp2 dp1 dp
+        var dp2 = 0, dp1 = 1
+        for num in 2..<n+1 {
+            (dp2, dp1) = (dp1, dp1 + dp2)
         }
-        return prev
+        return dp1
     }
 }
 
@@ -71,12 +73,11 @@ class MinCostClimbStairs {
 
 class HouseRobbery {
     func callAsFunction(_ nums: [Int]) -> Int {
-        var rob1 = 0, rob2 = 0
-        //[rob1, rob2, n, n+1, n+2...]
+        var dp2 = 0, dp1 = 0
         for num in nums {
-            (rob1, rob2) = (rob2, max(num + rob1, rob2))
+            (dp2, dp1) = (dp1, max(dp1, num + dp2))
         }
-        return rob2
+        return max(dp1, dp2)
     }
 }
 
@@ -1507,6 +1508,210 @@ class GenerateParentheses {
     }
 }
 
+class Solution {
+    private enum CalculationError: Error {
+        case notDefinedOperation
+    }
+    
+    private enum Operator: Character {
+        case multiply   = "*"
+        case plus       = "+"
+        case subtract   = "-"
+        
+        func calculate<T: Numeric>(lhs: T, rhs: T) -> T {
+            switch self {
+            case .multiply: return lhs * rhs
+            case .plus:     return lhs + rhs
+            case .subtract: return lhs - rhs
+            }
+            
+        }
+    }
+    
+    private var visited: [String: [Int]]
+    
+    init() {
+        visited = [:]
+    }
+    
+    func diffWaysToCompute(_ expression: String) -> [Int] {
+        let results = dfs(expression)
+        return results
+    }
+    
+    private func dfs(_ str: String) -> [Int] {
+        if let results = visited[str] {
+            return results
+        }
+        
+        if let num = Int(str) {
+            return [num]
+        }
+        
+        var results: [Int] = []
+        
+        str.enumerated().forEach { item in
+            let char: Character = item.element
+            let index: Int = item.offset
+            
+            guard let oper = Operator(rawValue: char) else {
+                return
+            }
+            
+            let leftList = dfs(str[0..<index])
+            let rightList = dfs(str[index+1..<str.count])
+            
+            leftList.forEach { left in
+                rightList.forEach { right in
+                    results.append(oper.calculate(lhs: left, rhs: right))
+                }
+            }
+        }
+        
+        visited[str] = results
+        return results
+    }
+}
+
+
+extension String {
+    subscript(bounds: CountableRange<Int>) -> Self {
+        let start = index(startIndex, offsetBy: bounds.lowerBound)
+        let end = index(startIndex, offsetBy: bounds.upperBound)
+        return String(self[start..<end])
+    }
+}
+
+/*
+ problem:
+ 
+ Testcases:
+ 
+ Constraints:
+ 
+ link: https://leetcode.com/problems/partition-equal-subset-sum/
+ explanation: https://www.youtube.com/watch?v=dJmyfFC3-3A
+ primary idea:
+ - create Adj list, map from course to its prerequisite courses
+ - perform classic DFS on Adj list
+ - once we get to know that specific course is completable, mark it's adj list value as empty which helps reduce redundant operations #44
+ - Given prerequites may contain un connected graphs, better to loops through evey course so that we don miss any course #67
+ Time Complexity:
+ Space Complexity:
+ */
+class SubsetSum {
+    func callAsFunction(_ nums: [Int], target: Int) -> Bool {
+        if nums.isEmpty {
+            return false
+        }
+        if target == 0 {
+            return true
+        }
+        
+        var memo = Array(repeating: false, count: target+1)
+        //target 0 has empty subset
+        memo[0] = true
+        print(memo)
+        
+        for num in nums where num <= target {
+            var subTarget = target
+            while subTarget >= num  {
+                if memo[subTarget - num] {
+                    memo[subTarget] = true
+                }
+                subTarget -= 1
+            }
+            print(memo)
+        }
+        
+        return memo[target]
+    }
+}
+
+class PartitionEqualSubsetSum {
+    // complexity of O(N * S),
+    // where ‘N’ represents total numbers and ‘S’ is the total sum of all the numbers.
+    
+    func canPartition(_ nums: [Int]) -> Bool {
+        if nums.isEmpty {
+            return true
+        }
+        
+        let sum = nums.reduce(0, +)
+        if sum % 2 != 0 {
+            return false
+        }
+        let target = sum/2
+        
+        var memo = Array(repeating: false, count: target+1)
+        //target 0 has empty subset
+        memo[0] = true
+        
+        for num in nums where num <= target {
+            var subTarget = target
+            while subTarget >= num {
+                if memo[subTarget - num] {
+                    memo[subTarget] = true
+                }
+                subTarget -= 1
+            }
+        }
+        
+        return memo[target]
+    }
+}
+
+class TargetSum {
+    func callAsFunction(_ nums: [Int], _ target: Int) -> Int {
+        if nums.isEmpty || target <= 0 {
+            return 0
+        }
+        var memo = Array(repeating: 0, count: target+1)
+        memo[0] = 1
+        print(memo)
+        
+        for num in nums where num <= target {
+            var subTarget = target
+            while subTarget >= num {
+                memo[subTarget] = memo[subTarget] + memo[subTarget - num]
+                subTarget -= 1
+            }
+            print(memo)
+        }
+        return memo[target]
+    }
+}
+
+
+/*
+ problem:
+ You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+ You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+ Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+ 
+ Testcases:
+ Input: prices = [7,1,5,3,6,4]
+ Output: 5
+ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+ Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+ 
+ Input: prices = [7,6,4,3,1]
+ Output: 0
+ Explanation: In this case, no transactions are done and the max profit = 0.
+ 
+ Constraints:
+ 1 <= prices.length <= 105
+ 0 <= prices[i] <= 104
+ 
+ link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+ explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ primary idea:
+ - Non DP, self explanatory
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
 class BestTimeToBuyAndSellStock {
     func maxProfit(_ prices: [Int]) -> Int {
         var buy = 0, profit = 0
@@ -1521,7 +1726,43 @@ class BestTimeToBuyAndSellStock {
         }
         return profit
     }
-    
+}
+
+/*
+ problem:
+ You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+ Find the maximum profit you can achieve. You may complete as many transactions as you like (i.e., buy one and sell one share of the stock multiple times).
+
+ Note: You may not engage in multiple transactions simultaneously (i.e., you must sell the stock before you buy again).
+ 
+ Testcases:
+ Input: prices = [7,1,5,3,6,4]
+ Output: 7
+ Explanation: Buy on day 2 (price = 1) and sell on day 3 (price = 5), profit = 5-1 = 4.
+ Then buy on day 4 (price = 3) and sell on day 5 (price = 6), profit = 6-3 = 3.
+ 
+ Input: prices = [1,2,3,4,5]
+ Output: 4
+ Explanation: Buy on day 1 (price = 1) and sell on day 5 (price = 5), profit = 5-1 = 4.
+ Note that you cannot buy on day 1, buy on day 2 and sell them later, as you are engaging multiple transactions at the same time. You must sell before buying again.
+ 
+ Input: prices = [7,6,4,3,1]
+ Output: 0
+ Explanation: In this case, no transaction is done, i.e., max profit = 0.
+ 
+ Constraints:
+ 1 <= prices.length <= 3 * 104
+ 0 <= prices[i] <= 104
+ 
+ link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+ explanation: https://www.youtube.com/watch?v=3SJ3pUkPQMc
+ primary idea:
+ - Self explanatory
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
+struct BestTimeToBuyAndSellStockII {
     func maxProfitMultipleTransactions(_ prices: [Int]) -> Int {
         var profit = 0
         for i in 1..<prices.count {
@@ -1532,6 +1773,17 @@ class BestTimeToBuyAndSellStock {
         return profit
     }
 }
+
+class MaxAlternatingSum {
+    func callAsFunction(_ nums: [Int]) -> Int {
+        var res = nums[0]
+        for i in 0..<nums.count - 1 {
+            res += max(nums[i] - nums[i + 1], res)
+        }
+        return res
+    }
+}
+
 struct BestTimeToBuyAndSellStockIII {
     /*
      Approach: Bi directional Dynamic Programming
@@ -1587,12 +1839,19 @@ struct BestTimeToBuyAndSellStockIII {
     func maxProfitWith2TransactionsOptimized(_ prices: [Int]) -> Int {
         var t1Cost = Int.max, t1Profit = 0
         var t2Cost = Int.max, t2Profit = 0
-        
+        print("******")
+        print("t1Cost: \(t1Cost)", "t1Profit: \(t1Profit)", "t2Cost: \(t2Cost)", "t2Profit: \(t2Profit)", separator: "\n")
+        print("******")
+
         for currentPrice in prices {
             t1Cost = min(t1Cost, currentPrice)
             t1Profit = max(t1Profit, currentPrice - t1Cost)
             t2Cost = min(t2Cost, currentPrice - t1Profit)
             t2Profit = max(t2Profit, currentPrice - t2Cost)
+            
+            print("******")
+            print("t1Cost: \(t1Cost)", "t1Profit: \(t1Profit)", "t2Cost: \(t2Cost)", "t2Profit: \(t2Profit)", separator: "\n")
+            print("******")
         }
         
         return t2Profit
@@ -1724,7 +1983,7 @@ fileprivate extension StringProtocol {
 
 class MaxSubArray {
     func callAsFunction(_ nums: [Int]) -> Int {
-        var maximumSub = nums[0], current = 0
+        var maximumSub = Int.min, current = 0
         for num in nums {
             if current < 0 {
                 current = 0
@@ -1736,6 +1995,27 @@ class MaxSubArray {
     }
 }
 /*
+ problem:
+ Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+
+ It is guaranteed that the answer will fit in a 32-bit integer.
+
+ A subarray is a contiguous subsequence of the array.
+ 
+ Testcases:
+ Input: nums = [2,3,-2,4]
+ Output: 6
+ Explanation: [2,3] has the largest product 6.
+ 
+ Input: nums = [-2,0,-1]
+ Output: 0
+ Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
+ 
+ Constraints:
+ 1 <= nums.length <= 2 * 104
+ -10 <= nums[i] <= 10
+ The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+ 
  link: https://leetcode.com/problems/maximum-product-subarray/
  explanation: https://www.youtube.com/watch?v=lXVy6YWFcRM
  primary idea:
@@ -1756,16 +2036,6 @@ class MaxProductSubArray {
             }
             (curMin, curMax) = (min(curMax * num, curMin * num, num), max(curMax * num, curMin * num, num))
             res = max(res, curMax)
-        }
-        return res
-    }
-}
-
-class MaxAlternatingSum {
-    func callAsFunction(_ nums: [Int]) -> Int {
-        var res = nums[0]
-        for i in 0..<nums.count - 1 {
-            res += max(nums[i] - nums[i + 1], res)
         }
         return res
     }

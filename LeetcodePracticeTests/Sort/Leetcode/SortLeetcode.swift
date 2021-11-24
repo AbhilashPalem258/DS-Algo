@@ -36,6 +36,18 @@ class SortLeetcode: XCTestCase {
         var arr1 = [3, 5, 2, 1, 6, 4]
         obj(&arr1)
         XCTAssertEqual(arr1, [3, 5, 1, 6, 2, 4])
+        
+        var arr2 = [3, 5, 2, 1, 6, 4]
+        obj.oddPositionSort(&arr2)
+        XCTAssertEqual(arr2, [3, 5, 1, 6, 2, 4])
+        
+        var arr3 = [1, 2, 3, 4]
+        obj(&arr3)
+        XCTAssertEqual(arr3, [1, 3, 2, 4])
+        
+        var arr4 = [1, 2, 3, 4]
+        obj.oddPositionSort(&arr4)
+        XCTAssertEqual(arr4, [1, 3, 2, 4])
     }
     
     func testSortedSquaresArr() {

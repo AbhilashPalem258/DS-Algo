@@ -69,6 +69,8 @@
 		008FDB61269D8F8900A88584 /* SortConcept.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008FDB60269D8F8900A88584 /* SortConcept.swift */; };
 		009519D2269F196B00EDB9E7 /* DesignLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009519D1269F196B00EDB9E7 /* DesignLeetcode.swift */; };
 		009519D6269F19AA00EDB9E7 /* DesignLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009519D5269F19AA00EDB9E7 /* DesignLeetcode.swift */; };
+		00ACFEC826CA619600391CB9 /* MathLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ACFEC726CA619600391CB9 /* MathLeetcode.swift */; };
+		00ACFECC26CA652700391CB9 /* MathLeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ACFECB26CA652700391CB9 /* MathLeetcodeTests.swift */; };
 		00FEA97D26A42C6C006D324B /* AdjacencyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEA97C26A42C6C006D324B /* AdjacencyList.swift */; };
 		00FEA98126A44687006D324B /* GraphAdjacencyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEA98026A44687006D324B /* GraphAdjacencyList.swift */; };
 		00FEA98526A53F3F006D324B /* DFSLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEA98426A53F3F006D324B /* DFSLeetcode.swift */; };
@@ -162,6 +164,8 @@
 		008FDB60269D8F8900A88584 /* SortConcept.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortConcept.swift; sourceTree = "<group>"; };
 		009519D1269F196B00EDB9E7 /* DesignLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignLeetcode.swift; sourceTree = "<group>"; };
 		009519D5269F19AA00EDB9E7 /* DesignLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignLeetcode.swift; sourceTree = "<group>"; };
+		00ACFEC726CA619600391CB9 /* MathLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathLeetcode.swift; sourceTree = "<group>"; };
+		00ACFECB26CA652700391CB9 /* MathLeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathLeetcodeTests.swift; sourceTree = "<group>"; };
 		00FEA97C26A42C6C006D324B /* AdjacencyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdjacencyList.swift; sourceTree = "<group>"; };
 		00FEA98026A44687006D324B /* GraphAdjacencyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphAdjacencyList.swift; sourceTree = "<group>"; };
 		00FEA98426A53F3F006D324B /* DFSLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFSLeetcode.swift; sourceTree = "<group>"; };
@@ -330,6 +334,7 @@
 		004C9284267A24AC0094CC50 /* LeetcodePractice */ = {
 			isa = PBXGroup;
 			children = (
+				00ACFEC526CA617D00391CB9 /* Math */,
 				007738C126B49B0F001E5422 /* DP */,
 				008EE83126B1C10E002889EB /* Heap */,
 				00168B7126B1624100123087 /* TopologicalSort */,
@@ -369,6 +374,7 @@
 		004C9297267A24AE0094CC50 /* LeetcodePracticeTests */ = {
 			isa = PBXGroup;
 			children = (
+				00ACFEC926CA650E00391CB9 /* Math */,
 				007738C526B49CFE001E5422 /* DP */,
 				00168B7526B1672900123087 /* TopologicalSort */,
 				00168B6D26AFCAA000123087 /* UnionFind */,
@@ -806,6 +812,38 @@
 			path = Leetcode;
 			sourceTree = "<group>";
 		};
+		00ACFEC526CA617D00391CB9 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				00ACFEC626CA618700391CB9 /* Leetcode */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		00ACFEC626CA618700391CB9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				00ACFEC726CA619600391CB9 /* MathLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		00ACFEC926CA650E00391CB9 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				00ACFECA26CA651500391CB9 /* Leetcode */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		00ACFECA26CA651500391CB9 /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				00ACFECB26CA652700391CB9 /* MathLeetcodeTests.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
 		00FEA97926A41223006D324B /* Graph */ = {
 			isa = PBXGroup;
 			children = (
@@ -1032,6 +1070,7 @@
 				004C92CA267CFC860094CC50 /* LL155.swift in Sources */,
 				004C92C7267C713B0094CC50 /* LL146.swift in Sources */,
 				008C67EB26AE7D6800BDF6D7 /* GraphLeetcode.swift in Sources */,
+				00ACFEC826CA619600391CB9 /* MathLeetcode.swift in Sources */,
 				004C92B9267A6C430094CC50 /* Array485.swift in Sources */,
 				007A36112686152D0054CFE9 /* StringsLeetcode.swift in Sources */,
 				004C92C5267C3D3E0094CC50 /* 143.swift in Sources */,
@@ -1060,6 +1099,7 @@
 				007A35E1267E27030054CFE9 /* StackTestCases.swift in Sources */,
 				004C9299267A24AE0094CC50 /* LeetcodePracticeTests.swift in Sources */,
 				002BA83F269AE7B500367D72 /* SearchLeetcode.swift in Sources */,
+				00ACFECC26CA652700391CB9 /* MathLeetcodeTests.swift in Sources */,
 				007A360926806F550054CFE9 /* TreeLeetcodeTests.swift in Sources */,
 				007738C826B49D11001E5422 /* DPLeetcode.swift in Sources */,
 				00FEA98926A54347006D324B /* DFSLeetcode.swift in Sources */,
