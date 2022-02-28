@@ -63,4 +63,10 @@ class StackTestCases: XCTestCase {
         XCTAssertEqual(obj(["4","13","5","/","+"]), 6)
         XCTAssertEqual(obj(["10","6","9","3","+","-11","*","/","*","17","+","5","+"]), 22)
     }
+    
+    func testCarFleet() {
+        let obj = CarFleet()
+        XCTAssertEqual(obj(12, [10,8,0,5,3], [2,4,1,1,3]), 3)
+        XCTAssertEqual(obj(10, [3], [3]), 1)
+    }
 }

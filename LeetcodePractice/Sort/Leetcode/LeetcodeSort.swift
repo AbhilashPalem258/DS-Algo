@@ -267,6 +267,89 @@ class MergeIntervals {
     }
 }
 
+
+/*
+ problem:
+ Given an array intervals where intervals[i] = [li, ri] represent the interval [li, ri), remove all intervals that are covered by another interval in the list.
+
+ The interval [a, b) is covered by the interval [c, d) if and only if c <= a and b <= d.
+
+ Return the number of remaining intervals.
+ 
+ Testcases:
+ Input: intervals = [[1,4],[3,6],[2,8]]
+ Output: 2
+ Explanation: Interval [3,6] is covered by [2,8], therefore it is removed.
+ 
+ Input: intervals = [[1,4],[2,3]]
+ Output: 1
+ 
+ 
+ Constraints:
+ 1 <= intervals.length <= 1000
+ intervals[i].length == 2
+ 0 <= li <= ri <= 105
+ All the given intervals are unique.
+ 
+ 
+ link: https://leetcode.com/problems/remove-covered-intervals/
+ explanation: https://www.youtube.com/watch?v=nhAsMabiVkM
+ primary idea:
+ - Sort intervals in decreasing order such that the largest interval comes first
+ - Use stack to evaluate if the prev interval covers current one
+ Time Complexity: O(nlogn + n)
+ Space Complexity: O(n)
+ */
+class RemoveCoveredIntervals {
+    func callAsFunction(_ intervals: [[Int]]) -> Int {
+        let intervals = intervals.sorted {
+            if $0[0] == $1[0] {
+                return $0[1] < $1[1]
+            }
+            return $0[0] < $1[0]
+        }
+        var stack = [[Int]]()
+        
+        for currentInterval in intervals {
+            if let prev = stack.last {
+                if prev[0] <= currentInterval[0] && currentInterval[1] <= prev[1] {
+                    continue
+                }
+                stack.append(currentInterval)
+            } else {
+                stack.append(currentInterval)
+            }
+        }
+        return stack.count
+    }
+}
+
+class NonOverlappingIntervals {
+    func callAsFunction(_ intervals: [[Int]]) -> Int {
+        let intervals = intervals.sorted {
+            if $0[0] == $1[0] {
+                return $0[1] < $1[1]
+            }
+            return $0[0] < $1[0]
+        }
+        
+        var res = 0
+        var prevEnd = intervals[0][1]
+        for i in 1..<intervals.count {
+            let interval = intervals[i]
+            let start = interval[0], end = interval[1]
+            if start >= prevEnd {
+                prevEnd = end
+            } else {
+                res += 1
+                prevEnd = min(prevEnd, end)
+            }
+        }
+        
+        return res
+    }
+}
+
 struct FindKthLargest {
     func callAsFunction(_ nums: [Int], _ k: Int) -> Int {
         guard nums.count >= k else {
@@ -380,6 +463,36 @@ struct TopKFrequentElements {
         outerloop: while j >= 0 {
             for element in countToElementArr[j] {
                 result.append(element)
+                k -= 1
+                if k == 0 {
+                    break outerloop
+                }
+            }
+            j -= 1
+        }
+        return result
+    }
+}
+
+class TopKFrequentWords {
+    func topKFrequent(_ words: [String], _ k: Int) -> [String] {
+        var wordMap = [String: Int](), k = k
+        var topFCount = 0
+        for word in words {
+            wordMap[word, default: 0] += 1
+            topFCount = max(topFCount, wordMap[word]!)
+        }
+        
+        var countToWordArr = [[String]](repeating: [], count: topFCount+1)
+        for (word, count) in wordMap {
+            countToWordArr[count].append(word)
+        }
+        
+        var result = [String]()
+        var j = topFCount
+        outerloop: while j >= 0 {
+            for word in countToWordArr[j].sorted() {
+                result.append(word)
                 k -= 1
                 if k == 0 {
                     break outerloop

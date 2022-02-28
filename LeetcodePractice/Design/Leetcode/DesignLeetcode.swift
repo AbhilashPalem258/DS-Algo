@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 class ShuffleAnArray {
 
@@ -424,4 +425,112 @@ class Vector2D {
         }
     }
     
+}
+
+
+class MyCircularQueue {
+    
+    class DoubleLinkedlistNode {
+        let val: Int
+        var prev: DoubleLinkedlistNode?
+        var next: DoubleLinkedlistNode?
+        
+        init(_ val: Int, prev: DoubleLinkedlistNode? = nil, next: DoubleLinkedlistNode? = nil) {
+            self.val = val
+            self.prev = prev
+            self.next = next
+        }
+    }
+
+    var space: Int
+    private let left = DoubleLinkedlistNode(-1)
+    private let right = DoubleLinkedlistNode(-1)
+    
+    init(_ k: Int) {
+        space = k
+        left.next = right
+        right.prev = left
+    }
+    
+    func enQueue(_ value: Int) -> Bool {
+        if isFull() {
+            return false
+        }
+        
+        let prev = self.right.prev
+        let new = DoubleLinkedlistNode(value, prev: prev, next: right)
+        
+        prev?.next = new
+        right.prev = new
+        
+        space -= 1
+        return true
+    }
+    
+    func deQueue() -> Bool {
+        if isEmpty() {
+            return false
+        }
+        var res = self.left.next
+        self.left.next = res?.next
+        res?.next?.prev = left
+        
+        res = nil
+        space += 1
+        return true
+    }
+    
+    func Front() -> Int {
+        self.left.next?.val ?? -1
+    }
+    
+    func Rear() -> Int {
+        self.right.prev?.val ?? -1
+    }
+    
+    func isEmpty() -> Bool {
+        self.left.next === self.right
+    }
+    
+    func isFull() -> Bool {
+        space == 0
+    }
+}
+
+class MedianFinder {
+    var smallHeap = RHeap<Int>(array: [], sort: {$0>$1})
+    var largeHeap = RHeap<Int>(array: [], sort: {$0<$1})
+    
+    init() {}
+    
+    func addNum(_ num: Int) {
+        smallHeap.insert(num)
+        
+        if !smallHeap.isEmpty && !largeHeap.isEmpty && smallHeap.peek()! > largeHeap.peek()! {
+            let popedVal = smallHeap.remove()!
+            largeHeap.insert(popedVal)
+        }
+        
+        if abs(smallHeap.count - largeHeap.count) > 1 {
+            if smallHeap.count > largeHeap.count {
+                if let popedVal = smallHeap.remove() {
+                    largeHeap.insert(popedVal)
+                }
+            } else {
+                if let popedVal = largeHeap.remove() {
+                    smallHeap.insert(popedVal)
+                }
+            }
+        }
+    }
+    
+    func findMedian() -> Double {
+        if smallHeap.count > largeHeap.count {
+            return Double(smallHeap.peek()!)
+        }
+        if largeHeap.count > smallHeap.count {
+            return Double(largeHeap.peek()!)
+        }
+        return Double(smallHeap.peek()! + largeHeap.peek()!)/2
+    }
 }

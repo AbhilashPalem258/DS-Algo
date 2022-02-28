@@ -29,6 +29,21 @@ struct FindClosestElements {
         }
         return Array(arr[mindiffId - (k - 1)...mindiffId])
     }
+    
+    func binarySearchWindow(_ arr: [Int], _ k: Int, _ x: Int) -> [Int] {
+        var l = 0, r = arr.count - k
+        
+        while l < r {
+            let midId = l + (r - l)/2
+            
+            if x - arr[midId] > arr[midId + k] - x {
+                l = midId + 1
+            } else {
+                r = midId
+            }
+        }
+        return Array(arr[l..<l+k])
+    }
 }
 
 struct MaxSumofRectangleNoLargerThanK {

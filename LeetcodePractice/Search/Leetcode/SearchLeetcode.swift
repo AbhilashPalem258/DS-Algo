@@ -180,8 +180,8 @@ struct SearchRotatedSortedArrII {
  primary idea:
  - Binary search
  - Check if arr is sorted from left to right, then left value will be minimum
- - Check if mid value is minimum. if yes update minimum val variable.
- - else whether mid is in left sorted portion or right. If the mid is in left Sorted portion, search right and if mid is in right sorted portion, search left
+ - Check if mid value is minimum. if yes update minimum val variable. For example, if the mid value is pivot like 1 in [3,4,5,1,2], then we need to update minvalue as mid value.
+ - else whether mid is in left sorted portion or right. If the mid is in left Sorted portion, search right [for example mid value is 5 in [3,4,5,1,2]] and if mid is in right sorted portion, search left [for example mid value is 2 in [4,5, 6, 7, 1 ,2, 3]]
  Time Complexity: O(logn)
  Space Complexity: O(1)
  */
@@ -550,6 +550,35 @@ struct FindMedianSortedArrays {
     }
 }
 
+class TimebasedkeyValueStore {
+    var store: [String: [(value: String, timestamp: Int)]]
+    init() {
+        store = [:]
+    }
+    
+    func set(_ key: String, _ value: String, _ timestamp: Int) {
+        store[key, default: []].append((value, timestamp))
+    }
+    
+    func get(_ key: String, _ timestamp: Int) -> String {
+        let values = store[key, default: []]
+        var res = ""
+        var l = 0, r = values.count-1
+        while l <= r {
+            let midId = l + (r - l)/2
+            let midVal = values[midId]
+            if midVal.timestamp <= timestamp {
+                res = midVal.value
+                l = midId + 1
+            } else {
+                r = midId - 1
+            }
+        }
+        return res
+    }
+}
+
+
 
 /*
  problem:
@@ -579,7 +608,10 @@ struct FindMedianSortedArrays {
  link: https://leetcode.com/problems/koko-eating-bananas/
  explanation: https://www.youtube.com/watch?v=U2SozAs9RzA
  primary idea:
- -
+ -  piles.length <= h <= 109
+ -  From the constraint, it's clear that if koko eats one complete pile in a hour then still it will complete all banana before guards come back. So even in the worst case the piles.max() will always be answer
+ - Binary search on bananas-per-hour rate with l at 1 and r = piles.max()
+ - Search for the minimum bananas-per-hour rate
  Time Complexity: O(log(max(p))*p)
  Space Complexity: O(1)
  */
@@ -771,6 +803,7 @@ class RndomPickWeight {
  - Binary search
  - check for element greater than its previous
  - Once l == r then we know that it is the result index
+ - [1,2,3,4,5]. l = 0, r = 4. for understanding l < r
  Time Complexity: O(logn)
  Space Complexity: O(1)
  */
@@ -908,7 +941,7 @@ class Sqrtx {
  primary idea:
  - Binary search on removable array
  - update res max value, as we find it's still subsequence
- Time Complexity:
+ Time Complexity: O(log R * (s + p))
  Space Complexity:
  */
 class MaximumRemovals {
@@ -946,6 +979,26 @@ class MaximumRemovals {
             }
         }
         
+        return res
+    }
+}
+
+class KthSmallestElementInASortedMatrix {
+    func heap(_ matrix: [[Int]], _ k: Int) -> Int {
+        let n = matrix.count
+        
+        var arr = [Int]()
+        for i in 0..<n {
+            for j in 0..<n {
+                arr.append(matrix[i][j])
+            }
+        }
+        
+        var heap = RHeap(array: arr, sort: <)
+        var res = 0
+        for _ in 0..<k {
+            res = heap.remove()!
+        }
         return res
     }
 }

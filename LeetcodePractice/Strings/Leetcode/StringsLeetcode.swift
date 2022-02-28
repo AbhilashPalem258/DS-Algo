@@ -350,6 +350,60 @@ class ImplementstrStr {
         }
         return -1
     }
+    /*
+     youtube: https://www.youtube.com/watch?v=JoF0Z7nVSrA&t=1917s
+     Explanation:
+     - Using Knuth Morris Pratt
+     - LSP(Longest prefix suffix)
+     TimeComplexity: O(H + N)
+     SpaceComplexity:
+     */
+    func usingKMP(_ haystack: String, _ needle: String) -> Int {
+        if needle == "" { return 0 }
+        let needle = needle.map{ String($0) }
+        let haystack = haystack.map{ String($0) }
+        
+        func calculateLSP(_ needle: [String]) -> [Int] {
+            //AAABA
+            var lsp = Array(repeating: 0, count: needle.count)
+            var prevLSP = 0, i = 1
+            while i < needle.count {
+                if needle[i] == needle[prevLSP] {
+                    lsp[i] = prevLSP + 1
+                    prevLSP += 1
+                    i += 1
+                } else if prevLSP == 0 {
+                    lsp[i] = 0
+                    i += 1
+                } else {
+                    prevLSP = lsp[prevLSP - 1]
+                }
+            }
+            return lsp
+        }
+        
+        let lsp = calculateLSP(needle)
+        
+        var i = 0 // For haystack
+        var j = 0 //For needle
+        //AAAXAAAA
+        //AAAA
+        while i < haystack.count {
+            if haystack[i] == needle[j] {
+                i += 1
+                j += 1
+            } else if j == 0 {
+                i += 1
+            } else {
+                j = lsp[j - 1]
+            }
+            
+            if j == needle.count {
+                return i - needle.count
+            }
+        }
+        return -1
+    }
 }
 
 class IsIsomorphic {
@@ -963,51 +1017,155 @@ class FindAnagramsInStr {
     }
 }
 
-class MinWindowSubstring {
-    func minWindow(_ s: String, _ t: String) -> String {
-        if t.count > s.count { return "" }
+class LongestSubstringAtleastKRepeatingCharacters {
+    //ababacb
+    func callAsFunction(_ s: String, _ k: Int) -> Int {
+        let s = Array(s)
         
-        var window = [Character: Int]()
-        for c in t {
-            window[c, default: 0] += 1
-        }
-        var count = window.count
-        
-        var minLength = Int.max
-        var head = 0, slow = 0
-        let sChars = Array(s)
-        
-        for i in 0..<sChars.count {
-            let char = sChars[i]
-            if let find = window[char] {
-                window[char] = find - 1
-                if find - 1 == 0 {
-                    count -= 1
-                }
+        func helper(start: Int, end: Int) -> Int {
+            
+            if end - start < k { return 0 }
+            
+            var map = [Character: Int]()
+            for i in start..<end {
+                let char = s[i]
+                map[char, default: 0] += 1
             }
             
-            while count == 0 {
-                if (i - slow + 1) < minLength  {
-                    minLength = i - slow + 1
-                    head = slow
-                }
-                
-                let temp = sChars[slow]
-                if let find = window[temp] {
-                    window[temp] = find + 1
-                    if find + 1 > 0 {
-                        count += 1
+            for i in start..<end {
+                let char = s[i]
+                if let val = map[char], val < k {
+                    var j = i + 1
+                    
+                    while j < end, let jVal = map[s[j]], jVal < k {
+                        j += 1
                     }
+                    return max(helper(start: start, end: i), helper(start: j, end: end))
                 }
-                
-                slow += 1
+            }
+            return end - start
+        }
+        return helper(start: 0, end: s.count)
+    }
+}
+
+/*
+ problem:
+ You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part.
+
+ Note that the partition is done so that after concatenating all the parts in order, the resultant string should be s.
+
+ Return a list of integers representing the size of these parts.
+ 
+ Testcases:
+ Input: s = "ababcbacadefegdehijhklij"
+ Output: [9,7,8]
+ Explanation:
+ The partition is "ababcbaca", "defegde", "hijhklij".
+ This is a partition so that each letter appears in at most one part.
+ A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits s into less parts.
+ 
+ Input: s = "eccbbbbdec"
+ Output: [10]
+ 
+ 
+ Constraints:
+ 1 <= s.length <= 500
+ s consists of lowercase English letters.
+ 
+ 
+ link: https://leetcode.com/problems/partition-labels/
+ explanation: https://www.youtube.com/watch?v=B7m8UmZE-vw
+ primary idea:
+ - calculate last index of all chars and store in hashmap
+ - iterate through loop again, update end, increase size, if i == end, then we found a partition
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class PartitionLabels {
+    func callAsFunction(_ s: String) -> [Int] {
+        let s = Array(s)
+        var map = [Character: Int]()
+        
+        for i in 0..<s.count {
+            let char = s[i]
+            map[char] = max(i, map[char, default: 0])
+        }
+        
+        var size = 0, end = 0, result = [Int]()
+        
+        for i in 0..<s.count {
+            let currentChar = s[i]
+            size += 1
+            end = max(end, map[currentChar]!)
+            if i == end {
+                result.append(size)
+                size = 0
             }
         }
-        
-        if minLength == Int.max {
-            return ""
+        return result
+    }
+}
+
+class MaxNumberOfBalloons {
+    func callAsFunction(_ text: String) -> Int {
+        func counter(_ s: String) -> [String: Int] {
+            let s = s.map{ String($0) }
+            var res = [String: Int]()
+            for char in s {
+                res[char, default: 0] += 1
+            }
+            return res
         }
         
-        return String(sChars[head..<head+minLength])
+        let ballonMap = counter("balloon")
+        let textMap = counter(text)
+        var res = Int.max
+        for (key, val) in ballonMap {
+            res = min(res, textMap[key, default: 0]/val)
+        }
+        return res
+    }
+}
+
+class ZigzagConversion {
+    func callAsFunction(_ s: String, _ numRows: Int) -> String {
+        if numRows == 1 {
+            return s
+        }
+        
+        var res = [Character]()
+        let s = Array(s)
+        let increment = (numRows - 1) * 2
+        for row in 0..<numRows {
+            for i in stride(from: row, to: s.count, by: increment) {
+                res.append(s[i])
+                if row > 0 && row < numRows-1 && (increment + i) - (2 * row) < s.count {
+                    res.append(s[(increment + i) - (2 * row)])
+                }
+            }
+        }
+        return String(res)
+    }
+}
+
+class isSubsequence {
+    func callAsFunction(_ s: String, _ t: String) -> Bool {
+        if s.isEmpty {
+            return true
+        }
+        
+        let s = Array(s), t = Array(t)
+        var i = 0
+        
+        for j in 0..<t.count {
+            if s[i] == t[j] {
+                i += 1
+            }
+            if i == s.count {
+                return true
+            }
+        }
+        return false
     }
 }

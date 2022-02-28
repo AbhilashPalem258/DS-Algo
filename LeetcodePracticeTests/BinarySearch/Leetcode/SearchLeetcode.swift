@@ -79,6 +79,20 @@ class SearchLeetcodeTests: XCTestCase {
 //        XCTAssertEqual(obj(Array(1...8), Array(1...4)), 3.5)
     }
     
+    func testTimebasedkeyValueStore() {
+        let obj = TimebasedkeyValueStore()
+        obj.set("foo", "bar", 1)
+        XCTAssertEqual(obj.get("foo", 1), "bar")
+        XCTAssertEqual(obj.get("foo", 3), "bar")
+        obj.set("foo", "bar2", 4)
+        XCTAssertEqual(obj.get("foo", 4), "bar2")
+        XCTAssertEqual(obj.get("foo", 5), "bar2")
+        
+        obj.set("love", "high", 10)
+        obj.set("love", "low", 20)
+        XCTAssertEqual(obj.get("love", 5), "")
+    }
+    
     func testKokoEatingBananas() {
         let obj = KokoEatingBananas()
         XCTAssertEqual(obj.minEatingSpeed([3,6,7,11], 8), 4)

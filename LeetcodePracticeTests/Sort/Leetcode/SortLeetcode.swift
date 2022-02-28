@@ -81,6 +81,12 @@ class SortLeetcode: XCTestCase {
         XCTAssertEqual(obj([[1,4],[2,3]]), [[1,4]])
     }
     
+    func testRemoveCoveredIntervals() {
+        let obj = RemoveCoveredIntervals()
+        XCTAssertEqual(obj([[1,4],[3,6],[2,8]]), 2)
+        XCTAssertEqual(obj([[1,4],[2,3]]), 1)
+    }
+    
     func testFindKthLargest() {
         let obj = FindKthLargest()
 //        XCTAssertEqual(obj([3,2,1,5,6,4], 2), 5)
@@ -112,5 +118,11 @@ class SortLeetcode: XCTestCase {
         let obj = TopKFrequentElements()
         XCTAssertEqual(obj([1,1,1,2,2,3], 2), [1,2])
         XCTAssertEqual(obj([1], 1), [1])
+    }
+    
+    func testTopKFrequentWords() {
+        let obj = TopKFrequentWords()
+        XCTAssertEqual(obj.topKFrequent(["i","love","leetcode","i","love","coding"], 2), ["i","love"])
+        XCTAssertEqual(obj.topKFrequent(["i","love","leetcode","i","love","coding"], 3),["i","love","coding"])
     }
 }

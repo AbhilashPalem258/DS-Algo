@@ -58,6 +58,24 @@ class MathLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj([9,6,4,2,3,5,7,0,1]), 8)
     }
     
+    func testDivideTwoIntegers() {
+        let obj = DivideTwoIntegers()
+        XCTAssertEqual(obj(-2147483648, -1), 2147483647)
+//        XCTAssertEqual(obj(10, 3), 3)
+    }
+    
+    func testNumberComplement() {
+        let obj = NumberComplement()
+        XCTAssertEqual(obj(5), 2)
+        XCTAssertEqual(obj(1), 0)
+    }
+    
+    func testHammingDistance() {
+        let obj = HammingDistance()
+        XCTAssertEqual(obj(1, 4), 2)
+        XCTAssertEqual(obj(3, 1), 1)
+    }
+    
     func testIntegerBreak() {
         let obj = IntegerBreak()
         XCTAssertEqual(obj(2), 1)
@@ -109,6 +127,16 @@ class MathLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj(1, [2,3,5]), 1)
     }
     
+    func testStringToInteger() {
+        let obj = StringToInteger()
+        XCTAssertEqual(obj.myAtoi("42"), 42)
+        XCTAssertEqual(obj.myAtoi("-42"), -42)
+        XCTAssertEqual(obj.myAtoi("4193 with words"), 4193)
+        XCTAssertEqual(obj.myAtoi("words and 987"), 0)
+        XCTAssertEqual(obj.myAtoi("-91283472332"), -2147483648)
+
+    }
+    
     func testCountPrimes() {
         let obj = CountPrimes()
         XCTAssertEqual(obj(10), 4)
@@ -149,6 +177,54 @@ class MathLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj(45), false)
     }
     
+    func testSumOfTwoIntegers() {
+        let obj = SumOfTwoIntegers()
+        XCTAssertEqual(obj(1, 2), 3)
+        XCTAssertEqual(obj(2, 3), 5)
+    }
+    
+    func testReverseInteger() {
+        let obj = ReverseInteger()
+        XCTAssertEqual(obj(123), 321)
+        XCTAssertEqual(obj(-123), -321)
+        XCTAssertEqual(obj(120), 21)
+        XCTAssertEqual(obj(0), 0)
+    }
+    
+    func testExcelSheetColumnNumber() {
+        let obj = ExcelSheetColumnNumber()
+        XCTAssertEqual(obj("A"), 1)
+        XCTAssertEqual(obj("AB"), 28)
+        XCTAssertEqual(obj("ZY"), 701)
+    }
+    
+    
+    func testRomanToInteger() {
+        let obj = RomanToInteger()
+        XCTAssertEqual(obj("III"), 3)
+        XCTAssertEqual(obj("IV"), 4)
+        XCTAssertEqual(obj("IX"), 9)
+        XCTAssertEqual(obj("LVIII"), 58)
+        XCTAssertEqual(obj("MCMXCIV"), 1994)
+    }
+    
+    func testIntegerToRoman() {
+        let obj = IntegerToRoman()
+        XCTAssertEqual(obj(3), "III")
+        XCTAssertEqual(obj(4), "IV")
+        XCTAssertEqual(obj(9), "IX")
+        XCTAssertEqual(obj(58), "LVIII")
+        XCTAssertEqual(obj(1994), "MCMXCIV")
+    }
+    
+    func testIntegerToEnglishWords() {
+        let obj = IntegerToEnglish()
+        XCTAssertEqual(obj.numberToWords(1234567891), "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One")
+        XCTAssertEqual(obj.numberToWords(123), "One Hundred Twenty Three")
+        XCTAssertEqual(obj.numberToWords(12345), "Twelve Thousand Three Hundred Forty Five")
+        XCTAssertEqual(obj.numberToWords(1234567), "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven")
+    }
+    
     func testFractionToDecimal() {
         let obj = FractionToDecimal()
         XCTAssertEqual(obj(1, 2), "0.5")
@@ -176,6 +252,18 @@ class MathLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.grayCode(1), [0,1])
     }
     
+    func testLargestRectangleinHistogram() {
+        let obj = LargestRectangleHistogram()
+        XCTAssertEqual(obj([2,1,5,6,2,3]), 10)
+        XCTAssertEqual(obj([2,4]), 4)
+    }
+    
+    func testSkylineProblem() {
+        let obj = SkylineProblem()
+        XCTAssertEqual(obj.getSkyline([[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]), [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]])
+        XCTAssertEqual(obj.getSkyline([[0,2,3],[2,5,3]]), [[0,3],[5,0]])
+    }
+        
     func createLL(_ arr: [Int]) -> ListNode {
         let dummy = ListNode(0)
         var current = dummy
@@ -185,4 +273,5 @@ class MathLeetcodeTests: XCTestCase {
         }
         return dummy.next!
     }
+    
 }

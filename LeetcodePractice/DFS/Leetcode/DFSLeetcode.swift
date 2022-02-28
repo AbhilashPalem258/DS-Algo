@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 class NumberOfIslands {
     func depthFirst(_ grid: [[Character]]) -> Int {
@@ -122,48 +123,66 @@ struct WordSearch {
 }
 
 class WordSearchII {
+    class TrieNode {
+        var children: [Character: TrieNode] = [:]
+        var isWord: Bool = false
+        
+        init() {}
+        
+        func addWord(_ word: String) {
+            var cur = self
+            for char in word {
+                if cur.children[char] == nil {
+                    cur.children[char] = TrieNode()
+                }
+                cur = cur.children[char]!
+            }
+            cur.isWord = true
+        }
+    }
+    
     func findWords(_ board: [[Character]], _ words: [String]) -> [String] {
         let m = board.count, n = board[0].count
-        var visited = Set<[Int]>(), result = [String]()
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
         
-        let boardSet = Set(board.reduce([], +))
-        let newWords = words.filter {
-            Set($0).subtracting(boardSet).count <= 0
+        let trie = TrieNode()
+        for word in words {
+            trie.addWord(word)
         }
         
-        let trie = Trie()
-        for word in newWords {
-            trie.insert(word)
-        }
+        var res = Set<String>(), visited = Set<Coordinate>()
         
-        func dfs(row: Int, col: Int, str: String) {
-            if !(0..<m).contains(row) ||  !(0..<n).contains(col) || visited.contains([row, col]) {
-                return
-            }
-            let str = str + "\(board[row][col])"
-            if !trie.startsWith(str) {
+        func dfs(coord: Coordinate, node: TrieNode, word: String) {
+            if coord.row < 0 || coord.row == m || coord.col < 0 || coord.col == n || visited.contains(coord) || node.children[ board[coord.row][coord.col]] == nil {
                 return
             }
             
-            if trie.search(str) && !result.contains(str) {
-                result.append(str)
+            visited.insert(coord)
+            let word = word + "\(board[coord.row][coord.col])"
+            let node = node.children[board[coord.row][coord.col]]!
+            if node.isWord {
+                res.insert(word)
             }
-            
-            visited.insert([row, col])
-            dfs(row: row, col: col-1, str: str)
-            dfs(row: row, col: col+1, str: str)
-            dfs(row: row-1, col: col, str: str)
-            dfs(row: row+1, col: col, str: str)
-            visited.remove([row, col])
+            for direction in directions {
+                let nRow = coord.row + direction.0
+                let nCol = coord.col + direction.1
+                
+                dfs(coord: Coordinate(row: nRow, col: nCol), node: node, word: word)
+            }
+            visited.remove(coord)
         }
         
         for row in 0..<m {
-            for col in 0..<n {
-                dfs(row: row, col: col, str: "")
+            for col in 0..<n where trie.children[board[row][col]] != nil  {
+                dfs(coord: Coordinate(row: row, col: col), node: trie, word: "")
             }
         }
-        
-        return result
+        return Array(res)
+    }
+    
+    struct Coordinate: Hashable {
+        let row: Int
+        let col: Int
     }
 }
 
@@ -356,6 +375,173 @@ class LetterCombinationsPhoneNumber {
     }
 }
 
+class FindDiffBinaryStr {
+    func callAsFunction(_ nums: [String]) -> String {
+        let n = nums[0].count
+        let existing = Set(nums)
+        
+        func dfs(path: String) -> String? {
+            if path.count == n {
+                if !existing.contains(path) {
+                    return path
+                }
+                return nil
+            }
+            
+            for bNum in ["0", "1"] {
+                let path = path + bNum
+                if let res = dfs(path: path) {
+                    return res
+                }
+            }
+            return nil
+        }
+        
+        let result = dfs(path: "")
+        return result ?? ""
+    }
+}
+
+class MaxLengthOfConcatenatedStrWithUniqChars {
+    func callAsFunction(_ arr: [String]) -> Int {
+        var charSet = Set<Character>()
+        
+        func isoverlaping(str: String) -> Bool {
+            var counter = [Character: Int]()
+            for char in charSet {
+                counter[char, default: 0] += 1
+            }
+            for char in str {
+                counter[char, default: 0] += 1
+                if counter[char]! > 1 {
+                    return true
+                }
+            }
+            return false
+        }
+        
+        func dfs(_ i: Int) -> Int {
+            if i == arr.count {
+                return charSet.count
+            }
+            
+            var res = 0
+            if !isoverlaping(str: arr[i]) {
+                for char in arr[i] {
+                    charSet.insert(char)
+                }
+                res = dfs(i + 1)
+                for char in arr[i] {
+                    charSet.remove(char)
+                }
+            }
+            return max(res, dfs(i + 1))
+        }
+        return dfs(0)
+    }
+}
+
+class SplitStrIntoDescendingConsecutiveVals {
+    func callAsFunction(_ s: String) -> Bool {
+        let sComponents = Array(s)
+        
+        func dfs(_ i: Int, prev: Int) -> Bool {
+            if i == s.count && prev != Int(s) {
+                return true
+            }
+            
+            for j in i..<s.count {
+                if let nextNum = Int(String(sComponents[i..<j+1])), nextNum + 1 == prev {
+                    if dfs(j+1, prev: nextNum) {
+                        return true
+                    }
+                }
+            }
+            return false
+        }
+        
+        for i in 0..<s.count {
+            if let num = Int(String(sComponents[0..<i+1])), dfs(i+1, prev: num) {
+                return true
+            }
+        }
+        
+        return false
+    }
+}
+
+class MatchsticksToSquare {
+    func callAsFunction(_ matchsticks: [Int]) -> Bool {
+        let sum = matchsticks.reduce(0, +)
+        let sideLength = sum/4
+        if Double(sideLength) != Double(sum)/4.0 {
+            return false
+        }
+        let matchsticks = matchsticks.sorted(by: >)
+        var square = [Int](repeating: 0, count: 4)
+        
+        func dfs(_ i: Int) -> Bool {
+            if i == matchsticks.count {
+                return true
+            }
+            
+            let matchstick = matchsticks[i]
+            for side in 0..<4 {
+                if square[side] + matchstick <= sideLength {
+                    square[side] += matchstick
+                    if dfs(i + 1) {
+                        return true
+                    }
+                    square[side] -= matchstick
+                }
+            }
+            return false
+        }
+        
+        return dfs(0)
+    }
+}
+
+class RestoreIPAddress {
+    func callAsFunction(_ s: String) -> [String] {
+        if s.count < 4 && s.count > 12 {
+            return []
+        }
+        var res = [String]()
+        let sComponents = Array(s)
+        
+        func dfs(_ i: Int, path: [Int]) {
+            if path.count == 4 && i != s.count {
+                return
+            }
+            if i == s.count && path.count == 4 {
+                var ipAddress = ""
+                for i in 0..<path.count {
+                    ipAddress += "\(path[i])"
+                    if i != (path.count - 1) {
+                        ipAddress += "."
+                    }
+                }
+                res.append(ipAddress)
+                return
+            }
+            
+            for j in i..<i+3 where j < s.count {
+                if j != i && sComponents[i] == Character("0") {
+                    break
+                }
+                if let currentDigit = Int(String(sComponents[i..<j+1])), (0..<256).contains(currentDigit) {
+                    let path = path + [currentDigit]
+                    dfs(j+1, path: path)
+                }
+            }
+        }
+        
+        dfs(0, path: [])
+        return res
+    }
+}
+
 class FactorCombinations {
     func getFactors(_ n: Int) -> [[Int]] {
         var factors = [[Int]]()
@@ -513,6 +699,39 @@ class IsGraphBipartite {
         }
         //loop through all vertices as we are not sure if graph is connected
         for i in 0..<graph.count {
+            if colorArr[i] == -1 && !isValidColor(index: i, color: 1) {
+                return false
+            }
+        }
+        return true
+    }
+}
+
+class PossibleBipartition {
+    func callAsFunction(_ n: Int, _ dislikes: [[Int]]) -> Bool {
+        var adjList = [Int: [Int]]()
+        for dislike in dislikes {
+            adjList[dislike[0] - 1, default: []].append(dislike[1] - 1)
+            adjList[dislike[1] - 1, default: []].append(dislike[0] - 1)
+        }
+        
+        var colorArr = [Int](repeating: -1, count: n)
+        
+        func isValidColor(index: Int, color: Int) -> Bool {
+            if colorArr[index] != -1 {
+                return colorArr[index] == color
+            }
+            
+            colorArr[index] = color
+            for neighbour in adjList[index] ?? [] {
+                if !isValidColor(index: neighbour, color: 1 - color) {
+                    return false
+                }
+            }
+            return true
+        }
+        
+        for i in 0..<n {
             if colorArr[i] == -1 && !isValidColor(index: i, color: 1) {
                 return false
             }
@@ -1065,5 +1284,443 @@ class PacificAtlantic {
         }
         
         return result
+    }
+}
+/*
+ problem:
+ Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.
+
+ A region is captured by flipping all 'O's into 'X's in that surrounded region.
+ 
+ Testcases:
+ Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
+ Output: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
+ Explanation: Surrounded regions should not be on the border, which means that any 'O' on the border of the board are not flipped to 'X'. Any 'O' that is not on the border and it is not connected to an 'O' on the border will be flipped to 'X'. Two cells are connected if they are adjacent cells connected horizontally or vertically.
+ 
+ Input: board = [["X"]]
+ Output: [["X"]]
+ 
+ 
+ Constraints:
+ m == board.length
+ n == board[i].length
+ 1 <= m, n <= 200
+ board[i][j] is 'X' or 'O'
+ 
+ 
+ link: https://leetcode.com/problems/surrounded-regions/
+ explanation: https://www.youtube.com/watch?v=9z2BunfoZ5Y&t=559s
+ primary idea:
+ - Reverse Thinking. Check if there is any UnSurrounded region from borders like first row, first column, last row, last column. If any, convert `O` to `T`
+ - Rest all `O` will be surrounded regions. Convert all `O` to `X` if one traverse
+ - Convert all `T` to `O`
+ Time Complexity: O(3(m*n))
+ Space Complexity: O(1)
+ */
+class SurroundedRegions {
+    func callAsFunction(_ board: inout [[Character]]) {
+        let m = board.count, n = board.first!.count
+        
+        func markUnSurroundedTemporary(row: Int, col: Int) {
+            if row < 0 || row == m || col < 0 || col == n || board[row][col] != Character("O") {
+                return
+            }
+            board[row][col] = Character("T")
+            for position in [(row - 1, col), (row, col - 1), (row + 1, col), (row, col + 1)] {
+                markUnSurroundedTemporary(row: position.0, col: position.1)
+            }
+        }
+        
+        for row in 0..<m {
+            for col in 0..<n where board[row][col] == Character("O") && ([0, m-1].contains(row) || [0, n-1].contains(col)) {
+                markUnSurroundedTemporary(row: row, col: col)
+            }
+        }
+        
+        for row in 0..<m {
+            for col in 0..<n where board[row][col] == Character("O") {
+                board[row][col] = Character("X")
+            }
+        }
+        
+        for row in 0..<m {
+            for col in 0..<n where board[row][col] == Character("T") {
+                board[row][col] = Character("O")
+            }
+        }
+    }
+}
+
+class FloodFill {
+    func callAsFunction(_ image: [[Int]], _ sr: Int, _ sc: Int, _ newColor: Int) -> [[Int]] {
+        var image = image
+        let m = image.count, n = image[0].count
+        let startColor: Int = image[sr][sc]
+        func dfs(row: Int, col: Int) {
+            if row < 0 || row == m || col < 0 || col == n || image[row][col] != startColor || image[row][col] == newColor {
+                return
+            }
+            image[row][col] = newColor
+            for (nRow, nCol) in [(row - 1, col), (row + 1, col), (row, col - 1), (row, col + 1)] {
+                dfs(row: nRow, col: nCol)
+            }
+        }
+        dfs(row: sr, col: sc)
+        return image
+    }
+}
+
+class ReconstructItinerary {
+    func callAsFunction(_ tickets: [[String]]) -> [String] {
+        var adjList = [String: [String]]()
+        let tickets = tickets.sorted{
+            if $0[0] == $1[0] {
+                return $0[1] < $1[1]
+            }
+            return $0[0] < $1[0]
+        }
+        
+        for ticket in tickets {
+            adjList[ticket[0], default: []].append(ticket[1])
+        }
+        
+        var res = ["JFK"]
+        func dfs(_ airport: String) -> Bool {
+            if res.count == (tickets.count + 1) {
+                return true
+            }
+            if adjList[airport] == nil {
+                return false
+            }
+            
+            let temp = adjList[airport]!
+            for (i,destination) in temp.enumerated() {
+                adjList[airport]!.remove(at: i)
+                res.append(destination)
+                if dfs(destination) {
+                    return true
+                }
+                _ = res.popLast()
+                adjList[airport]!.insert(destination, at: i)
+            }
+            return false
+        }
+        _ = dfs("JFK")
+        return res
+    }
+}
+
+class MaxAreaOfIsland {
+    func callAsFunction(_ grid: [[Int]]) -> Int {
+        typealias Coordinate = (row: Int, col: Int)
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        var grid = grid
+        let m = grid.count, n = grid[0].count
+        
+        func dfs(_ coord: Coordinate) -> Int {
+            if coord.row < 0 || coord.row == m || coord.col < 0 || coord.col == n || grid[coord.row][coord.col] != 1 {
+                return 0
+            }
+            grid[coord.row][coord.col] = 0
+            var area = 1
+            for direction in directions {
+                area += dfs((coord.row + direction.0, coord.col + direction.1))
+            }
+            return area
+        }
+        
+        var maxArea = 0
+        for row in 0..<m {
+            for col in 0..<n where grid[row][col] == 1 {
+                maxArea = max(maxArea, dfs((row, col)))
+            }
+        }
+        
+        return maxArea
+    }
+}
+
+/*
+ problem:
+ There is a directed graph of n nodes with each node labeled from 0 to n - 1. The graph is represented by a 0-indexed 2D integer array graph where graph[i] is an integer array of nodes adjacent to node i, meaning there is an edge from node i to each node in graph[i].
+
+ A node is a terminal node if there are no outgoing edges. A node is a safe node if every possible path starting from that node leads to a terminal node.
+
+ Return an array containing all the safe nodes of the graph. The answer should be sorted in ascending order.
+ 
+ Testcases:
+ Input: graph = [[1,2],[2,3],[5],[0],[5],[],[]]
+ Output: [2,4,5,6]
+ Explanation: The given graph is shown above.
+ Nodes 5 and 6 are terminal nodes as there are no outgoing edges from either of them.
+ Every path starting at nodes 2, 4, 5, and 6 all lead to either node 5 or 6.
+ 
+ Input: graph = [[1,2,3,4],[1,2],[3,4],[0,4],[]]
+ Output: [4]
+ Explanation:
+ Only node 4 is a terminal node, and every path starting at node 4 leads to node 4.
+ 
+ 
+ Constraints:
+ n == graph.length
+ 1 <= n <= 104
+ 0 <= graph[i].length <= n
+ 0 <= graph[i][j] <= n - 1
+ graph[i] is sorted in a strictly increasing order.
+ The graph may contain self-loops.
+ The number of edges in the graph will be in the range [1, 4 * 104].
+ 
+ 
+ link: https://leetcode.com/problems/find-eventual-safe-states/
+ explanation: https://leetcode.com/problems/find-eventual-safe-states/discuss/902091/Swift-Recursion-%2B-Memo
+ primary idea:
+ - Backtracking
+ - For everypath we traverse, we use a set to detect any cycle
+ - We traverse till end of dfs and while backtracking we keep track of safenodes state in memo
+ - Every path starting from terminal node leads to same node, so even it is a safe node.
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class FindEventualSafeStates {
+    func callAsFunction(_ graph: [[Int]]) -> [Int] {
+        typealias Node = Int
+        var memo = [Node: Bool]()
+        func isSafe(node: Node, path: Set<Int>) -> Bool {
+            var eventuallySafe = true
+            for neighbourNode in graph[node] {
+                if let isAlreadySafe = memo[node] {
+                    return isAlreadySafe
+                }
+                if path.contains(neighbourNode) {
+                    eventuallySafe = false
+                    break
+                }
+                var path = path
+                path.insert(node)
+                if !isSafe(node: neighbourNode, path: path) {
+                    eventuallySafe = false
+                }
+            }
+            memo[node] = eventuallySafe
+            return eventuallySafe
+        }
+        var result = [Node]()
+        for i in 0..<graph.count {
+            if isSafe(node: i, path: Set<Int>()) {
+                result.append(i)
+            }
+        }
+        return result
+    }
+}
+
+class NumberOfClosedIslands {
+    func dfsWithBitManipulation(_ grid: [[Int]]) -> Int {
+        typealias Coordinate = (row: Int, col: Int)
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        var grid = grid
+        let m = grid.count, n = grid[0].count
+        
+        func dfs(_ coord: Coordinate) -> Int {
+            if coord.row < 0 || coord.row == m || coord.col < 0 || coord.col == n {
+                return 0
+            }
+            if grid[coord.row][coord.col] == 1 {
+                return 1
+            }
+            grid[coord.row][coord.col] = 1
+            var res = 1
+            for direction in directions {
+                let neighbourCoord: Coordinate = (coord.row + direction.0, coord.col + direction.1)
+                res = res & dfs(neighbourCoord)
+            }
+            return res
+        }
+        
+        var result = 0
+        for row in 0..<m {
+            for col in 0..<n where grid[row][col] == 0 {
+                result += dfs((row, col))
+            }
+        }
+        return result
+    }
+    
+    //TO-DO: Check why its failing while using bool instead of bit manipulation
+    // link: https://leetcode.com/problems/number-of-closed-islands/discuss/507470/Clean-Swift-Solution-100-Faster-and-100-better-Space-by-Joshua-Puente
+    func dfs(_ grid: [[Int]]) -> Int {
+        typealias Coordinate = (row: Int, col: Int)
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        let m = grid.count, n = grid[0].count
+        var grid = grid
+        
+        func dfs(_ coord: Coordinate) -> Bool {
+            if coord.row < 0 || coord.row == m || coord.col < 0 || coord.col == n {
+                return false
+            }
+            
+            if [1, -1].contains(grid[coord.row][coord.col]) {
+                return true
+            }
+            if grid[coord.row][coord.col] == 0 {
+                grid[coord.row][coord.col] = -1
+            }
+            var res = true
+            for direction in directions {
+                let neighbourCoord = (coord.row + direction.0, coord.col + direction.1)
+                res = res && dfs(neighbourCoord)
+            }
+            return res
+        }
+        
+        var result = 0
+        for row in 0..<m {
+            for col in 0..<n where grid[row][col] == 0 {
+                if dfs((row, col)) {
+                    result += 1
+                }
+            }
+        }
+        return result
+    }
+}
+
+class NumberOfEnclaves {
+    func callAsFunction(_ grid: [[Int]]) -> Int {
+        typealias Coordinate = (row: Int, col: Int)
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        let m = grid.count, n = grid[0].count
+        var grid = grid
+        
+        func dfs(_ coord: Coordinate, currentIslandLands: inout Int) -> Int {
+            if coord.row < 0 || coord.row == m || coord.col < 0 || coord.col == n {
+                return 0
+            }
+            if grid[coord.row][coord.col] == 0 {
+                return 1
+            }
+            grid[coord.row][coord.col] = 0
+            currentIslandLands += 1
+            var res = 1
+            for direction in directions {
+                let neighbourCoord = (coord.row + direction.0, coord.col + direction.1)
+                res = res & dfs(neighbourCoord, currentIslandLands: &currentIslandLands)
+            }
+            return res
+        }
+        
+        var total = 0
+        for row in 0..<m {
+            for col in 0..<n where grid[row][col] == 1 {
+                var currentLands = 0
+                if dfs((row, col), currentIslandLands: &currentLands) == 1 {
+                    total += currentLands
+                }
+            }
+        }
+        return total
+    }
+}
+
+class KeysAndRooms {
+    func dfs(_ rooms: [[Int]]) -> Bool {
+        var visited = Set<Int>()
+        
+        func dfs(_ room: Int) {
+            visited.insert(room)
+            for nRoom in rooms[room] where !visited.contains(nRoom) {
+                dfs(nRoom)
+            }
+        }
+        dfs(0)
+        return visited.count == rooms.count
+    }
+    
+    func bfs(_ rooms: [[Int]]) -> Bool {
+        var visited = Set<Int>()
+        var stack = [0]
+        
+        while !stack.isEmpty {
+            let level = stack
+            stack.removeAll()
+            
+            for room in level {
+                visited.insert(room)
+                
+                for nRoom in rooms[room] {
+                    if !visited.contains(nRoom) {
+                        stack.append(nRoom)
+                    }
+                }
+            }
+        }
+        
+        return visited.count == rooms.count
+    }
+}
+
+class FindTownJudge {
+    func callAsFunction(_ n: Int, _ trust: [[Int]]) -> Int {
+        var trustCountArr = [Int](repeating: 0, count: n+1)
+        
+        for edge in trust {
+            trustCountArr[edge[0]] -= 1
+            trustCountArr[edge[1]] += 1
+        }
+        
+        for i in 1..<trustCountArr.count {
+            let count = trustCountArr[i]
+            if count == (n-1) {
+                return i
+            }
+        }
+        return -1
+    }
+}
+
+class RegionCutBySlashes {
+    func regionsBySlashes(_ grid: [String]) -> Int {
+        typealias Coordinate = (row: Int, col: Int)
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        let charToPixelSet = [
+            " ": [[0,0,0], [0,0,0], [0,0,0]],
+            "/": [[0,0,1], [0,1,0], [1,0,0]],
+            "\\": [[1,0,0], [0,1,0], [0,0,1]],
+        ]
+        
+        var matrix = [[Int]]()
+        for row in grid {
+            var firstRow = [Int](), secondRow = [Int](), thirdRow = [Int]()
+            for char in row {
+                let pixels = charToPixelSet[String(char)]
+                firstRow += pixels![0]
+                secondRow += pixels![1]
+                thirdRow += pixels![2]
+            }
+            matrix += [firstRow, secondRow, thirdRow]
+        }
+        
+        let m = matrix.count, n = matrix[0].count
+        
+        func dfs(_ coord: Coordinate) {
+            if coord.row < 0 || coord.row == m || coord.col < 0 || coord.col == n || matrix[coord.row][coord.col] != 0 {
+                return
+            }
+            matrix[coord.row][coord.col] = -1
+            for direction in directions {
+                let nRow = coord.row + direction.0
+                let nCol = coord.col + direction.1
+                dfs((nRow, nCol))
+            }
+        }
+        
+        var totalregion = 0
+        for row in 0..<m {
+            for col in 0..<n where matrix[row][col] == 0 {
+                dfs((row, col))
+                totalregion += 1
+            }
+        }
+        return totalregion
     }
 }

@@ -75,6 +75,9 @@
 [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)| [Swift](./Array/LongestConsecutiveSequence.swift)| Hard| O(n)| O(n)|
 [Create Maximum Number](https://leetcode.com/problems/create-maximum-number/)| [Swift](./Array/CreateMaximumNumber.swift)| Hard| O(n^2)| O(n)|
 [Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
+[Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
+[Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
+[Brick Wall](https://leetcode.com/problems/brick-wall/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
 
 ## String
 | Title | Solution | Difficulty | Time | Space |
@@ -300,6 +303,8 @@
 [Word Ladder](https://leetcode.com/problems/word-ladder/)| [Swift](./BFS/WordLadder.swift)| Medium| O(nm)| O(nm)|
 [Evaluate Division](https://leetcode.com/problems/evaluate-division/)| [Swift](./BFS/EvaluateDivision.swift)| Medium| O(n^2)| O(n)|
 [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Open the Lock](https://leetcode.com/problems/open-the-lock/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Snakes And Ladders](https://leetcode.com/problems/snakes-and-ladders/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
 
 ## Math
 | Title | Solution | Difficulty | Time | Space |
@@ -363,6 +368,7 @@
 [Sqrt(x)](https://leetcode.com/problems/sqrtx/)| [Swift](./Search/Sqrtx.swift)| Medium| O(logn)| O(1)|
 [Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters/)| [Swift](./Search/Sqrtx.swift)| Medium| O(logn)| O(1)|
 [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
+[Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
 [Minimize Max Distance to Gas Station](https://leetcode.com/problems/minimize-max-distance-to-gas-station/)| [Swift](./Search/MinimizeMaxDistanceGasStation.swift)| Hard| O(nlogm)| O(1)|
 
 ## Sort
@@ -375,8 +381,8 @@
 [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
 [Sort Transformed Array](https://www.lintcode.com/problem/906/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
 [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)| [Swift](./Sort/TopKFrequentElements.swift)| Medium| O(nlogn)| O(n)|
-[Meeting Rooms](https://leetcode.com/problems/meeting-rooms/)| [Swift](./Sort/MeetingRooms.swift)| Easy| O(nlogn)| O(1)|
-[Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/)| [Swift](./Sort/MeetingRoomsII.swift)| Medium| O(nlogn)| O(n)|
+[Meeting Rooms &hearts;](https://www.lintcode.com/problem/920/)| [Swift](./Sort/MeetingRooms.swift)| Easy| O(nlogn)| O(1)|
+[Meeting Rooms II &hearts;](https://www.lintcode.com/problem/919/)| [Swift](./Sort/MeetingRoomsII.swift)| Medium| O(nlogn)| O(n)|
 [Merge Intervals](https://leetcode.com/problems/merge-intervals/)| [Swift](./Sort/MergeIntervals.swift)| Hard| O(nlogn)| O(n)|
 [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)| [Swift](./Sort/KthLargestElementInArray.swift)| Medium| O(nlogn)| O(n)|
 [Array Partition I](https://leetcode.com/problems/array-partition-i/description/)| [Swift](./Sort/ArrayPartitionI.swift)|Easy| O(nlogn)| O(n)|

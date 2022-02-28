@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreVideo
 
 class AddBinary {
     //Time & space: O(a + b)
@@ -141,6 +142,32 @@ class MissingNumber {
     }
 }
 
+class DivideTwoIntegers {
+    func callAsFunction(_ dividend: Int, _ divisor: Int) -> Int {
+        if dividend == 1 << 31 && divisor < 0 {
+            return Int.max - 1
+        }
+        
+        let sign = (dividend < 0) == (divisor < 0) ? 1 : -1
+        var dividend = abs(dividend)
+        let divisor = abs(divisor)
+        
+        var result = 0
+        while dividend - divisor >= 0 {
+            var count = 0
+            var incrementalVal = divisor
+            while dividend - (incrementalVal << 1) >= 0 {
+                count += 1
+                incrementalVal <<= 1
+            }
+            result += 1 << count
+            dividend -= incrementalVal
+        }
+        
+        return sign * result
+    }
+}
+
 func divide(_ dividend: Int, _ divisor: Int) -> Int {
 
     var mutableDividend = dividend
@@ -187,6 +214,87 @@ func divide(_ dividend: Int, _ divisor: Int) -> Int {
 
 /*
  problem:
+ The complement of an integer is the integer you get when you flip all the 0's to 1's and all the 1's to 0's in its binary representation.
+
+ For example, The integer 5 is "101" in binary and its complement is "010" which is the integer 2.
+ Given an integer num, return its complement.
+ 
+ Testcases:
+ Input: num = 5
+ Output: 2
+ Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+ 
+ Input: num = 1
+ Output: 0
+ Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
+ 
+ Constraints:
+ 1 <= num < 231
+ 
+ link: https://leetcode.com/problems/number-complement/
+ explanation: https://www.youtube.com/watch?v=oURSuMY4zSc
+ primary idea:
+ - Convert Bit by Bit and if it is 1 multiply it by its position power
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
+class NumberComplement {
+    func callAsFunction(_ num: Int) -> Int {
+        var result = 0, num = num
+        var power = 1
+        
+        while num > 0 {
+            result += ((num % 2) ^ 1) * power
+            power <<= 1
+            num >>= 1
+        }
+        
+        return result
+    }
+}
+
+/*
+ problem:
+ The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+
+ Given two integers x and y, return the Hamming distance between them.
+ 
+ Testcases:
+ Input: x = 1, y = 4
+ Output: 2
+ Explanation:
+ 1   (0 0 0 1)
+ 4   (0 1 0 0)
+        ↑   ↑
+ The above arrows point to positions where the corresponding bits are different.
+ 
+ Input: x = 3, y = 1
+ Output: 1
+ 
+ Constraints:
+ 0 <= x, y <= 231 - 1
+ 
+ link: https://leetcode.com/problems/hamming-distance/
+ explanation: https://www.youtube.com/watch?v=oGU1At1GFvc
+ primary idea:
+ - Iterate through each and every bit and check if it's different
+ Time Complexity:
+ Space Complexity:
+ */
+class HammingDistance {
+    func callAsFunction(_ x: Int, _ y: Int) -> Int {
+        var x = x, y = y, distance = 0
+        while x > 0 || y > 0 {
+            distance += (x % 2) ^ (y % 2)
+            x >>= 1
+            y >>= 1
+        }
+        return distance
+    }
+}
+
+/*
+ problem:
  Given an integer n, break it into the sum of k positive integers, where k >= 2, and maximize the product of those integers.
 
  Return the maximum product you can get.
@@ -212,6 +320,8 @@ func divide(_ dividend: Int, _ divisor: Int) -> Int {
  explanation: https://www.youtube.com/watch?v=in6QbUPMJ3I&t=524s
  primary idea:
  - Tabular DP Approach
+ - k >= 2. it means the input number should be broken. like 4 = 2+2. But 2 here need not necessarily be broken in to 1 + 1, so we stay with 2.
+ - cache[num] = num == n ? 0 : num. This line denotes num should be compulsory broken for input and not necessaary for sub numbers.
  Time Complexity:
  Space Complexity:
  */
@@ -253,10 +363,16 @@ class IntegerBreak {
  0 <= n <= 104
  
  link: https://leetcode.com/problems/factorial-trailing-zeroes/
- explanation: https://www.youtube.com/watch?v=IJ1u9iHXH8w
+ explanation: https://www.youtube.com/watch?v=IJ1u9iHXH8w, For why we are multiplying a by 5, watch at 4: 21 https://www.youtube.com/watch?v=nnmS7PEnvy8&t=302s
  primary idea:
  - zeros can be formed by multiples of 10 and 10 can even be divded in to 2 and 5.
  - In a factorial 2 occurs every alternate number and 5 occurs every fifth number. If we are able to find the count of 5, that is equal to count of trailing zeros
+ - For example, for n = 25, 25!
+ 5 * 10 * 15 * 20 * 25
+ (1 * 5) * (2 * 5) * (3 * 5) * (4 * 5) * (5 * 5)
+ here n/a i.e 25/5 gives only 5, but we have 6.
+ diving by 5 gives first set 5 count = 5
+ diving by 25 gives second set 5 count = 1
  
  Time Complexity: O(logN)
  Space Complexity: O(1)
@@ -277,18 +393,35 @@ class FactorialTrailingZeros {
 
 /*
  problem:
+ Write an algorithm to determine if a number n is happy.
+
+ A happy number is a number defined by the following process:
+
+ Starting with any positive integer, replace the number by the sum of the squares of its digits.
+ Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+ Those numbers for which this process ends in 1 are happy.
+ Return true if n is a happy number, and false if not.
  
  Testcases:
+ Input: n = 19
+ Output: true
+ Explanation:
+ 12 + 92 = 82
+ 82 + 22 = 68
+ 62 + 82 = 100
+ 12 + 02 + 02 = 1
+ 
+ Input: n = 2
+ Output: false
  
  Constraints:
+ 1 <= n <= 231 - 1
  
- link: https://leetcode.com/problems/course-schedule/
- explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ link: https://leetcode.com/problems/happy-number/
+ explanation: https://www.youtube.com/watch?v=ljz85bxOYJ0
  primary idea:
- - create Adj list, map from course to its prerequisite courses
- - perform classic DFS on Adj list
- - once we get to know that specific course is completable, mark it's adj list value as empty which helps reduce redundant operations #44
- - Given prerequites may contain un connected graphs, better to loops through evey course so that we don miss any course #67
+ - We should maintain a set to track if we are encountering a cycle or not. If we encounter a cycle we break and return false
+ - In case of input n == 2, there is a cycle. in the process it encounter 37 again and again.
  Time Complexity:
  Space Complexity:
  */
@@ -324,6 +457,35 @@ class HappyNumber {
     }
 }
 
+/*
+ problem:
+ Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.
+
+ You must implement a solution with a linear runtime complexity and use only constant extra space.
+ 
+ Testcases:
+ Input: nums = [2,2,1]
+ Output: 1
+ 
+ Input: nums = [4,1,2,1,2]
+ Output: 4
+ 
+ Input: nums = [1]
+ Output: 1
+ 
+ Constraints:
+ 1 <= nums.length <= 3 * 104
+ -3 * 104 <= nums[i] <= 3 * 104
+ Each element in the array appears twice except for one element which appears only once.
+ 
+ link: https://leetcode.com/problems/single-number/
+ explanation: 
+ primary idea:
+ - SET: We can use set to store a value and if we encounter again we will remove that element. After loop set will remain with element which doesnot appeared twice
+ - XOR: if we use a XOR operator for two same numbers, it results Zero. If we Xor with all elements in array, it remain with only number which appeared only once.
+ Time Complexity:
+ Space Complexity:
+ */
 class SingleNumber {
     func callAsFunction(_ nums: [Int]) -> Int {
         var set = Set<Int>()
@@ -512,26 +674,51 @@ class CountPrimes {
 
 class StringToInteger {
     func myAtoi(_ s: String) -> Int {
-        var result = 0, sign = 1
+        var number = 0
+        var sign = 0
+        var foundFirstChar = false
         
-        for (i, val) in s.utf8.enumerated() {
-            let value = Int(val)
-            if i == 0 && value == 45 {
-                sign = -1
-            } else {
-                let number = value - Int("0".unicodeScalars.first!.value)
-                if number >= 0 && number <= 9 {
-                    result = (result * 10) + number
-                }
+        for c in s {
+            if c == " " {
+                if foundFirstChar { break }
+                continue
             }
+            
+            if ["+", "-"].contains(c) {
+                if sign != 0 { break }
+                if foundFirstChar == false {
+                    foundFirstChar = true
+                }
+                sign = c == "+" ? 1 : -1
+                continue
+            }
+            
+            if c >= "0" && c <= "9" {
+                if foundFirstChar == false {
+                    foundFirstChar = true
+                }
+                if sign == 0 {
+                    sign = 1
+                }
+                
+                number *= 10
+                number += Int(c.asciiValue! - Character("0").asciiValue!)
+                
+                if (number * sign) >= Int32.max {
+                   return Int(Int32.max)
+                } else if (number * sign) <= Int32.min {
+                   return Int(Int32.min)
+                }
+                
+                continue
+            }
+            break
         }
-
-        return result * sign
-    }
-}
-fileprivate extension String {
-    subscript(_ i: Int) -> Character? {
-        self[self.index(startIndex, offsetBy: i)]
+        
+        number *= sign
+        number = min(Int(Int32.max), number)
+        number = max(Int(Int32.min), number)
+        return number
     }
 }
 
@@ -570,9 +757,347 @@ class Pow3 {
     }
 }
 
+/*
+ problem:
+ Given two integers a and b, return the sum of the two integers without using the operators + and -.
+
+ Testcases:
+ Input: a = 1, b = 2
+ Output: 3
+ 
+ Input: a = 2, b = 3
+ Output: 5
+ 
+ Constraints:
+ -1000 <= a, b <= 1000
+ 
+ link: https://leetcode.com/problems/sum-of-two-integers/
+ explanation: https://www.youtube.com/watch?v=gVUrDV4tZfY
+ primary idea:
+ - XOR operation gives result except for carry
+ - We get carry 1 only if both bits are 1. so, we and it and left shift as carry moves to left.
+ Time Complexity: Mostly O(1), because -1000 <= a, b <= 1000. If the values are even larger it would have been O(N)
+ Space Complexity: O(1)
+ */
 class SumOfTwoIntegers {
     func callAsFunction(_ a: Int, _ b: Int) -> Int {
+        var a = a, b = b
+        while b != 0 {
+            (a, b) = (a ^ b, (a & b) << 1)
+        }
+        return a
+    }
+}
+
+
+/*
+ problem:
+ Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-231, 231 - 1], then return 0.
+
+ Assume the environment does not allow you to store 64-bit integers (signed or unsigned).
+ 
+ Testcases:
+ Input: x = 123
+ Output: 321
+ 
+ Input: x = -123
+ Output: -321
+ 
+ Input: x = 120
+ Output: 21
+ 
+ Input: x = 0
+ Output: 0
+ 
+ Constraints:
+ -231 <= x <= 231 - 1
+ 
+ link: https://leetcode.com/problems/reverse-integer/
+ explanation: https://www.youtube.com/watch?v=HAgLH58IgJQ&t=693s
+ primary idea:
+ - We use % operator finding out last digit and / operator for left out number
+ - (res * 10) + digit for proper reversing
+ Time Complexity: O(N)
+ Space Complexity: O(1)
+ */
+class ReverseInteger {
+    func callAsFunction(_ x: Int) -> Int {
+        let sign = x < 0 ? -1 : 1
+        var x = abs(x), res = 0
+        let max = Int(Int32.max)
+        let min = Int(Int32.min)
         
+        while x > 0 {
+            let digit = x % 10
+            x = x / 10
+            
+            if (res > max/10) || (res == max/10 && digit > max%10) {
+                return 0
+            } else if (res < min/10) || (res == min/10 && digit < min%10) {
+                return 0
+            }
+            
+            res = (res * 10) + digit
+        }
+        return res * sign
+    }
+}
+
+class ExcelSheetColumnNumber {
+    func callAsFunction(_ columnTitle: String) -> Int {
+        var res = 0
+        for char in columnTitle {
+            res = (res * 26) + Int((char.asciiValue! - Character("A").asciiValue!) + 1)
+        }
+        return res
+    }
+}
+
+/*
+ problem:
+ Given a roman numeral, convert it to an integer.
+
+ 
+ Testcases:
+ Input: s = "III"
+ Output: 3
+ 
+ Input: s = "IV"
+ Output: 4
+ 
+ Input: s = "IX"
+ Output: 9
+ 
+ Input: s = "LVIII"
+ Output: 58
+ Explanation: L = 50, V= 5, III = 3.
+ 
+ Input: s = "MCMXCIV"
+ Output: 1994
+ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+ 
+ Constraints:
+ 1 <= s.length <= 15
+ s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
+ It is guaranteed that s is a valid roman numeral in the range [1, 3999].
+ 
+ link: https://leetcode.com/problems/roman-to-integer/
+ explanation: https://www.youtube.com/watch?v=3jdxYj3DD98
+ primary idea:
+ - Check if the value that comess after current roman is greater or lower. If it lower the value should be minus from result (IV == 4). If it is greater the value shoyld be add to result.
+ Time Complexity: O(n)
+ Space Complexity: O(n), for romans variable
+ */
+class RomanToInteger {
+    func callAsFunction(_ s: String) -> Int {
+        var romans = Array(s).map{ String($0) }, res = 0
+        let map = [
+            "M": 1000,
+            "D": 500,
+            "C": 100,
+            "L": 50,
+            "X": 10,
+            "V": 5,
+            "I": 1
+        ]
+        
+        for i in 0..<s.count {
+            if i + 1 < s.count && map[romans[i]]! < map[romans[i + 1]]! {
+                res -= map[romans[i]]!
+            } else {
+                res += map[romans[i]]!
+            }
+        }
+        return res
+    }
+}
+
+/*
+ problem:
+ Given an integer, convert it to a roman numeral.
+
+ Testcases:
+ Input: num = 3
+ Output: "III"
+ 
+ Input: num = 4
+ Output: "IV"
+ 
+ Input: num = 9
+ Output: "IX"
+ 
+ Input: num = 58
+ Output: "LVIII"
+ Explanation: L = 50, V = 5, III = 3.
+ 
+ Input: num = 1994
+ Output: "MCMXCIV"
+ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
+ 
+ Constraints:
+ 1 <= num <= 3999
+ 
+ link: https://leetcode.com/problems/integer-to-roman/
+ explanation: https://www.youtube.com/watch?v=ohBNdSJyLh8&t=33s
+ primary idea:
+ - count how many romans present higher order wise.
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
+class IntegerToRoman {
+    func callAsFunction(_ num: Int) -> String {
+        var num = num
+        var result = ""
+        
+        let symList = [
+            ["I", 1],
+            ["IV", 4],
+            ["V", 5],
+            ["IX", 9],
+            ["X", 10],
+            ["XL", 40],
+            ["L", 50],
+            ["XC", 90],
+            ["C", 100],
+            ["CD", 400],
+            ["D", 500],
+            ["CM", 900],
+            ["M", 1000]
+        ]
+        
+        for item in symList.reversed() {
+            let val = item[1] as! Int
+            let sym = item[0] as! String
+            let count = num/val
+            if count > 0 {
+                for _ in 0..<count {
+                    result += sym
+                }
+                num = num % val
+            }
+        }
+        
+        return result
+    }
+}
+
+
+/*
+ problem:
+ Convert a non-negative integer num to its English words representation.
+ 
+ Testcases:
+ Input: num = 123
+ Output: "One Hundred Twenty Three"
+ 
+ Input: num = 12345
+ Output: "Twelve Thousand Three Hundred Forty Five"
+ 
+ Input: num = 1234567
+ Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+ 
+ Input: num = 1234567891
+ Output: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+ 
+ Constraints:
+ 0 <= num <= 231 - 1
+ 
+ link: https://leetcode.com/problems/integer-to-english-words/
+ explanation:
+ primary idea:
+ - One Trillion has 12 zeros, One Billion has 9 zeros, One Million has 6 zeros, One Thousand has 3 zeros
+ - if a large number divided by 1 trillion, it gives number of trillion and if it mod by 1000 gives 3 digit trillion number. Same with Billion, Million as well.
+ - For more clarity, debug last test case.
+ Time Complexity:
+ Space Complexity:
+ */
+class IntegerToEnglish {
+    
+    let numOnes = [
+        1: "One",
+        2: "Two",
+        3: "Three",
+        4: "Four",
+        5: "Five",
+        6: "Six",
+        7: "Seven",
+        8: "Eight",
+        9: "Nine",
+        10: "Ten"
+    ]
+    
+    let numsTeens = [
+        1: "Eleven",
+        2: "Twelve",
+        3: "Thirteen",
+        4: "Fourteen",
+        5: "Fifteen",
+        6: "Sixteen",
+        7: "Seventeen",
+        8: "Eighteen",
+        9: "Nineteen"
+    ]
+    
+    let numsTens = [
+        2: "Twenty",
+        3: "Thirty",
+        4: "Forty",
+        5: "Fifty",
+        6: "Sixty",
+        7: "Seventy",
+        8: "Eighty",
+        9: "Ninety"
+    ]
+    
+    func numberToWords(_ num: Int) -> String {
+        if num == 0 {
+            return "Zero"
+        }
+        
+        var result = ""
+        if num >= 1000000000000 {
+            result += convertChunk(num: (num/1000000000000) % 1000, suffix: "Trillion")
+        }
+        if num >= 1000000000 {
+            result += convertChunk(num: (num/1000000000) % 1000, suffix: "Billion")
+        }
+        if num >= 1000000 {
+            result += convertChunk(num: (num/1000000) % 1000, suffix: "Million")
+        }
+        if num >= 1000 {
+            result += convertChunk(num: (num/1000) % 1000, suffix: "Thousand")
+        }
+        result += convertChunk(num: num % 1000, suffix: "")
+        while result.hasSuffix(" ") {
+            result.removeLast()
+        }
+        return result
+    }
+    
+    func convertChunk(num: Int, suffix: String) -> String {
+        var number = num
+        var result = ""
+        if number >= 100 {
+            result += numOnes[number/100]! + " Hundred "
+        }
+        number = number % 100
+        if number >= 20 {
+            result += numsTens[number/10]! + " "
+            number = number % 10
+            if number > 0 {
+                result += numOnes[number]! + " "
+            }
+        } else if number > 10 {
+            number = number % 10
+            result += numsTeens[number]! + " "
+        } else if number > 0 {
+            result += numOnes[number]! + " "
+        }
+        
+        if !suffix.isEmpty && result.count > 0 {
+            result += suffix + " "
+        }
+        return result
     }
 }
 
@@ -692,5 +1217,189 @@ class GrayCode {
         }
         
         return result
+    }
+}
+
+/*
+ problem:
+ Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+ 
+ Testcases:
+ Input: heights = [2,1,5,6,2,3]
+ Output: 10
+ Explanation: The above is a histogram where width of each bar is 1.
+ The largest rectangle is shown in the red area, which has an area = 10 units.
+ 
+ Input: heights = [2,4]
+ Output: 4
+
+ 
+ Constraints:
+ 1 <= heights.length <= 105
+ 0 <= heights[i] <= 104
+
+ 
+ link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+ explanation: https://www.youtube.com/watch?v=zx5Sw9130L0&list=PLot-Xpze53letfIu9dMzIIO7na_sqvl0w&index=5
+ primary idea:
+ - Use stack and as soon as the current height is lower than earlier, pop all last height's in stack which are higher than current one. calculate area and modify maxArea if needed. After Iteration, check if stack is empty. if not calculate maxArea with all stack elementss
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+struct LargestRectangleHistogram {
+    func callAsFunction(_ heights: [Int]) -> Int {
+        var maxArea = 0, stack = [(index: Int, height: Int)]()
+        
+        var i = 0
+        for height in heights {
+            var start = i
+            while !stack.isEmpty && stack.last!.height > height {
+                let prev = stack.popLast()!
+                maxArea = max(maxArea, prev.height * (i - prev.index))
+                start = prev.index
+            }
+            stack.append((start, height))
+            i += 1
+        }
+        
+        for (index, height) in stack {
+            maxArea = max(maxArea, height * (heights.count - index))
+        }
+        
+        return maxArea
+    }
+}
+
+/*
+ problem:
+ A city's skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Given the locations and heights of all the buildings, return the skyline formed by these buildings collectively.
+
+ The geometric information of each building is given in the array buildings where buildings[i] = [lefti, righti, heighti]:
+
+ lefti is the x coordinate of the left edge of the ith building.
+ righti is the x coordinate of the right edge of the ith building.
+ heighti is the height of the ith building.
+ You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.
+
+ The skyline should be represented as a list of "key points" sorted by their x-coordinate in the form [[x1,y1],[x2,y2],...]. Each key point is the left endpoint of some horizontal segment in the skyline except the last point in the list, which always has a y-coordinate 0 and is used to mark the skyline's termination where the rightmost building ends. Any ground between the leftmost and rightmost buildings should be part of the skyline's contour.
+
+ Note: There must be no consecutive horizontal lines of equal height in the output skyline. For instance, [...,[2 3],[4 5],[7 5],[11 5],[12 7],...] is not acceptable; the three lines of height 5 should be merged into one in the final output as such: [...,[2 3],[4 5],[12 7],...]
+ 
+ Testcases:
+ Input: buildings = [[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]
+ Output: [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]
+ Explanation:
+ Figure A shows the buildings of the input.
+ Figure B shows the skyline formed by those buildings. The red points in figure B represent the key points in the output list.
+ 
+ Input: buildings = [[0,2,3],[2,5,3]]
+ Output: [[0,3],[5,0]]
+ 
+ 
+ Constraints:
+ 1 <= buildings.length <= 104
+ 0 <= lefti < righti <= 231 - 1
+ 1 <= heighti <= 231 - 1
+ buildings is sorted by lefti in non-decreasing order.
+ 
+ 
+ link: https://leetcode.com/problems/the-skyline-problem/
+ explanation:
+ primary idea:
+ - Divide and Conquer with merge sort
+ - For a single building skylines will be [x, height], [y, 0]
+ - While merging skylines, we should maintain leftHeight, rightHeight and maxHeight at everystep
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class SkylineProblem {
+    func getSkyline(_ buildings: [[Int]]) -> [[Int]] {
+        getSkyline(buildings, left: 0, right: buildings.count - 1)
+    }
+    
+    func getSkyline(_ buildings: [[Int]], left: Int, right: Int) -> [[Int]] {
+        if left == right {
+            return [[buildings[left][0], buildings[left][2]], [buildings[left][1], 0]]
+        }
+        
+        let mid = left + (right - left)/2
+        let leftSkylines = getSkyline(buildings, left: left, right: mid)
+        let rightSkylines = getSkyline(buildings, left: mid+1, right: right)
+        return mergeSkylines(left: leftSkylines, right: rightSkylines)
+    }
+    
+    func mergeSkylines(left: [[Int]], right: [[Int]]) -> [[Int]] {
+        var i = 0, j = 0
+        var leftHeight = 0, rightHeight = 0, maxHeight = 0
+        var results = [[Int]]()
+        
+        while i < left.count || j < right.count {
+            if (i < left.count && j < right.count && left[i][0] < right[j][0]) || (i < left.count && j == right.count) {
+                leftHeight = left[i][1]
+                let newMaxHeight = max(leftHeight, rightHeight)
+                if maxHeight != newMaxHeight {
+                    maxHeight = newMaxHeight
+                    results.append([left[i][0], maxHeight])
+                }
+                i += 1
+            } else if (i < left.count && j < right.count && left[i][0] > right[j][0]) || (j < right.count && i == left.count) {
+                rightHeight = right[j][1]
+                let newMaxHeight = max(leftHeight, rightHeight)
+                if maxHeight != newMaxHeight {
+                    maxHeight = newMaxHeight
+                    results.append([right[j][0], maxHeight])
+                }
+                j += 1
+            } else if i < left.count && j < right.count && left[i][0] == right[j][0] {
+                leftHeight = left[i][1]
+                rightHeight = right[j][1]
+                let newMaxHeight = max(leftHeight, rightHeight)
+                if maxHeight != newMaxHeight {
+                    maxHeight = newMaxHeight
+                    results.append([left[i][0], maxHeight])
+                }
+                i += 1
+                j += 1
+            }
+        }
+        return results
+    }
+}
+class BasicCalculatorII {
+    func calculate(_ s: String) -> Int {
+        var stack = [Int]()
+        var current = 0
+        var op = "+"
+        
+        for ch in s {
+            switch ch {
+                case "+", "-", "*", "/":
+                    if op == "+" || op == "-" {
+                        stack.append(op == "+" ? current : -current)
+                    } else if op == "*" {
+                        assert(stack.count > 0)
+                        stack[stack.count-1] = stack.last! * current
+                    } else if op == "/" {
+                        assert(stack.count > 0)
+                        stack[stack.count-1] = stack.last! / current
+                    }
+                    current = 0
+                    op = String(ch)
+                default:
+                    if let n = Int(String(ch)) { current = current*10 + n }
+            }
+        }
+        
+        if op == "+" || op == "-" {
+            stack.append(op == "+" ? current : -current)
+        } else if op == "*" {
+            assert(stack.count > 0)
+            stack[stack.count-1] = stack.last! * current
+        } else if op == "/" {
+            assert(stack.count > 0)
+            stack[stack.count-1] = stack.last! / current
+        }
+        
+        return stack.reduce(0, +)
     }
 }

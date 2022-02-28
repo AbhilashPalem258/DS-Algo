@@ -19,6 +19,8 @@ class ArrayLeetcodeTests: XCTestCase {
     func testHeaters() {
         let obj = Heaters()
         XCTAssertEqual(obj.findRadius([1,2,3,4], [1,4]), 1)
+        XCTAssertEqual(obj.findRadius([1,2,3], [2]), 1)
+        XCTAssertEqual(obj.findRadius([1,5], [2]), 3)
     }
     
     func testNumberOfBoomerangs() {
@@ -331,14 +333,6 @@ class ArrayLeetcodeTests: XCTestCase {
         obj(["A","A","A","B","B","B"], 2)
     }
     
-    func testSlidingWindowMaximum() {
-        let obj = SlidingWindowMaximum()
-        XCTAssertEqual(obj.maxSlidingWindow([1,3,-1,-3,5,3,6,7], 3), [3,3,5,5,6,7])
-        XCTAssertEqual(obj.maxSlidingWindow([1], 1), [1])
-        XCTAssertEqual(obj.maxSlidingWindow([1,-1], 1), [1,-1])
-        XCTAssertEqual(obj.maxSlidingWindow([7,2,4], 2), [7,4])
-    }
-    
     func testLongestConsecutiveSeq() {
         let obj = LongestConsecutiveSeq()
         XCTAssertEqual(obj([1,2,0,1]), 3)
@@ -350,6 +344,76 @@ class ArrayLeetcodeTests: XCTestCase {
         let obj = FindDisappearedNumbers()
         XCTAssertEqual(obj([4,3,2,7,8,2,3,1]), [5,6])
         XCTAssertEqual(obj([1,1]), [2])
+    }
+    
+    func testSurroundedRegions() {
+        let obj = SurroundedRegions()
+        
+        var board1: [[Character]] = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
+        obj(&board1)
+        XCTAssertEqual(board1, [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]])
+        
+        var board2: [[Character]] = [["O","O"],["O","O"]]
+        obj(&board2)
+        XCTAssertEqual(board2, [["O","O"],["O","O"]])
+    }
+    
+    func testSubarraySumEqualsK() {
+        let obj = SubarraySumEqualsK()
+        XCTAssertEqual(obj([1,1,1], 2), 2)
+        XCTAssertEqual(obj([1,2,3], 3), 2)
+    }
+    
+    func testDailyTemperatures() {
+        let obj = DailyTemperatures()
+        XCTAssertEqual(obj([89,62,70,58,47,47,46,76,100,70]), [8,1,5,4,3,2,1,1,0,0])
+        XCTAssertEqual(obj([73,74,75,71,69,72,76,73]), [1,1,4,2,1,1,0,0])
+        XCTAssertEqual(obj([30,40,50,60]), [1,1,1,0])
+        XCTAssertEqual(obj([30,60,90]), [1,1,0])
+    }
+    
+    func testBrickWall() {
+        let obj = BrickWall()
+        XCTAssertEqual(obj([[1,2,2,1],[3,1,2],[1,3,2],[2,4],[3,1,2],[1,3,1,1]]), 2)
+        XCTAssertEqual(obj([[1],[1],[1]]), 3)
+    }
+    
+    func testFindVehiclenumber() {
+        let obj = FindVehiclenumber()
+        var input = Array(4657...5656)
+        input.append(0074)
+        input.append(contentsOf: Array(183...185))
+        input.append(0187)
+        input.append(0190)
+        input.append(0192)
+        input.append(0193)
+        input.append(0194)
+        input.append(0197)
+        input.append(4839)
+        input.append(8978)
+        input.append(2876)
+        input.append(0314)
+        input.append(3800)
+        input.append(6164)
+        input.append(8331)
+        input.append(1785)
+        input.append(7556)
+        input.append(6065)
+        input.append(8331)
+        input.append(3224)
+        input.append(contentsOf: [
+            2014, 5851,
+            1396, 3253,
+            4379, 5032,
+            3507, 5987, 6047, 7709,
+            0265, 8814,
+            5122,
+            7512, 7811, 8632,
+            0190, 0637, 3034, 3524, 3596, 3624, 3705, 3713, 3806, 5511, 5597,
+            3386, 5124, 7187,
+            0240, 0415, 1308, 4557, 5035, 8208, 9700
+        ])
+        debugPrint(obj(input))
     }
 }
 

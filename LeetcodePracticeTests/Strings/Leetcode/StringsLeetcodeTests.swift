@@ -84,6 +84,10 @@ class StringsLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.strStr1("hello", "ll"), 2)
         XCTAssertEqual(obj.strStr1("aaaaa", "bba"), -1)
         XCTAssertEqual(obj.strStr1("", ""), 0)
+        
+        XCTAssertEqual(obj.usingKMP("hello", "ll"), 2)
+        XCTAssertEqual(obj.usingKMP("aaaaa", "bba"), -1)
+        XCTAssertEqual(obj.usingKMP("", ""), 0)
     }
     
     func testIsomorphicStr() {
@@ -189,14 +193,6 @@ class StringsLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj(["flower","flow","flight"]), "fl")
     }
     
-    func testLengthOfLongestSubstring() {
-        let obj = LengthOfLongestSubsctring()
-        XCTAssertEqual(obj.lengthOfLongestSubstring("abba"), 2)
-//        XCTAssertEqual(obj.lengthOfLongestSubstring("abcabcbb"), 3)
-//        XCTAssertEqual(obj.lengthOfLongestSubstring("bbbbb"), 1)
-//        XCTAssertEqual(obj.lengthOfLongestSubstring("pwwkew"), 3)
-    }
-    
     func testOneEditDistance() {
         let obj = OneEditDistance()
         XCTAssertEqual(obj("ab", "acb"), true)
@@ -219,5 +215,42 @@ class StringsLeetcodeTests: XCTestCase {
     func testMinmumWindowSubstring() {
         let obj = MinWindowSubstring()
         XCTAssertEqual(obj.minWindow("ADOBECODEBANC", "ABC"), "BANC")
+    }
+    
+    func testLongestRepeatingCharacterReplacement() {
+        let obj = LongestRepeatingCharacterReplacement()
+        XCTAssertEqual(obj("ABAB", 2), 4)
+        XCTAssertEqual(obj("AABABBA", 1), 4)
+    }
+    
+    func testLongestSubstringAtleastKRepeatingCharacters() {
+        let obj = LongestSubstringAtleastKRepeatingCharacters()
+        XCTAssertEqual(obj("ababacb", 3), 0)
+        XCTAssertEqual(obj("aaabb", 3), 3)
+        XCTAssertEqual(obj("ababbc", 2), 5)
+    }
+    
+    func testPartitionLabels() {
+        let obj = PartitionLabels()
+        XCTAssertEqual(obj("eccbbbbdec"), [10])
+        XCTAssertEqual(obj("ababcbacadefegdehijhklij"), [9,7,8])
+    }
+    
+    func testMaxNumberOfBalloons() {
+        let obj = MaxNumberOfBalloons()
+        XCTAssertEqual(obj("ballon"), 0)
+        XCTAssertEqual(obj("loonbalxballpoon"), 2)
+        XCTAssertEqual(obj("leetcode"), 0)
+    }
+    
+    func testZigzagConversion() {
+        let obj = ZigzagConversion()
+        XCTAssertEqual(obj("PAYPALISHIRING", 3), "PAHNAPLSIIGYIR")
+    }
+    
+    func testisSubsequence() {
+        let obj = isSubsequence()
+        XCTAssertEqual(obj("abc", "ahbgdc"), true)
+        XCTAssertEqual(obj("axc", "ahbgdc"), false)
     }
 }

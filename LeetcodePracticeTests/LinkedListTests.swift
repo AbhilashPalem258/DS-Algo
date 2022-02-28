@@ -119,4 +119,39 @@ extension LinkedListTests {
         let result = obj.rotateRight(node, 2)
         XCTAssertEqual(result, expectedNode)
     }
+    
+    func testSortList() {
+        
+        let node: ListNode = [-1,5,3,4,0]
+        let expectedNode: ListNode = [-1,0,3,4,5]
+        
+        let obj = SortList()
+        XCTAssertEqual(obj.sortList(node), expectedNode)
+    }
+    
+    func testReverseKGroup() {
+        let obj = ReverseKGroup()
+
+        let node: ListNode? = [1,2,3,4,5]
+        let expectedNode: ListNode? = [2,1,4,3,5]
+        let result = obj(node, 2)
+        XCTAssertEqual(result, expectedNode)
+
+        let node1: ListNode? = [1,2,3,4,5]
+        let expectedNode1: ListNode? = [3,2,1,4,5]
+        XCTAssertEqual(obj(node1, 3), expectedNode1)
+        
+        let node2: ListNode? = [1,7,3,2,7,0,1,0,0]
+        let expectedNode2: ListNode? = [2,3,7,1,0,1,0,7,0]
+        let result2 = obj(node2, 4)
+        XCTAssertEqual(result2, expectedNode2)
+    }
+    
+    func testInsertionSortList() {
+        let obj = InsertionSortList()
+        let inputNode: ListNode = [4,2,1,3]
+        let expectedNode: ListNode = [1,2,3,4]
+        let result = obj(inputNode)
+        XCTAssertEqual(obj(inputNode), expectedNode)
+    }
 }

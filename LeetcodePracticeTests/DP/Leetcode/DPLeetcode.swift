@@ -310,4 +310,11 @@ class DPLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.canCross([0,1,3,5,6,8,12,17]), true)
         XCTAssertEqual(obj.canCross([0,1,2,3,4,8,9,11]), false)
     }
+    
+    func testLongestIncreasingPath() {
+        let obj = LongestIncreasingPath()
+        XCTAssertEqual(obj([[9,9,4],[6,6,8],[2,1,1]]), 4)
+        XCTAssertEqual(obj([[3,4,5],[3,2,6],[2,2,1]]), 4)
+        XCTAssertEqual(obj([[1]]), 1)
+    }
 }

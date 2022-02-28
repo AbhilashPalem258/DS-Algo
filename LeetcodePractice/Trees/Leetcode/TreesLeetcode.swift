@@ -626,3 +626,215 @@ struct CountGoodNodes {
         return count
     }
 }
+
+/*
+ problem:
+ You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. The binary tree has the following definition:
+
+ struct Node {
+   int val;
+   Node *left;
+   Node *right;
+   Node *next;
+ }
+ Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+ Initially, all next pointers are set to NULL.
+ 
+ Testcases:
+ Input: root = [1,2,3,4,5,6,7]
+ Output: [1,#,2,3,#,4,5,6,7,#]
+ Explanation: Given the above perfect binary tree (Figure A), your function should populate each next pointer to point to its next right node, just like in Figure B. The serialized output is in level order as connected by the next pointers, with '#' signifying the end of each level.
+ 
+ Input: root = []
+ Output: []
+ 
+ 
+ Constraints:
+ The number of nodes in the tree is in the range [0, 212 - 1].
+ -1000 <= Node.val <= 1000
+ 
+ 
+ link: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
+ explanation: https://www.youtube.com/watch?v=o-SxW_0E-o8
+ primary idea:
+ - Self Explanatory.
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
+class PopulatingNextRightPointers {
+    
+     public class Node {
+         public var val: Int
+         public var left: Node?
+         public var right: Node?
+         public var next: Node?
+         public init(_ val: Int) {
+             self.val = val
+             self.left = nil
+             self.right = nil
+             self.next = nil
+         }
+     }
+    
+    func connect(_ root: Node?) -> Node? {
+        if root == nil || root?.left == nil || root?.right == nil { return root }
+        root?.left?.next = root?.right
+        if root?.next != nil {
+            root?.right?.next = root?.next?.left
+        }
+        _ = connect(root?.left)
+        _ = connect(root?.right)
+        
+        return root
+    }
+}
+
+//https://www.youtube.com/watch?v=yl-fdkyQD8A&list=PLJtzaiEpVo2xgzgEn2K0v_XryX3_VThjh&index=3
+class PopulatingNextRightPointersII {
+    public class Node {
+        public var val: Int
+        public var left: Node?
+        public var right: Node?
+        public var next: Node?
+        public init(_ val: Int) {
+            self.val = val
+            self.left = nil
+            self.right = nil
+            self.next = nil
+        }
+    }
+    
+    func connect(_ root: Node?) -> Node? {
+        if root == nil {
+            return root
+        }
+        var stack = [root]
+        while !stack.isEmpty {
+            let level = stack
+            stack.removeAll()
+            
+            var prev: Node = Node(-1)
+            for node in level {
+                prev.next = node
+                prev = prev.next!
+                
+                if node?.left != nil {
+                    stack.append(node?.left)
+                }
+                
+                if node?.right != nil {
+                    stack.append(node?.right)
+                }
+            }
+        }
+        return root
+    }
+    
+    func connectConstantSpace(_ root: Node?) -> Node? {
+        if root == nil {
+            return root
+        }
+        
+        var head = root
+        
+        while head != nil {
+            let dummy = Node(-1)
+            var temp = dummy
+            
+            while head != nil {
+                if head?.left != nil {
+                    temp.next = head?.left
+                }
+                if head?.right != nil {
+                    temp.next = head?.right
+                }
+                temp = temp.next!
+                head = head?.next
+            }
+            head = dummy.next
+        }
+        return root
+    }
+}
+/*
+ problem:
+ Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+ According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+ 
+ Testcases:
+ Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+ Output: 3
+ Explanation: The LCA of nodes 5 and 1 is 3.
+ 
+ Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+ Output: 5
+ Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
+ 
+ Input: root = [1,2], p = 1, q = 2
+ Output: 1
+ 
+ Constraints:
+ The number of nodes in the tree is in the range [2, 105].
+ -109 <= Node.val <= 109
+ All Node.val are unique.
+ p != q
+ p and q will exist in the tree.
+ 
+ 
+ link: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+ explanation: https://www.youtube.com/watch?v=13m9ZCB8gjw
+ primary idea:
+ - DFS. As soon as we find a matching node we return that or else we continue with traversing. If we find atleast a left or right matching node, we return that. If we find both then that means it is the LCA and return it.
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class LowestCommonAncestor {
+    
+    public class TreeNode {
+         public var val: Int
+         public var left: TreeNode?
+         public var right: TreeNode?
+         public init(_ val: Int) {
+             self.val = val
+             self.left = nil
+             self.right = nil
+         }
+    }
+    
+    func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+        if root == nil { return nil }
+        if root?.val == p?.val || root?.val == q?.val { return root }
+        
+        let left = lowestCommonAncestor(root?.left, p, q)
+        let right = lowestCommonAncestor(root?.right, p, q)
+        
+        if left != nil && right != nil { return root }
+        return left != nil ? left : right
+    }
+}
+
+class ConstructBSTFromSortedArr {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    
+    func callAsFunction(_ nums: [Int]) -> TreeNode? {
+        if nums.isEmpty {
+            return nil
+        }
+        
+        func sortedArrNode(leftIndex: Int, rightIndex: Int) -> TreeNode? {
+            if leftIndex > rightIndex {
+                return nil
+            }
+            
+            let midid = (leftIndex + rightIndex) / 2
+            let root = TreeNode(nums[midid])
+            root.left = sortedArrNode(leftIndex: leftIndex, rightIndex: midid - 1)
+            root.right = sortedArrNode(leftIndex: midid + 1, rightIndex: rightIndex)
+            return root
+        }
+        
+        return sortedArrNode(leftIndex: 0, rightIndex: nums.count - 1)
+    }
+}

@@ -13,6 +13,9 @@ class JulyLeetcodeChallenge: XCTestCase {
     func testFindClosestElements() {
         let obj = FindClosestElements()
         XCTAssertEqual(obj([1,2,3,4,5], 4, 3), [1,2,3,4])
+        
+        XCTAssertEqual(obj.binarySearchWindow([1,2,3,4,5], 4, 3), [1,2,3,4])
+        XCTAssertEqual(obj.binarySearchWindow([1,2,3,4,5], 4, -1), [1,2,3,4])
     }
     
     func testMaxSumofRectangleNoLargerThanK() {

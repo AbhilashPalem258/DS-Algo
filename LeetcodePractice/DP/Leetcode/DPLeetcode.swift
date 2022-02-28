@@ -2228,3 +2228,74 @@ class FrogJump {
         return canCross(k: 1, jump: 0)
      }
 }
+
+/*
+ problem:
+ Given an m x n integers matrix, return the length of the longest increasing path in matrix.
+
+ From each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).
+ 
+ Testcases:
+ Input: matrix = [[9,9,4],[6,6,8],[2,1,1]]
+ Output: 4
+ Explanation: The longest increasing path is [1, 2, 6, 9].
+ 
+ Input: matrix = [[3,4,5],[3,2,6],[2,2,1]]
+ Output: 4
+ Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+ 
+ Input: matrix = [[1]]
+ Output: 1
+ 
+ Input: heights = [2,4]
+ Output: 4
+ 
+ 
+ Constraints:
+ m == matrix.length
+ n == matrix[i].length
+ 1 <= m, n <= 200
+ 0 <= matrix[i][j] <= 231 - 1
+ 
+ 
+ link: https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+ explanation: https://www.youtube.com/watch?v=wCc_nd-GiEc
+ primary idea:
+ - DFS. Use dp variable for already computed matrix positions and maxVal for storing maxValue
+ - Check if the prev value is less than current. if yes, traverse further.
+ Time Complexity: O(m*n)
+ Space Complexity: O(m*n)
+ */
+class LongestIncreasingPath {
+    func callAsFunction(_ matrix: [[Int]]) -> Int {
+        var dp = [String: Int](), maxVal = 0
+        let m = matrix.count, n = matrix.first!.count
+        
+        func dfs(row: Int, col: Int, prevValue: Int) -> Int {
+            if row < 0 || row == m || col < 0 || col == n || prevValue >= matrix[row][col] {
+                return 0
+            }
+            if let existingVal = dp["\(row),\(col)"] {
+                return existingVal
+            }
+            var res = 1
+            let currentValue = matrix[row][col]
+            for position in [(row - 1, col), (row + 1, col), (row, col-1), (row, col+1)] {
+                res = max(res, 1 + dfs(row: position.0, col: position.1, prevValue: currentValue))
+            }
+            dp["\(row),\(col)"] = res
+            maxVal = max(maxVal, res)
+            return res
+        }
+        
+        for row in 0..<m {
+            for col in 0..<n {
+                _ = dfs(row: row, col: col, prevValue: -1)
+                if maxVal == m * n {
+                    return maxVal
+                }
+            }
+        }
+        return maxVal
+    }
+}

@@ -49,45 +49,72 @@ struct CourseScheduleII {
         }
         return result
     }
-    
+
+    //Preferred
     func findOrderWithMemoryOptimization(_ numCourses: Int, _ prerequisites: [[Int]]) -> [Int] {
-        
-        typealias Node = Int
-        
-        var adjList = [Node: [Node]]()
-        
-        func createAdjList() {
-            for preq in prerequisites {
-                adjList[preq[0], default: []].append(preq[1])
-            }
+        typealias Course = Int
+        var adjacencyList = [Course: Set<Course>]()
+        for preq in prerequisites {
+            adjacencyList[preq[0], default: Set()].insert(preq[1])
         }
         
-        createAdjList()
+        var visited = [Course: Bool]() // False: Visited, True: Visited && IsInPath
+        var result = [Course]()
         
-        var visited = [Node: Bool](), result = [Node]()
-        // False: Visited, True: Visited && In current Path
-        func dfs(_ node: Node) -> Bool {
-            if let val = visited[node] {
-                return val
+        func dfs(_ course: Course) -> Bool {
+            if let visit = visited[course] {
+                return visit
             }
-
-            visited[node] = true
-            for neighbour in adjList[node] ?? [] {
-                if dfs(neighbour) {
+            visited[course] = true
+            for dependentCourse in adjacencyList[course] ?? [] {
+                if dfs(dependentCourse) {
                     return true
                 }
             }
-            visited[node] = false
-
-            result.append(node)
+            visited[course] = false
+            result.append(course)
             return false
         }
         
-        for node in 0..<numCourses {
-            if dfs(node) {
+        for course in 0..<numCourses {
+            if dfs(course) {
                 return []
             }
         }
+        
         return result
+    }
+}
+
+class CourseScheduleTopological {
+    func canFinish(_ numCourses: Int, _ prerequisites: [[Int]]) -> Bool {
+        typealias Course = Int
+        var adjList = [Course: Set<Int>]()
+        for preq in prerequisites {
+            adjList[preq[0], default: Set()].insert(preq[1])
+        }
+        
+        var visited = [Course: Bool]() //False: Visited && True: Visited and IsInPath
+        
+        func dfs(_ course: Course) -> Bool {
+            if let visit = visited[course] {
+                return visit
+            }
+            visited[course] = true
+            for dependentCourse in adjList[course] ?? [] {
+                if dfs(dependentCourse) {
+                    return true
+                }
+            }
+            visited[course] = false
+            return false
+        }
+        
+        for course in 0..<numCourses {
+            if dfs(course) {
+                return false
+            }
+        }
+        return true
     }
 }
