@@ -125,6 +125,7 @@
 ## Linked List
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
+[Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)| [Swift](./Math/AddTwoNumbers.swift)| Medium| O(n)| O(1)|
 [Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/)| [Swift](./LinkedList/ReverseLinkedList.swift)| Easy| O(n)| O(1)|
 [Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/)| [Swift](./LinkedList/PalindromeLinkedList.swift)| Easy| O(n)| O(1)|
 [Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/)| [Swift](./LinkedList/SwapNodesInPairs.swift)| Easy| O(n)| O(1)|
@@ -140,6 +141,16 @@
 [Partition List](https://leetcode.com/problems/partition-list/)| [Swift](./LinkedList/PartitionList.swift)| Medium| O(n)| O(1)|
 [LRU Cache](https://leetcode.com/problems/lru-cache/) | [Swift](./LinkedList/LRUCache.swift) | Hard| O(1)| O(1)|
 [LFU Cache](https://leetcode.com/problems/lfu-cache/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Sort List](https://leetcode.com/problems/sort-list/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Linked List Cycle II](https://leetcode.com/problems/sort-list/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Intersection Of Two Linked Lists](https://leetcode.com/problems/sort-list/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Insertion Sort List](https://leetcode.com/problems/insertion-sort-list/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Reverse Linked List II](https://leetcode.com/problems/sort-list/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
+[Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) | [Swift](./LinkedList/LFUCache.swift) | Hard| O(1)| O(1)|
 
 ## Stack
 | Title | Solution | Difficulty | Time | Space |
@@ -313,7 +324,6 @@
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
 [Add Binary](https://leetcode.com/problems/add-binary/)| [Swift](./Math/AddBinary.swift)| Easy| O(n)| O(n)|
-[Add Two Numbers](https://leetcode.com/problems/add-two-numbers/)| [Swift](./Math/AddTwoNumbers.swift)| Medium| O(n)| O(1)|
 [Add Digits](https://leetcode.com/problems/add-digits/)| [Swift](./Math/AddDigits.swift)| Easy| O(1)| O(1)|
 [Plus One](https://leetcode.com/problems/plus-one/)| [Swift](./Math/PlusOne.swift)| Easy| O(n)| O(1)|
 [Missing Number](https://leetcode.com/problems/missing-number/)| [Swift](./Math/MissingNumber.swift)| Easy| O(n)| O(1)|

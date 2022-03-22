@@ -37,27 +37,3 @@ extension ListNode: Equatable {
         lhs.val == rhs.val
     }
 }
-
-class LL206 {
-   func reverseList(_ head: ListNode?) -> ListNode? {
-        var prev: ListNode?
-        var current = head
-        while !current.isNil {
-            let next = current?.next
-            current?.next = prev
-            prev = current
-            current = next
-        }
-        return prev
-    }
-    
-    func reverseListRecursive(_ head: ListNode?) -> ListNode? {
-        guard let current = head, let next = current.next else {
-            return head
-        }
-        let node = reverseListRecursive(next)
-        next.next = current
-        current.next = nil
-        return node
-    }
-}

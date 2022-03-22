@@ -33,61 +33,6 @@ class AddBinary {
     }
 }
 
-/*
- problem:
- You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
-
- You may assume the two numbers do not contain any leading zero, except the number 0 itself.
- 
- Testcases:
- Input: l1 = [2,4,3], l2 = [5,6,4]
- Output: [7,0,8]
- Explanation: 342 + 465 = 807.
- 
- Input: l1 = [0], l2 = [0]
- Output: [0]
- 
- Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
- Output: [8,9,9,9,0,0,0,1]
- 
- Constraints:
- The number of nodes in each linked list is in the range [1, 100].
- 0 <= Node.val <= 9
- It is guaranteed that the list represents a number that does not have leading zeros.
- 
- link: https://leetcode.com/problems/plus-one/
- explanation: https://www.youtube.com/watch?v=wgFPrzTjm7s
- primary idea:
- - create a dummy node, update the carry and addd the result node to dummy linked list
- Time Complexity: O(MAX(N, M)) where N and M are the lengths of l1 and l2
- Space Complexity: O(MAX(N, M)) for the length of the new list
- */
-
-class AddTwoNumbers {
-    func callAsFunction(_ l1: ListNode?, _ l2: ListNode?) -> ListNode? {
-        let dummy = ListNode(0)
-        var current = dummy
-        var firstLNode = l1, secondLNode = l2, carry = 0
-        
-        while firstLNode != nil || secondLNode != nil {
-            
-            let firstVal = firstLNode?.val ?? 0, secondVal = secondLNode?.val ?? 0
-            let sum = firstVal + secondVal + carry
-
-            current.next = ListNode(sum%10)
-            current = current.next!
-            carry = sum/10
-            
-            firstLNode = firstLNode?.next
-            secondLNode = secondLNode?.next
-        }
-        if carry > 0 {
-            current.next = ListNode(carry)
-        }
-        return dummy.next
-    }
-}
-
 class AddDigits {
     func callAsFunction(_ num: Int) -> Int {
         if num <= 9 {

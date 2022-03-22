@@ -72,7 +72,7 @@ extension LinkedListTests {
         node.next?.next = .init(103)
         node.next?.next?.next = .init(104)
         
-        let reversed = LL206().reverseListRecursive(node)
+        let reversed = ReverseLinkedList().reverseListRecursive(node)
         print(node)
     }
     
@@ -115,9 +115,28 @@ extension LinkedListTests {
         expectedNode.next?.next?.next = .init(2)
         expectedNode.next?.next?.next?.next = .init(3)
         
-        let obj = RotateLL()
+        let obj = RotateLinkedList()
         let result = obj.rotateRight(node, 2)
         XCTAssertEqual(result, expectedNode)
+    }
+    
+    func testReorderLinkedList() {
+        let head: ListNode? = [1,2,3,4]
+        let obj = ReorderLinkedList()
+        obj(head)
+    }
+    
+    func testPalindromeLinkedList() {
+        let node: ListNode = [1,2,2,1]
+        let obj = PalindromeLinkedList()
+        XCTAssertEqual(obj(node), true)
+    }
+    
+    func testPartitionList() {
+        let head: ListNode = [1,4,3,2,5,2]
+        let output: ListNode = [1,2,2,4,3,5]
+        let obj = PartitionList()
+        XCTAssertEqual(obj(head, 3), output)
     }
     
     func testSortList() {
@@ -145,6 +164,10 @@ extension LinkedListTests {
         let expectedNode2: ListNode? = [2,3,7,1,0,1,0,7,0]
         let result2 = obj(node2, 4)
         XCTAssertEqual(result2, expectedNode2)
+    }
+    
+    func testLinkedListCycleII() {
+
     }
     
     func testInsertionSortList() {
