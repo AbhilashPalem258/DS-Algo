@@ -149,7 +149,7 @@ class TwoSumIV {
  primary idea:
  - "000111" - Grouped, "101010" - ungrouped
  - We need to find substrings only from grouped.
- - "000111". This has a count of 3 substrings
+ - "000111". This has a count of 3 substrings "01" "0011" "000111"
  - Sliding window.
  - prev contains count of firstBinary element. current contains count of current binary element
  - whenever we find a char not equal to earlier. we add count of substrings and start sliding window from prev.

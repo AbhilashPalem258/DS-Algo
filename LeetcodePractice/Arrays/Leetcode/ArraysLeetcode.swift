@@ -209,7 +209,7 @@ struct MajorityElementII {
         if count1 > limit {
             output.append(candidate1)
         }
-        if count2 > limit && candidate2 != candidate1 {
+        if count2 > limit {
             output.append(candidate2)
         }
         return output
@@ -271,26 +271,77 @@ class IslandPerimeter {
 }
 
 
+/*
+ problem:
+ Given an unsorted integer array nums, return the smallest missing positive integer.
+
+ You must implement an algorithm that runs in O(n) time and uses constant extra space.
+ 
+ Testcases:
+ Example 1:
+ Input: nums = [1,2,0]
+ Output: 3
+ 
+ Example 2:
+ Input: nums = [3,4,-1,1]
+ Output: 2
+ 
+ Example 3:
+ Input: nums = [7,8,9,11,12]
+ Output: 1
+ 
+ Constraints:
+ 1 <= nums.length <= 5 * 105
+ -231 <= nums[i] <= 231 - 1
+ 
+ link: https://leetcode.com/problems/first-missing-positive/
+ explanation: https://www.youtube.com/watch?v=8g78yfzMlao
+ primary idea:
+ The solution lies in the range 1..nums.count+1. If all the elements in arr are like [1,2,3] then answer is 4, that's why we have included nums.count+1 in solution range. if arr is like [10, 11, 14] then it is 1.
+ 
+ This problem can be solved in 3 different ways
+ 1. O(nlogn) TimeComplexity, O(n) Space complexity:
+    Sort the array and then traverse through 1..nums.count+1. check if the num exists in arr, if not that is the answer. if found, start looking for (num + 1) from there
+ 
+ 2. O(n) TimeComplexity, O(n) Space complexity:
+    Use a hashset intialized with all nums elements. Traverse through 1..nums.count+1. check if the num exists in arr, if not that is the answer. if found, start looking for (num + 1) from there.
+ 
+ ****3. O(n) TimeComplexity, O(1) Space comlexity:
+    - We need to traverse through arr 3 times
+    - As negative numbers in array are of no use for us, replace them with 0 in first traversal
+    - In second traversal, we will map all index values to negative if not out of bounds. incase if we encounter 0, we will assign some out of bounds val just to know that val exists.
+    - Third traversal will be for 1..<nums.count+1, and see for positive value. If we found positive val, then that i is the solution.
+ 
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
 class FirstMissingPositive {
-    func firstMissingPositive(_ nums: [Int]) -> Int {
-        var missingPositive = Array(repeating: true, count: nums.count + 1)         // f f t f f
-        missingPositive[0] = false
-        
-        for num in nums {
-            if num >= 0 && num <= nums.count {
-                missingPositive[num] = false
-            }
-        }
-                
-        for (index, bool) in missingPositive.enumerated() {
-            if bool {
-                return index
-            }
+    func callAsFunction(_ nums: [Int]) -> Int {
+        var nums = nums
+        for i in 0..<nums.count where nums[i] < 0 {
+            nums[i] = 0
         }
         
+        for i in 0..<nums.count {
+            let index = abs(nums[i]) - 1
+            if index >= 0 && index < nums.count {
+                if nums[index] > 0 {
+                    nums[index] *= -1
+                } else if nums[index] == 0 {
+                    nums[index] = -1 * (1 + nums.count)
+                }
+            }
+        }
+        
+        for i in 1..<nums.count + 1 {
+            if nums[i - 1] >= 0 {
+                return i
+            }
+        }
         return nums.count + 1
     }
 }
+
 
 class IntersectionOfTwoArrays {
     func intersection(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
@@ -354,6 +405,25 @@ struct ContainsDuplicate {
 
 struct ContainsDuplicatesII {
     func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+        
+        /*
+         guard nums.count > 1 else {
+              return false
+          }
+          
+          var numToLastIndex = [Int: Int]()
+          
+          for (i, num) in nums.enumerated() {
+              if let lastIndex = numToLastIndex[num], i - lastIndex <= k {
+                  return true
+              } else {
+                  numToLastIndex[num] = i
+              }
+          }
+          
+          return false
+         */
+        
         guard nums.count > 1, k > 0, nums[0] != -24500 else {
             return false
         }
@@ -854,6 +924,52 @@ class AsteroidCollision {
     }
 }
 
+/*
+ problem:
+ Given a 2D matrix matrix, handle multiple queries of the following type:
+
+ Calculate the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+ Implement the NumMatrix class:
+
+ NumMatrix(int[][] matrix) Initializes the object with the integer matrix matrix.
+ int sumRegion(int row1, int col1, int row2, int col2) Returns the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+ 
+ Testcases:
+ Input
+ ["NumMatrix", "sumRegion", "sumRegion", "sumRegion"]
+ [[[[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]], [2, 1, 4, 3], [1, 1, 2, 2], [1, 2, 2, 4]]
+ Output
+ [null, 8, 11, 12]
+
+ Explanation
+ NumMatrix numMatrix = new NumMatrix([[3, 0, 1, 4, 2], [5, 6, 3, 2, 1], [1, 2, 0, 1, 5], [4, 1, 0, 1, 7], [1, 0, 3, 0, 5]]);
+ numMatrix.sumRegion(2, 1, 4, 3); // return 8 (i.e sum of the red rectangle)
+ numMatrix.sumRegion(1, 1, 2, 2); // return 11 (i.e sum of the green rectangle)
+ numMatrix.sumRegion(1, 2, 2, 4); // return 12 (i.e sum of the blue rectangle)
+ 
+ 
+ Constraints:
+ m == matrix.length
+ n == matrix[i].length
+ 1 <= m, n <= 200
+ -105 <= matrix[i][j] <= 105
+ 0 <= row1 <= row2 < m
+ 0 <= col1 <= col2 < n
+ At most 104 calls will be made to sumRegion.
+ 
+ 
+ link: https://leetcode.com/problems/range-sum-query-2d-immutable/
+ explanation:
+ primary idea:
+ - In the initialization itself we create a sumMatrix with all possible sum from (0, 0) to that specific position.
+ - Initially we create a dummy row and dummy col at the top and left of Summatrix with all zeros, this will help us in calculating sum for all other positions. you can think of this as initial value.
+ - Sum of specific position = sum of [left side cell in same row] and [top side cell in previous col]
+ - whenever we want to calculate sumregion for specific start and end,
+    Sum till that position - Sum of left side removal portion - Sum of top side removal position
+ - As
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
 class NumMatrix {
     var sumMatrix = [[Int]]()
     
@@ -886,12 +1002,6 @@ class NumMatrix {
         return sumMatrix[row2+1][col2+1] + sumMatrix[row1][col1] - sumMatrix[row2+1][col1] - sumMatrix[row1][col2+1]
     }
 }
-
-/**
- * Your NumMatrix object will be instantiated and called as such:
- * let obj = NumMatrix(matrix)
- * let ret_1: Int = obj.sumRegion(row1, col1, row2, col2)
- */
 
 class MaxDistToClosest {
     func callAsFunction(_ seats: [Int]) -> Int {
@@ -965,13 +1075,6 @@ class ExamRoom {
     }
 }
 
-/**
- * Your ExamRoom object will be instantiated and called as such:
- * let obj = ExamRoom(n)
- * let ret_1: Int = obj.seat()
- * obj.leave(p)
- */
-
 /*
  Given a list of words and two words word1_and_word2, return the shortest distance between these two words in the list.
  Example:
@@ -1043,6 +1146,21 @@ struct ShortestWordDistanceII {
     }
 }
 
+/*
+ This is a follow up of Shortest Word Distance. The only difference is now word1 could be the same as word2.
+
+ Given a list of words and two words word1 and word2, return the shortest distance between these two words in the list.
+
+ word1 and word2 may be the same and they represent two individual words in the list.
+
+ For example, Assume that words = ["practice", "makes", "perfect", "coding", "makes"].
+
+ Given word1 = “makes”, word2 = “coding”, return 1. Given word1 = "makes", word2 = "makes", return 3.
+ 
+ primary idea:
+ - Same as ShortestWordDistance if two words are diff
+ - If both words are same, we keep track of prev index of that word and calculate shortest distance.
+ */
 struct ShortestWordDistanceIII {
    func shortestWordDistance(_ words: [String], _ word1: String, _ word2: String) -> Int {
         var (idx1, idx2, prev, res) = (-1, -1, -1, Int.max)
@@ -1070,28 +1188,23 @@ struct ShortestWordDistanceIII {
    }
 }
 
+// Sliding window
 struct MinimumSizeSubarraySum {
     func callAsFunction(_ target: Int, _ nums: [Int]) -> Int {
-        
-        var shortestSubarray = Int.max
-        var shortestSubarraySum = 0
-        var startOfSubarray = 0
-        
-        for i in 0..<nums.count {
-            shortestSubarraySum = nums[i] + shortestSubarraySum
+        var l = 0, currentSum = 0, res = Int.max
+        for r in 0..<nums.count {
+            currentSum += nums[r]
             
-            while shortestSubarraySum >= target {
-                shortestSubarray = min(shortestSubarray, i - startOfSubarray + 1)
-                shortestSubarraySum -= nums[startOfSubarray]
-                startOfSubarray += 1
+            while currentSum >= target {
+                res = min(res, r - l + 1)
+                currentSum -= nums[l]
+                l += 1
             }
         }
-        
-        if shortestSubarray == Int.max {
+        if res == Int.max {
             return 0
         }
-        
-        return shortestSubarray
+        return res
     }
 }
 
@@ -1105,6 +1218,10 @@ struct MinimumSizeSubarraySum {
  Example 1:
  Given nums = [1, -1, 5, -2, 3], k = 3,
  return 4. (because the subarray [1, -1, 5, -2] sums to 3 and is the longest)
+ 
+ primary idea:
+ - Same as ShortestWordDistance if two words are diff
+ - If both words are same, we keep track of prev index of that word and calculate shortest distance.
  */
 class MaximumSizeSubarraySumEqualsK {
     func callAsFunction(_ nums: [Int], _ k: Int) -> Int {
@@ -1148,6 +1265,12 @@ class ProductExceptSelf {
     }
 }
 
+/*
+ primary idea:
+ - Reverse whole array
+ - Reverse only elements till 0-k
+ - Reverse elements from k - last
+ */
 struct RotateArray {
     func rotate(_ nums: inout [Int], _ k: Int) {
         let k = k % nums.count
@@ -1168,6 +1291,34 @@ struct RotateArray {
     }
 }
 
+
+/*
+ problem:
+ You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
+
+ You have to rotate the image in-place, which means you have to modify the input 2D matrix directly. DO NOT allocate another 2D matrix and do the rotation.
+ 
+ Testcases:
+ Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+ Output: [[7,4,1],[8,5,2],[9,6,3]]
+ 
+ Input: matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+ Output: [[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+ 
+ Constraints:
+ n == matrix.length == matrix[i].length
+ 1 <= n <= 20
+ -1000 <= matrix[i][j] <= 1000
+ 
+ 
+ link: https://leetcode.com/problems/rotate-image/
+ explanation: https://www.youtube.com/watch?v=fMSJSS7eO1w
+ primary idea:
+ - First we will loop through outer layer and then inner layer
+ - Better watch video
+ Time Complexity: O(n*n)
+ Space Complexity: O(1)
+ */
 struct RotateImage {
     func rotate(_ matrix: inout [[Int]]) {
         let count = matrix.count
@@ -1362,6 +1513,35 @@ struct ValidSudoku {
     }
 }
 
+/*
+ problem:
+ Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+
+ You must do it in place.
+ 
+ Testcases:
+ Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+ Output: [[1,0,1],[0,0,0],[1,0,1]]
+ 
+ Input: matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]
+ Output: [[0,0,0,0],[0,4,5,0],[0,3,1,0]]
+ 
+ Constraints:
+ m == matrix.length
+ n == matrix[0].length
+ 1 <= m, n <= 200
+ -231 <= matrix[i][j] <= 231 - 1
+ 
+ link: https://leetcode.com/problems/set-matrix-zeroes/
+ explanation: https://www.youtube.com/watch?v=T41rL0L3Pnw
+ primary idea:
+ - Traverse through the matrix, whenever we found 0, make its top row col and left most col in row to 0 and also keep track if we found any 0 in top row, so that we make top row all elements 0 later
+ - Traverse from (1, 1) to end of matrix, check if it's top row col element or left most col is 0 then make it 0
+ - Check if (0, 0) is 0 then make all elements in col zero to 0
+ - if rowZero variable is true, make all elements in row zero to 0
+ Time Complexity: O(2n)
+ Space Complexity: O(1)
+ */
 struct SetZeroes {
     func callAsFunction(_ matrix: inout [[Int]]) {
        
@@ -1400,6 +1580,117 @@ struct SetZeroes {
     }
 }
 
+/*
+ problem:
+ A permutation of an array of integers is an arrangement of its members into a sequence or linear order.
+
+ For example, for arr = [1,2,3], the following are considered permutations of arr: [1,2,3], [1,3,2], [3,1,2], [2,3,1].
+ The next permutation of an array of integers is the next lexicographically greater permutation of its integer. More formally, if all the permutations of the array are sorted in one container according to their lexicographical order, then the next permutation of that array is the permutation that follows it in the sorted container. If such arrangement is not possible, the array must be rearranged as the lowest possible order (i.e., sorted in ascending order).
+
+ For example, the next permutation of arr = [1,2,3] is [1,3,2].
+ Similarly, the next permutation of arr = [2,3,1] is [3,1,2].
+ While the next permutation of arr = [3,2,1] is [1,2,3] because [3,2,1] does not have a lexicographical larger rearrangement.
+ Given an array of integers nums, find the next permutation of nums.
+
+ The replacement must be in place and use only constant extra memory.
+ 
+ Testcases:
+ Input: nums = [1,2,3]
+ Output: [1,3,2]
+ 
+ Input: nums = [3,2,1]
+ Output: [1,2,3]
+ 
+ Input: nums = [1,1,5]
+ Output: [1,5,1]
+ 
+ Constraints:
+ 1 <= nums.length <= 100
+ 0 <= nums[i] <= 100
+ 
+ link: https://leetcode.com/problems/next-permutation/
+ explanation: https://www.youtube.com/watch?v=IhsUbEMfIbY&t=200s
+ primary idea:
+ - This problem can be solved in three steps
+    - Find point of change, from right the value which is decreasing from prev it's index is pointofchange
+    - Find the next increasing value of pointOfChange val and swap it
+    - The section right to point of change should be either sorted or reversed. we choose to reverse it
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class NextPermutation {
+    func callAsFunction(_ nums: inout [Int]) {
+        var pointOfChange = nums.count - 2
+        while pointOfChange >= 0 && nums[pointOfChange] >= nums[pointOfChange + 1] {
+            pointOfChange -= 1
+        }
+        
+        if pointOfChange >= 0 {
+            var nextIncreasingValIndex = nums.count - 1
+            while nextIncreasingValIndex >= 0 && nums[nextIncreasingValIndex] <= nums[pointOfChange] {
+                nextIncreasingValIndex -= 1
+            }
+            (nums[pointOfChange], nums[nextIncreasingValIndex]) = (nums[nextIncreasingValIndex], nums[pointOfChange])
+        }
+        
+        func reverseNums(start: Int, end: Int) {
+            var start = start, end = end
+            while start < end {
+                (nums[start], nums[end]) = (nums[end], nums[start])
+                start += 1
+                end -= 1
+            }
+        }
+        reverseNums(start: pointOfChange + 1, end: nums.count - 1)
+    }
+}
+
+/*
+ problem:
+ There are n gas stations along a circular route, where the amount of gas at the ith station is gas[i].
+
+ You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from the ith station to its next (i + 1)th station. You begin the journey with an empty tank at one of the gas stations.
+
+ Given two integer arrays gas and cost, return the starting gas station's index if you can travel around the circuit once in the clockwise direction, otherwise return -1. If there exists a solution, it is guaranteed to be unique
+ 
+ Testcases:
+ Input: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+ Output: 3
+ Explanation:
+ Start at station 3 (index 3) and fill up with 4 unit of gas. Your tank = 0 + 4 = 4
+ Travel to station 4. Your tank = 4 - 1 + 5 = 8
+ Travel to station 0. Your tank = 8 - 2 + 1 = 7
+ Travel to station 1. Your tank = 7 - 3 + 2 = 6
+ Travel to station 2. Your tank = 6 - 4 + 3 = 5
+ Travel to station 3. The cost is 5. Your gas is just enough to travel back to station 3.
+ Therefore, return 3 as the starting index.
+
+ Input: gas = [2,3,4], cost = [3,4,3]
+ Output: -1
+ Explanation:
+ You can't start at station 0 or 1, as there is not enough gas to travel to the next station.
+ Let's start at station 2 and fill up with 4 unit of gas. Your tank = 0 + 4 = 4
+ Travel to station 0. Your tank = 4 - 3 + 2 = 3
+ Travel to station 1. Your tank = 3 - 3 + 3 = 3
+ You cannot travel back to station 2, as it requires 4 unit of gas but you only have 3.
+ Therefore, you can't travel around the circuit once no matter where you start.
+ 
+ 
+ Constraints:
+ n == gas.length == cost.length
+ 1 <= n <= 105
+ 0 <= gas[i], cost[i] <= 104
+ 
+ 
+ link: https://leetcode.com/problems/gas-station/
+ explanation:
+ primary idea:
+ - Base case, if total of gas is > total of cost, then we are guaranteed to have a solution
+ - Keep track of sum of remaining gas from each station, if we encounter a negative value then it concludes it cannot be a start position. Not only that but stations till here all cannot be solutions. If we notice all values are positive, so station till prev cannot be solution.
+ - As soon we reach a negative value, we reset start and total
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
 class GasStation {
     func canCompleteCircuit(_ gas: [Int], _ cost: [Int]) -> Int {
         guard gas.reduce(0, +) >= cost.reduce(0, +) else {
@@ -1421,6 +1712,39 @@ class GasStation {
     }
 }
 
+/*
+ problem:
+ According to Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."
+
+ The board is made up of an m x n grid of cells, where each cell has an initial state: live (represented by a 1) or dead (represented by a 0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):
+
+ Any live cell with fewer than two live neighbors dies as if caused by under-population.
+ Any live cell with two or three live neighbors lives on to the next generation.
+ Any live cell with more than three live neighbors dies, as if by over-population.
+ Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+ The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously. Given the current state of the m x n grid board, return the next state.
+ 
+ Testcases:
+ Input: board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+ Output: [[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+ 
+ Input: board = [[1,1],[1,0]]
+ Output: [[1,1],[1,1]]
+ 
+ Constraints:
+ m == board.length
+ n == board[i].length
+ 1 <= m, n <= 25
+ board[i][j] is 0 or 1
+ 
+ link: https://leetcode.com/problems/game-of-life/
+ explanation: https://www.youtube.com/watch?v=fei4bJQdBUQ
+ primary idea:
+ - As we cant use extra space, we can use table to find out if the populated va;ue is new or old
+ and calculate according to it.
+ Time Complexity: O(2n)
+ Space Complexity: O(1)
+ */
 class GameOfLife {
     func callAsFunction(_ board: inout [[Int]]) {
         /*
@@ -1824,5 +2148,72 @@ class FindVehiclenumber {
             }
         }
         return true
+    }
+}
+
+/*
+ problem:
+ In a row of dominoes, tops[i] and bottoms[i] represent the top and bottom halves of the ith domino. (A domino is a tile with two numbers from 1 to 6 - one on each half of the tile.)
+
+ We may rotate the ith domino, so that tops[i] and bottoms[i] swap values.
+
+ Return the minimum number of rotations so that all the values in tops are the same, or all the values in bottoms are the same.
+
+ If it cannot be done, return -1.
+ 
+ Testcases:
+ Input: tops = [2,1,2,4,2,2], bottoms = [5,2,6,2,3,2]
+ Output: 2
+ Explanation:
+ The first figure represents the dominoes as given by tops and bottoms: before we do any rotations.
+ If we rotate the second and fourth dominoes, we can make every value in the top row equal to 2, as indicated by the second figure.
+ 
+ Input: tops = [3,5,1,2,3], bottoms = [3,6,3,3,4]
+ Output: -1
+ Explanation:
+ In this case, it is not possible to rotate the dominoes to make one row of values equal.
+ 
+ 
+ Constraints:
+ 2 <= tops.length <= 2 * 104
+ bottoms.length == tops.length
+ 1 <= tops[i], bottoms[i] <= 6
+ 
+ 
+ link: https://leetcode.com/problems/minimum-domino-rotations-for-equal-row/
+ explanation: https://www.youtube.com/watch?v=VD9NACqBCw4
+ primary idea:
+ - If there is a possible value, then it should be in either top or bottom for each particular position or index, so we just find out what are all the missing places for both top and bottom, then it is result
+ - If the target is not in both top or bottom of a particular index then it's invalid
+ Time Complexity: O(2n)
+ Space Complexity: O(1)
+ */
+class MinDominoeRotationsForEqualRow {
+    func callAsFunction(_ tops: [Int], _ bottoms: [Int]) -> Int {
+        let target1 = tops[0], target2 = bottoms[0]
+        
+        for target in [target1, target2] {
+            var minT = 0, minB = 0
+            for i in 0..<tops.count {
+                let topNum = tops[i], bottomNum = bottoms[i]
+                
+                if !(topNum == target || bottomNum == target) {
+                    break
+                }
+                
+                if topNum != target {
+                    minT += 1
+                }
+                
+                if bottomNum != target {
+                    minB += 1
+                }
+                
+                if i == tops.count - 1 {
+                    return min(minT, minB)
+                }
+            }
+        }
+        return -1
     }
 }

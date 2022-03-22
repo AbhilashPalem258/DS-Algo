@@ -299,6 +299,27 @@ class BinaryTreeVerticalOrderTraversal {
     }
 }
 
+class KthSmallestInBST {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func callAsFunction(_ root: TreeNode?, _ k: Int) -> Int {
+        var stack = [TreeNode](), currentNode = root, k = k
+        while !stack.isEmpty || currentNode != nil {
+            if currentNode != nil {
+                stack.append(currentNode!)
+                currentNode = currentNode?.left
+            } else {
+                let node = stack.removeLast()
+                k -= 1
+                if k == 0 {
+                    return node.val
+                }
+                currentNode = node.right
+            }
+        }
+        return -1
+    }
+}
+
 
 class ConstructBinaryTreeInorderPostorder {
     func buildTree(_ inorder: [Int], _ postorder: [Int]) -> TreeLeetcode.TreeNode? {
@@ -605,25 +626,22 @@ class BinaryTreePaths {
  link: https://leetcode.com/problems/count-good-nodes-in-binary-tree/
  */
 struct CountGoodNodes {
-    func callAsFunction(_ root: TreeLeetcode.TreeNode?) -> Int {
-        guard let root = root else {
-            return 0
-        }
-        var count = 0
-        
-        func evaluateGoodNode(_ node: TreeLeetcode.TreeNode?, lastVal: Int) {
-            guard let node = node else {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func callAsFunction(_ root: TreeNode?) -> Int {
+        var result = 0
+        func isGoodNode(node: TreeNode?, maxVal: Int) {
+            if node == nil {
                 return
             }
-            if node.val >= lastVal {
-                count += 1
+            if node!.val >= maxVal {
+                result += 1
             }
-            evaluateGoodNode(node.left, lastVal: node.val)
-            evaluateGoodNode(node.right, lastVal: node.val)
+            let maxVal = max(maxVal, node!.val)
+            isGoodNode(node: node?.left, maxVal: maxVal)
+            isGoodNode(node: node?.right, maxVal: maxVal)
         }
-        
-        evaluateGoodNode(root, lastVal: Int.min)
-        return count
+        isGoodNode(node: root, maxVal: Int.min)
+        return result
     }
 }
 
@@ -815,6 +833,23 @@ class LowestCommonAncestor {
     }
 }
 
+class LowestCommonAncestorBST {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+        if root == nil || p == nil || q == nil {
+            return nil
+        }
+        
+        if p!.val > root!.val && q!.val > root!.val {
+            return lowestCommonAncestor(root?.right, p, q)
+        } else if p!.val < root!.val && q!.val < root!.val {
+            return lowestCommonAncestor(root?.left, p, q)
+        } else {
+            return root
+        }
+    }
+}
+
 class ConstructBSTFromSortedArr {
     typealias TreeNode = TreeLeetcode.TreeNode
     
@@ -836,5 +871,482 @@ class ConstructBSTFromSortedArr {
         }
         
         return sortedArrNode(leftIndex: 0, rightIndex: nums.count - 1)
+    }
+}
+
+/*
+ problem:
+ Given an integer n, return the number of structurally unique BST's (binary search trees) which has exactly n nodes of unique values from 1 to n.
+ 
+ Testcases:
+ Input: n = 3
+ Output: 5
+ 
+ Input: n = 1
+ Output: 1
+ 
+ Constraints:
+ 1 <= n <= 19
+ 
+ link: https://leetcode.com/problems/unique-binary-search-trees/
+ explanation: https://www.youtube.com/watch?v=Ox0TenN3Zpg
+ primary idea:
+ - Dynamic programming
+ - Better watch video
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class UniqueBST {
+    func numTrees(_ n: Int) -> Int {
+        /*
+         numTrees[4] = numTrees[0] * numTrees[3]
+                     + numTrees[1] * numTrees[2]
+                     + numTrees[2] * numTrees[1]
+                     + numTrees[3] * numTrees[0]
+         */
+        var dp = [Int](repeating: 1, count: n+1)
+        dp[0] = 1
+        dp[1] = 1
+        
+        for nodes in 2..<n+1 {
+            var total = 0
+            for root in 1..<nodes+1 {
+                total += dp[root - 1] * dp[nodes - root]
+            }
+            dp[nodes] = total
+        }
+        return dp[n]
+    }
+}
+
+class UniqueBSTII {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func generateTrees(_ n: Int) -> [TreeNode?] {
+        
+        func buildTree(start: Int, end: Int) -> [TreeNode?] {
+            if end < start {
+                return [nil]
+            }
+            if start == end {
+                return [TreeNode(start)]
+            }
+            var result = [TreeNode]()
+            for root in start..<end+1 {
+                let ltrees = buildTree(start: start, end: root - 1)
+                let rtrees = buildTree(start: root + 1, end: end)
+                
+                for ltree in ltrees {
+                    for rtree in rtrees {
+                        result.append(TreeNode(root, ltree, rtree))
+                    }
+                }
+            }
+            return result
+        }
+        
+        return buildTree(start: 1, end: n)
+    }
+}
+
+class Triangle {
+    //TLE
+    func minimumTotal(_ triangle: [[Int]]) -> Int {
+        let n = triangle.count
+        
+        func minPathSum(row: Int, col: Int, pathSum: Int) -> Int {
+            if row == n {
+                return pathSum
+            }
+            
+            let leftSum = minPathSum(row: row + 1, col: col, pathSum: pathSum + triangle[row][col])
+            let rightSum = minPathSum(row: row + 1, col: col + 1, pathSum: pathSum + triangle[row][col])
+            return min(leftSum, rightSum)
+        }
+        return minPathSum(row: 0, col: 0, pathSum: 0)
+    }
+    
+    func dp(_ triangle: [[Int]]) -> Int {
+        var dp = [Int](repeating: 0, count: triangle.last!.count + 1)
+        
+        for row in triangle.reversed() {
+            for colIndex in 0..<row.count {
+                dp[colIndex] = min(row[colIndex] + dp[colIndex], row[colIndex] + dp[colIndex + 1])
+            }
+        }
+        
+        return dp[0]
+    }
+}
+
+/*
+ problem:
+ Given the root of a binary tree, find the maximum value v for which there exist different nodes a and b where v = |a.val - b.val| and a is an ancestor of b.
+
+ A node a is an ancestor of b if either: any child of a is equal to b or any child of a is an ancestor of b.
+ 
+ Testcases:
+ Input: root = [8,3,10,1,6,null,14,null,null,4,7,13]
+ Output: 7
+ Explanation: We have various ancestor-node differences, some of which are given below :
+ |8 - 3| = 5
+ |3 - 7| = 4
+ |8 - 1| = 7
+ |10 - 13| = 3
+ Among all possible differences, the maximum value of 7 is obtained by |8 - 1| = 7.
+ 
+ Input: root = [1,null,2,null,0,3]
+ Output: 3
+ 
+ Constraints:
+ The number of nodes in the tree is in the range [2, 5000].
+ 0 <= Node.val <= 105
+ 
+ 
+ link: https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/
+ explanation:
+ primary idea:
+ - Tree inorder traversal
+ - As we are finding difference, first encountered node can be min and second can be max or vice versa. So we will keep track of max and min val till each node
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class MaxDiffBtwAncestorAndNode {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func maxAncestorDiff(_ root: TreeNode?) -> Int {
+        if root == nil {
+            return 0
+        }
+        var maxDiff = Int.min
+        func evaluate(_ node: TreeNode?, maxVal: Int, minVal: Int) {
+            if node == nil {
+                return
+            }
+            let minVal = min(minVal, node!.val)
+            let maxVal = max(maxVal, node!.val)
+            let currentDiff = max(abs(node!.val - maxVal), abs(node!.val - minVal))
+            if currentDiff > maxDiff {
+                maxDiff = currentDiff
+            }
+            evaluate(node!.left, maxVal: maxVal, minVal: minVal)
+            evaluate(node!.right, maxVal: maxVal, minVal: minVal)
+        }
+        evaluate(root, maxVal: root!.val, minVal: root!.val)
+        return maxDiff
+    }
+}
+
+class SumRootToLeafNumbers {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func callAsFunction(_ root: TreeNode?) -> Int {
+        var result = [Int]()
+        func dfs(_ node: TreeNode?, path: String) {
+            if node == nil {
+                return
+            }
+            let node = node!
+            let path = path + "\(node.val)"
+            if node.left == nil && node.right == nil {
+                result.append(Int(path) ?? 0)
+            }
+            
+            dfs(node.left, path: path)
+            dfs(node.right, path: path)
+        }
+        dfs(root, path: "")
+        return result.reduce(0, +)
+    }
+}
+
+class CountCompleteTreeNodes {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func countNodes(_ root: TreeNode?) -> Int {
+        if root == nil {
+            return 0
+        }
+        
+        if isPerfectBST(root) {
+            let depth = depth(root, goLeft: true)
+            return power(2, depth) - 1
+        } else {
+            let left = countNodes(root?.left)
+            let right = countNodes(root?.right)
+            return left + 1 + right
+        }
+    }
+    
+    func power(_ base: Int, _ exp: Int) -> Int {
+        return Int(pow(Double(base), Double(exp)))
+    }
+    
+    func depth(_ node: TreeNode?, goLeft: Bool) -> Int {
+        if node == nil {
+            return 0
+        }
+        
+        let next = goLeft ? node?.left : node?.right
+        return 1 + depth(next, goLeft: goLeft)
+    }
+    
+    func isPerfectBST(_ root: TreeNode?) -> Bool {
+        let leftDepth = depth(root, goLeft: true)
+        let rightDepth = depth(root, goLeft: false)
+        
+        return leftDepth == rightDepth
+    }
+}
+
+class TrimBST {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func trimBST(_ root: TreeNode?, _ low: Int, _ high: Int) -> TreeNode? {
+        func trimBSTNode(_ node: TreeNode?) -> TreeNode? {
+            if node == nil {
+                return nil
+            }
+            let val = node!.val
+            if val > high {
+                return trimBSTNode(node?.left)
+            } else if val < low {
+                return trimBSTNode(node?.right)
+            }
+            
+            node?.left = trimBSTNode(node?.left)
+            node?.right = trimBSTNode(node?.right)
+            return node
+        }
+        return trimBSTNode(root)
+    }
+}
+
+class SubTreeOfAnotherTree {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func isSubtree(_ root: TreeNode?, _ subRoot: TreeNode?) -> Bool {
+        if subRoot == nil {
+            return true
+        }
+        if root == nil {
+            return false
+        }
+        
+        func evaluateSubTree(_ sNode: TreeNode?, tNode: TreeNode?) -> Bool {
+            if sNode == nil && tNode == nil  {
+                return true
+            }
+            
+            if sNode?.val != tNode?.val {
+                return false
+            }
+            let isLeftSame = evaluateSubTree(sNode?.left, tNode: tNode?.left)
+            let isRightSame = evaluateSubTree(sNode?.right, tNode: tNode?.right)
+            return isLeftSame && isRightSame
+        }
+        
+        if evaluateSubTree(root, tNode: subRoot) {
+            return true
+        }
+        return isSubtree(root?.left, subRoot) || isSubtree(root?.right, subRoot)
+    }
+}
+
+class FindBottomLeftValue {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func callAsfunction(_ root: TreeNode?) -> Int {
+        var stack = [root], res: TreeNode? = nil
+        while !stack.isEmpty {
+            let level = stack
+            res = level.first!
+            stack.removeAll()
+            
+            for node in level {
+                if node?.left != nil {
+                    stack.append(node?.left)
+                }
+                
+                if node?.right != nil {
+                    stack.append(node?.right)
+                }
+            }
+        }
+        return res != nil ? res!.val : -1
+    }
+}
+
+class FlipEquivalentBinaryTrees {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func flipEquiv(_ root1: TreeNode?, _ root2: TreeNode?) -> Bool {
+        if root1 == nil || root2 == nil {
+            return root2 == nil && root1 == nil
+        }
+        
+        if root1?.val != root2?.val {
+            return false
+        }
+        
+        let a = flipEquiv(root1?.left, root2?.left) && flipEquiv(root1?.right, root2?.right)
+        return a || flipEquiv(root1?.left, root2?.right) && flipEquiv(root1?.right, root2?.left)
+    }
+}
+
+class AllPossibleFullBinaryTrees {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func callAsfunction(_ n: Int) -> [TreeNode?] {
+        var dp = [
+            0: [],
+            1: [TreeNode(0)]
+        ]
+        
+        func allPossibleFBT(n: Int) -> [TreeNode] {
+            if let trees = dp[n] {
+                return trees
+            }
+            
+            var result = [TreeNode]()
+            for l in 0..<n {
+                let r = n - 1 - l
+                let leftTrees = allPossibleFBT(n: l)
+                let rightTrees = allPossibleFBT(n: r)
+                
+                for leftTree in leftTrees {
+                    for rightTree in rightTrees {
+                        result.append(TreeNode(0, leftTree, rightTree))
+                    }
+                }
+            }
+            dp[n] = result
+            return result
+        }
+        return allPossibleFBT(n: n)
+    }
+}
+
+class LockingTree {
+    
+    struct Node {
+        var parent: Int
+        var children: [Int]
+        var lockedBy: Int
+    }
+    
+    private var nodes: [Node]
+    
+    init(_ parent: [Int]) {
+        let n = parent.count
+        nodes = [Node](repeating: .init(parent: -1, children: [], lockedBy: -1), count: n)
+        for i in 0..<parent.count where parent[i] >= 0 {
+            nodes[i].parent = parent[i]
+            nodes[parent[i]].children.append(i)
+        }
+    }
+    
+    func lock(_ num: Int, _ user: Int) -> Bool {
+        if nodes[num].lockedBy >= 0 {
+            return false
+        }
+        nodes[num].lockedBy = user
+        return true
+    }
+    
+    func unlock(_ num: Int, _ user: Int) -> Bool {
+        if nodes[num].lockedBy != user {
+            return false
+        }
+        nodes[num].lockedBy = -1
+        return true
+    }
+    
+    func upgrade(_ num: Int, _ user: Int) -> Bool {
+        var current = num
+        while current != -1 {
+            if nodes[current].lockedBy >= 0 {
+                return false
+            }
+            current = nodes[current].parent
+        }
+        
+        var stack = [num], lockedDescendants = [Int]()
+        while !stack.isEmpty {
+            let level = stack
+            stack = []
+            
+            for node in level {
+                for childNode in nodes[node].children {
+                    stack.append(childNode)
+                    if nodes[childNode].lockedBy >= 0 {
+                        lockedDescendants.append(childNode)
+                    }
+                }
+            }
+        }
+        
+        if lockedDescendants.count == 0 {
+            return false
+        }
+        
+        for node in lockedDescendants {
+            nodes[node].lockedBy = -1
+        }
+        nodes[num].lockedBy = user
+        return true
+    }
+}
+
+/*
+ problem:
+ Given the root of a binary tree, return the sum of every tree node's tilt.
+
+ The tilt of a tree node is the absolute difference between the sum of all left subtree node values and all right subtree node values. If a node does not have a left child, then the sum of the left subtree node values is treated as 0. The rule is similar if the node does not have a right child.
+ 
+ Testcases:
+ Input: root = [1,2,3]
+ Output: 1
+ Explanation:
+ Tilt of node 2 : |0-0| = 0 (no children)
+ Tilt of node 3 : |0-0| = 0 (no children)
+ Tilt of node 1 : |2-3| = 1 (left subtree is just left child, so sum is 2; right subtree is just right child, so sum is 3)
+ Sum of every tilt : 0 + 0 + 1 = 1
+ 
+ Input: root = [4,2,9,3,5,null,7]
+ Output: 15
+ Explanation:
+ Tilt of node 3 : |0-0| = 0 (no children)
+ Tilt of node 5 : |0-0| = 0 (no children)
+ Tilt of node 7 : |0-0| = 0 (no children)
+ Tilt of node 2 : |3-5| = 2 (left subtree is just left child, so sum is 3; right subtree is just right child, so sum is 5)
+ Tilt of node 9 : |0-7| = 7 (no left child, so sum is 0; right subtree is just right child, so sum is 7)
+ Tilt of node 4 : |(3+5+2)-(9+7)| = |10-16| = 6 (left subtree values are 3, 5, and 2, which sums to 10; right subtree values are 9 and 7, which sums to 16)
+ Sum of every tilt : 0 + 0 + 0 + 2 + 7 + 6 = 15
+ 
+ Input: root = [21,7,14,1,1,2,2,3,3]
+ Output: 9
+ 
+ Constraints:
+ The number of nodes in the tree is in the range [0, 104].
+ -1000 <= Node.val <= 1000
+ 
+ 
+ link: https://leetcode.com/problems/binary-tree-tilt/
+ explanation:
+ primary idea:
+ - Inordertraversal and return sum, tiltSum
+ Time Complexity: O(n)
+ Space Complexity: O(logn)
+ */
+class BinaryTreeTilt {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func findTilt(_ root: TreeNode?) -> Int {
+        
+        func findSumOfTilt(_ root: TreeNode?) -> (sum: Int, tiltSum: Int) {
+            if root == nil {
+                return (0, 0)
+            }
+            
+            let left = findSumOfTilt(root?.left)
+            let right = findSumOfTilt(root?.right)
+            let sum = left.sum + right.sum + root!.val
+            
+            let tiltSum = left.tiltSum + right.tiltSum  + abs(left.sum - right.sum)
+            return (sum, tiltSum)
+        }
+        
+        return findSumOfTilt(root).tiltSum
     }
 }

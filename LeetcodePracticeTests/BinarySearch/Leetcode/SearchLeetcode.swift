@@ -135,5 +135,10 @@ class SearchLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj("abcbddddd", "abcd", [3,2,1,4,5,6]), 1)
         XCTAssertEqual(obj("qobftgcueho", "obue", [5,3,0,6,4,9,10,7,2,8]), 7)
     }
+    
+    func testCapacityToShipPackagesWithInDDays() {
+        let obj = CapacityToShipPackagesWithInDDays()
+        XCTAssertEqual(obj([1,2,3,4,5,6,7,8,9,10], 5), 15)
+    }
 }
 

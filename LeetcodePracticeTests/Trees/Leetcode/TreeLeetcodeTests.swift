@@ -302,4 +302,69 @@ class TreeLeetcodeTests: XCTestCase {
         let obj = CountGoodNodes()
         XCTAssertEqual(obj(three1), 4)
     }
+    
+    func testUniqueBST() {
+        let obj = UniqueBST()
+        XCTAssertEqual(obj.numTrees(3), 5)
+        XCTAssertEqual(obj.numTrees(1), 1)
+    }
+    
+    func testTriangle() {
+        let obj = Triangle()
+//        XCTAssertEqual(obj.minimumTotal([[2],[3,4],[6,5,7],[4,1,8,3]]), 11)
+//        XCTAssertEqual(obj.minimumTotal([[-10]]), -10)
+        
+        XCTAssertEqual(obj.dp([[2],[3,4],[6,5,7],[4,1,8,3]]), 11)
+        XCTAssertEqual(obj.dp([[-10]]), -10)
+    }
+    
+    func testMaxDiffBtwAncestorAndNode() {
+        let one = TreeLeetcode.TreeNode(1)
+        let three = TreeLeetcode.TreeNode(3)
+        three.left = one
+        let eight = TreeLeetcode.TreeNode(8)
+        eight.left = three
+        
+        let obj = MaxDiffBtwAncestorAndNode()
+        XCTAssertEqual(obj.maxAncestorDiff(eight), 7)
+    }
+    
+    func testSumRootToLeafNumbers() {
+        let two = TreeLeetcode.TreeNode(2)
+        let three = TreeLeetcode.TreeNode(3)
+        let one = TreeLeetcode.TreeNode(1)
+        one.left = two
+        one.right = three
+        
+        let obj = SumRootToLeafNumbers()
+        XCTAssertEqual(obj(one), 25)
+    }
+    
+    func testFindBottomLeftValue() {
+        
+        let three = TreeLeetcode.TreeNode(3)
+        let one = TreeLeetcode.TreeNode(1)
+        let two = TreeLeetcode.TreeNode(2, one, three)
+        
+        let obj = FindBottomLeftValue()
+    }
+    
+    func testLockingTree() {
+        let obj = LockingTree([-1, 0, 0, 1, 1, 2, 2])
+        XCTAssertEqual(obj.lock(2, 2), true)
+        XCTAssertEqual(obj.unlock(2, 3), false)
+        XCTAssertEqual(obj.unlock(2, 2), true)
+        XCTAssertEqual(obj.lock(4, 5), true)
+        XCTAssertEqual(obj.upgrade(0, 1), true)
+        XCTAssertEqual(obj.lock(0, 1), false)
+    }
+    
+    func testBinaryTreeTilt() {
+        let three = TreeLeetcode.TreeNode(3)
+        let two = TreeLeetcode.TreeNode(2)
+        let one = TreeLeetcode.TreeNode(1, two, three)
+        
+        let obj = BinaryTreeTilt()
+        XCTAssertEqual(obj.findTilt(one), 1)
+    }
 }

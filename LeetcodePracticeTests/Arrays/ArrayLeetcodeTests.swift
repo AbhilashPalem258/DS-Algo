@@ -45,6 +45,13 @@ class ArrayLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj.islandPerimeter([[0,1,0,0],[1,1,1,0],[0,1,0,0],[1,1,0,0]]), 16)
     }
     
+    func testFirstMissingPositive() {
+        let obj = FirstMissingPositive()
+        XCTAssertEqual(obj([1,2,0]), 3)
+        XCTAssertEqual(obj([3,4,-1,1]), 2)
+        XCTAssertEqual(obj([7,8,9,11,12]), 1)
+    }
+    
     func testContainsDuplicateII() {
         let obj = ContainsDuplicatesII()
         XCTAssertEqual(obj.containsNearbyDuplicate([1,2,3,1], 3), true)
@@ -310,6 +317,14 @@ class ArrayLeetcodeTests: XCTestCase {
         XCTAssertEqual(arr2, [[0,0,0,0],[0,4,5,0],[0,3,1,0]])
     }
     
+    func testNextPermutation() {
+        var inputArr = [1,2,3]
+        
+        let obj = NextPermutation()
+        obj(&inputArr)
+        XCTAssertEqual(inputArr, [1,3,2])
+    }
+    
     func testGasStation() {
         let obj = GasStation()
         XCTAssertEqual(obj.canCompleteCircuit([2,3,4],[3,4,3]), -1)
@@ -414,6 +429,13 @@ class ArrayLeetcodeTests: XCTestCase {
             0240, 0415, 1308, 4557, 5035, 8208, 9700
         ])
         debugPrint(obj(input))
+    }
+    
+    func testMinDominoeRotationsForEqualRow() {
+        let obj = MinDominoeRotationsForEqualRow()
+        XCTAssertEqual(obj([1,2,3,4,6],[6,6,6,6,5]), 1)
+        XCTAssertEqual(obj([2,1,2,4,2,2], [5,2,6,2,3,2]), 2)
+        XCTAssertEqual(obj([3,5,1,2,3], [3,6,3,3,4]), -1)
     }
 }
 

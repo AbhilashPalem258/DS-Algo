@@ -253,4 +253,10 @@ class StringsLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj("abc", "ahbgdc"), true)
         XCTAssertEqual(obj("axc", "ahbgdc"), false)
     }
+    
+    func testUniqueEmailAddress() {
+        let obj = UniqueEmailAddress()
+        XCTAssertEqual(obj(["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]), 2)
+        XCTAssertEqual(obj(["a@leetcode.com","b@leetcode.com","c@leetcode.com"]), 3)
+    }
 }

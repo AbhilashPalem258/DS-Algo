@@ -7,6 +7,154 @@
 
 import Foundation
 
+class MinStack {
+
+    var minStack: [Int]
+    var stack: [Int]
+    
+    init() {
+        self.minStack = []
+        self.stack = []
+    }
+    
+    func push(_ val: Int) {
+        self.stack.append(val)
+        if minStack.isEmpty || val <= minStack.last! {
+            self.minStack.append(val)
+        }
+    }
+    
+    func pop() {
+        guard !stack.isEmpty else {
+            return
+        }
+        let popVal = stack.removeLast()
+        if let last = minStack.last, last == popVal {
+            minStack.removeLast()
+        }
+    }
+    
+    func top() -> Int {
+        return stack.isEmpty ? -1 : stack.last!
+    }
+    
+    func getMin() -> Int {
+        return minStack.isEmpty ? -1 : minStack.last!
+    }
+}
+
+/*
+ problem:
+ Design a max stack that supports push, pop, top, peekMax and popMax.
+
+ push(x) -- Push element x onto stack.
+ pop() -- Remove the element on top of the stack and return it.
+ top() -- Get the element on the top.
+ peekMax() -- Retrieve the maximum element in the stack.
+ popMax() -- Retrieve the maximum element in the stack, and remove it. If you find more than one maximum elements, only remove the top-most one.
+ Example 1:
+
+ MaxStack stack = new MaxStack();
+ stack.push(5);
+ stack.push(1);
+ stack.push(5);
+ stack.top(); -> 5
+ stack.popMax(); -> 5
+ stack.top(); -> 1
+ stack.peekMax(); -> 5
+ stack.pop(); -> 1
+ stack.top(); -> 5
+ Note: -1e7 <= x <= 1e7 Number of operations won't exceed 10000. The last four operations won't be called when stack is empty.
+ 
+ 
+ Constraints:
+ 1 <= heights.length <= 105
+ 0 <= heights[i] <= 104
+ 
+ 
+ link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+ explanation: https://www.youtube.com/watch?v=zx5Sw9130L0&list=PLot-Xpze53letfIu9dMzIIO7na_sqvl0w&index=5
+ primary idea:
+ - Use stack and as soon as the current height is lower than earlier, pop all last height's in stack which are higher than current one. calculate area and modify maxArea if needed. After Iteration, check if stack is empty. if not calculate maxArea with all stack elementss
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class MaxStack {
+    var stack: [Int]
+    var maxStack: [Int]
+
+    /** initialize your data structure here. */
+    init() {
+        stack = [Int]()
+        maxStack = [Int]()
+    }
+    
+    func push(_ x: Int) {
+        stack.append(x)
+        maxStack.append(maxStack.isEmpty ? x : max(x, maxStack.last!))
+    }
+    
+    @discardableResult
+    func pop() -> Int {
+        maxStack.removeLast()
+        return stack.removeLast()
+    }
+    
+    func top() -> Int {
+        return stack.last!
+    }
+    
+    func peekMax() -> Int {
+        return maxStack.last!
+    }
+    
+    func popMax() -> Int {
+        let maxVal = peekMax()
+        
+        // remove max from stack
+        var buffer = [Int]()
+        while top() != maxVal {
+            buffer.append(pop())
+        }
+        pop()
+        while !buffer.isEmpty {
+            push(buffer.removeLast())
+        }
+        
+        return maxVal
+    }
+}
+
+
+//Link: https://leetcode.com/problems/valid-parentheses/
+struct ValidParentheses {
+    func callAsFunction(_ s: String) -> Bool {
+        let rule = "()[]{}"
+        var ruleMap = [Character: Int]()
+        for (i, element) in rule.enumerated() {
+            ruleMap[element] = i
+        }
+        var stack = [Character]()
+        for char in s {
+            if ruleMap[char]! % 2 == 0 {
+                stack.append(char)
+            } else {
+                if stack.isEmpty {
+                    return false
+                } else {
+                    if ruleMap[char]! - ruleMap[stack.last!]! == 1 {
+                        stack.removeLast()
+                    } else {
+                        return false
+                    }
+                }
+            }
+        }
+        return stack.isEmpty ? true : false
+    }
+}
+
+
 struct SimplifyPath {
     func simplifyPath(_ path: String) -> String {
         var components = [String]()
@@ -185,33 +333,6 @@ struct BasicCalculator {
     }
 }
 
-//Link: https://leetcode.com/problems/valid-parentheses/
-struct ValidParentheses {
-    func callAsFunction(_ s: String) -> Bool {
-        let rule = "()[]{}"
-        var ruleMap = [Character: Int]()
-        for (i, element) in rule.enumerated() {
-            ruleMap[element] = i
-        }
-        var stack = [Character]()
-        for char in s {
-            if ruleMap[char]! % 2 == 0 {
-                stack.append(char)
-            } else {
-                if stack.isEmpty {
-                    return false
-                } else {
-                    if ruleMap[char]! - ruleMap[stack.last!]! == 1 {
-                        stack.removeLast()
-                    } else {
-                        return false
-                    }
-                }
-            }
-        }
-        return stack.isEmpty ? true : false
-    }
-}
 
 //Link: https://leetcode.com/problems/longest-valid-parentheses/
 struct LongestValidParenthesesII {
@@ -275,6 +396,52 @@ struct EvaluateReversePolishNotation {
     }
 }
 
+/*
+ problem:
+ Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.
+
+ The span of the stock's price today is defined as the maximum number of consecutive days (starting from today and going backward) for which the stock price was less than or equal to today's price.
+
+ For example, if the price of a stock over the next 7 days were [100,80,60,70,60,75,85], then the stock spans would be [1,1,1,2,1,4,6].
+ Implement the StockSpanner class:
+
+ StockSpanner() Initializes the object of the class.
+ int next(int price) Returns the span of the stock's price given that today's price is price.
+ 
+ Testcases:
+ Input
+ ["StockSpanner", "next", "next", "next", "next", "next", "next", "next"]
+ [[], [100], [80], [60], [70], [60], [75], [85]]
+ Output
+ [null, 1, 1, 1, 2, 1, 4, 6]
+
+ Explanation
+ StockSpanner stockSpanner = new StockSpanner();
+ stockSpanner.next(100); // return 1
+ stockSpanner.next(80);  // return 1
+ stockSpanner.next(60);  // return 1
+ stockSpanner.next(70);  // return 2
+ stockSpanner.next(60);  // return 1
+ stockSpanner.next(75);  // return 4, because the last 4 prices (including today's price of 75) were less than or equal to today's price.
+ stockSpanner.next(85);  // return 6
+ 
+ Constraints:
+ 1 <= price <= 105
+ At most 104 calls will be made to next
+ 
+ link: https://leetcode.com/problems/online-stock-span/
+ explanation:
+ primary idea:
+ -  Use stack to keep record of last element with it span. last elements span itself let us know how many decreeasing elements exists prevuous to it
+ - Figure to understand, all these elements will be in stack
+    *
+        *           *
+            *
+                *
+                    
+ Time Complexity: O(n)
+ Space Complexity: O(n)
+ */
 class StockSpanner {
     
     var stack: [(price: Int, span: Int)]
@@ -344,7 +511,8 @@ class StockSpanner {
  link: https://leetcode.com/problems/car-fleet/
  explanation: https://www.youtube.com/watch?v=Pr6T-3yB9RM
  primary idea:
- - 
+ - Sort the input
+ - Caluclate time to reach destination for each car and if it's time is less than or equal to previous car then it travels along with previous car, thus both cars forming one car fleet.
  Time Complexity: O(nlogn)
  Space Complexity: O(n)
  */
@@ -363,7 +531,7 @@ class CarFleet {
         var stack = [Double]()
         for pair in pairs {
             let currentCartimeToReach: Double = (Double(target) - pair.position)/pair.speed
-            if !(!stack.isEmpty && currentCartimeToReach <= stack.last!) {
+            if stack.isEmpty || !(currentCartimeToReach <= stack.last!) {
                 stack.append(currentCartimeToReach)
             }
         }

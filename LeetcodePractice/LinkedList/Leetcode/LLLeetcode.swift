@@ -9,6 +9,34 @@ import Foundation
 
 //Link: https://leetcode.com/problems/rotate-list/
 
+/*
+ NOTE:
+ use this when we slow pointer to stop exactly after middle
+ 
+ var slow = head
+ var fast = head
+ 
+ while fast != nil {
+     slow = slow?.next
+     fast = fast?.next?.next
+ }
+ */
+
+/*
+ NOTE:
+ use this when we slow pointer to stop exactly before middle
+ 
+ https://www.youtube.com/watch?v=S5bfdUTrKLM
+ 
+ var slow = head
+ var fast = head.next
+ 
+ while fast != nil && fast.next != nil {
+     slow = slow?.next
+     fast = fast?.next?.next
+ }
+ */
+
 class RotateLL {
     func rotateRight(_ head: ListNode?, _ k: Int) -> ListNode? {
         guard head != nil else {
@@ -308,6 +336,115 @@ class InsertionSortList {
             current = cur.next
         }
         
+        return dummy.next
+    }
+}
+
+class RemoveLinkedListElements {
+    func callAsFunction(_ head: ListNode?, _ val: Int) -> ListNode? {
+        let dummy = ListNode(-1)
+        dummy.next = head
+        
+        var prev = dummy, current = head
+        while let cur = current {
+            let next = cur.next
+            
+            if cur.val == val {
+                prev.next = next
+            } else {
+                prev = cur
+            }
+            current = next
+        }
+        
+        return dummy.next
+    }
+}
+
+class RemoveDuplicatesFromSortedLinkedList {
+    func callAsFunction(_ head: ListNode?) -> ListNode? {
+        var prev: ListNode? = nil
+        var current = head
+        
+        while let cur = current {
+            let next = cur.next
+            if cur.val == prev?.val {
+                prev?.next = next
+            } else {
+                prev = current
+            }
+            current = next
+        }
+        return head
+    }
+}
+
+class RemoveDuplicatesFromSortedLinkedListII {
+    func callAsFunction(_ head: ListNode?) -> ListNode? {
+        let dummy = head
+        dummy?.next = head
+        
+        var prev = dummy, current = head
+        while let cur = current {
+            let next = cur.next
+            let post = next?.next
+            
+            if current?.val == next?.val {
+                prev?.next = post
+                current = post
+            } else {
+                prev = current
+                current = next
+            }
+        }
+        return dummy?.next
+    }
+}
+
+/*
+ problem:
+ Given the head of a singly linked list and two integers left and right where left <= right, reverse the nodes of the list from position left to position right, and return the reversed list.
+ 
+ Testcases:
+ Input: head = [1,2,3,4,5], left = 2, right = 4
+ Output: [1,4,3,2,5]
+
+ Input: head = [5], left = 1, right = 1
+ Output: [5]
+ 
+ Constraints:
+ The number of nodes in the list is n.
+ 1 <= n <= 500
+ -500 <= Node.val <= 500
+ 1 <= left <= right <= n
+ 
+ link: https://leetcode.com/problems/reverse-linked-list-ii/
+ explanation: https://www.youtube.com/watch?v=RF_M9tX4Eag&list=PLot-Xpze53leU0Ec0VkBhnf4npMRFiNcB&index=17
+ primary idea:
+ -
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class ReverseLinkedlistII {
+    func callAsFunction(_ head: ListNode?, _ left: Int, _ right: Int) -> ListNode? {
+        let dummy = ListNode(-1)
+        dummy.next = head
+        
+        var leftPrev: ListNode? = dummy, current = head
+        for _ in 0..<left {
+            (leftPrev, current) = (current, current?.next)
+        }
+        
+        var prev: ListNode? = nil
+        for _ in left..<right+1 {
+            let next = current?.next
+            current?.next = prev
+            prev = current
+            current = next
+        }
+        
+        leftPrev?.next?.next = current
+        leftPrev?.next = prev
         return dummy.next
     }
 }
