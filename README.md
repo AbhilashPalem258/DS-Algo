@@ -2,6 +2,8 @@
 
 ## Data Structures
 * [Array](#array)
+* [Two Pointer](#two-pointer)
+* [Sliding Window](#sliding-window)
 * [String](#string)
 * [Linked List](#linked-list)
 * [Stack](#stack)
@@ -55,7 +57,6 @@
 [Shortest Word Distance &hearts;](https://leetcode.com/problems/shortest-word-distance/)| [Swift](./Array/ShortestWordDistance.swift)| Easy| O(n)| O(1)|
 [Shortest Word Distance II &hearts;](https://leetcode.com/problems/shortest-word-distance-ii/)| [Swift](./Array/ShortestWordDistanceII.swift)| Medium| O(n)| O(n)|
 [Shortest Word Distance III &hearts;](https://leetcode.com/problems/shortest-word-distance-iii/)| [Swift](./Array/ShortestWordDistanceIII.swift)| Medium| O(n)| O(1)|
-[Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)| [Swift](./Array/MinimumSizeSubarraySum.swift)| Medium| O(n)| O(1)|
 [Maximum Size Subarray Sum Equals k &hearts;](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/)| [Swift](./Array/MaximumSizeSubarraySumEqualsK.swift)| Medium| O(n)| O(n)|
 [Smallest Range](https://leetcode.com/problems/smallest-range/)| [Swift](./Array/SmallestRange.swift)| Hard | O(nm)| O(nm)|
 [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)| [Swift](./Array/ProductExceptSelf.swift)| Medium| O(n)| O(1)|
@@ -71,7 +72,6 @@
 [Game of Life](https://leetcode.com/problems/game-of-life/)| [Swift](./Array/GameLife.swift)| Medium| O(n)| O(1)|
 [Task Scheduler](https://leetcode.com/problems/task-scheduler/)| [Swift](./Array/TaskScheduler.swift)| Medium| O(nlogn)| O(n)|
 [Validate IP Address](https://leetcode.com/problems/validate-ip-address/)| [Swift](./Array/ValidateIPAddress.swift)| Medium| O(n)| O(1)|
-[Sliding Window Maximum ](https://leetcode.com/problems/sliding-window-maximum/)| [Swift](./Array/SlidingWindowMaximum.swift)| Hard| O(n)| O(n)|
 [Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/)| [Swift](./Array/LongestConsecutiveSequence.swift)| Hard| O(n)| O(n)|
 [Create Maximum Number](https://leetcode.com/problems/create-maximum-number/)| [Swift](./Array/CreateMaximumNumber.swift)| Hard| O(n^2)| O(n)|
 [Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
@@ -79,6 +79,29 @@
 [Daily Temperatures](https://leetcode.com/problems/daily-temperatures/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
 [Brick Wall](https://leetcode.com/problems/brick-wall/)| [Swift](./Array/FindDisappearedNumbers.swift)| Easy| O(n)| O(1)|
 [Minimum Domino Rotations For Equal Row](https://leetcode.com/problems/minimum-domino-rotations-for-equal-row/)| [Swift](./Array/FindDisappearedNumbers.swift)| Medium| O(n)| O(1)|
+
+## TWO POINTER
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Sum Of Square Numbers](https://leetcode.com/problems/sum-of-square-numbers/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
+[Two Sum IV](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
+[Count Binary Substrings](https://leetcode.com/problems/count-binary-substrings/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
+
+## SLIDING WINDOW
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)| [Swift](./String/MinimumWindowSubstring.swift)| Hard| O(n^2)| O(n)|
+[Longest Repeating Character Replacement](https://leetcode.com/problems/longest-repeating-character-replacement/)| [Swift](./String/MinimumWindowSubstring.swift)| Hard| O(n^2)| O(n)|
+[Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)| [Swift](/.String/FindAllAnagramsInAString.swift)| Medium| O(n)| O(n)|
+[Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)| [Swift](./String/LongestSubstringWithoutRepeatingCharacters.swift)| Medium| O(n)| O(n)|
+[Sliding Window Maximum ](https://leetcode.com/problems/sliding-window-maximum/)| [Swift](./Array/SlidingWindowMaximum.swift)| Hard| O(n)| O(n)|
+[Longest Substring with At Most Two Distinct Characters  &hearts;](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/)| [Swift](./String/LongestSubstringMostTwoDistinctCharacters.swift)| Hard| O(n)| O(n)|
+[Longest Substring with At Most K Distinct Characters  &hearts;](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)| [Swift](./String/LongestSubstringMostKDistinctCharacters.swift)| Hard| O(n)| O(n)|
+[Frequency Of The Most Frequent Element](https://leetcode.com/problems/frequency-of-the-most-frequent-element/)| [Swift](./Array/SlidingWindowMaximum.swift)| Hard| O(n)| O(n)|
+[Permutation in String](https://leetcode.com/problems/permutation-in-string/)| [Swift](/.String/PermutationInString.swift)| Medium| O(nm)| O(n)|
+[Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)| [Swift](./Array/MinimumSizeSubarraySum.swift)| Medium| O(n)| O(1)|
+[Minimum Flips To Make Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating/)| [Swift](./Array/MinimumSizeSubarraySum.swift)| Medium| O(n)| O(1)|
+
 
 ## String
 | Title | Solution | Difficulty | Time | Space |
@@ -111,14 +134,8 @@
 [Group Anagrams](https://leetcode.com/problems/anagrams/)| [Swift](./String/GroupAnagrams.swift)| Medium| O(nmlogm + nlogn)| O(n)
 [Find Duplicate File in System](https://leetcode.com/problems/find-duplicate-file-in-system/)| [Swift](./String/FindDuplicateFileInSystem.swift)| Medium| O(nm)| O(n)
 [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)| [Swift](./String/LongestCommonPrefix.swift)| Easy| O(nm)| O(m)|
-[Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)| [Swift](./String/LongestSubstringWithoutRepeatingCharacters.swift)| Medium| O(n)| O(n)|
 [One Edit Distance](https://leetcode.com/problems/one-edit-distance/)| [Swift](./String/OneEditDistance.swift)| Medium| O(n)| O(n)|
 [Word Pattern](https://leetcode.com/problems/word-pattern/)| [Swift](./String/WordPattern.swift)| Easy| O(n)| O(n)|
-[Permutation in String](https://leetcode.com/problems/permutation-in-string/)| [Swift](/.String/PermutationInString.swift)| Medium| O(nm)| O(n)|
-[Find All Anagrams in a String](https://leetcode.com/problems/find-all-anagrams-in-a-string/)| [Swift](/.String/FindAllAnagramsInAString.swift)| Medium| O(n)| O(n)|
-[Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)| [Swift](./String/MinimumWindowSubstring.swift)| Hard| O(n^2)| O(n)|
-[Longest Substring with At Most Two Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/)| [Swift](./String/LongestSubstringMostTwoDistinctCharacters.swift)| Hard| O(n)| O(n)|
-[Longest Substring with At Most K Distinct Characters](https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/)| [Swift](./String/LongestSubstringMostKDistinctCharacters.swift)| Hard| O(n)| O(n)|
 [Text Justification](https://leetcode.com/problems/text-justification/)| [Swift](./String/TextJustification.swift)| Hard| O(n)| O(n)|
 [Find the Closest Palindrome](https://leetcode.com/problems/find-the-closest-palindrome/)| [Swift](./String/FindClosestPalindrome.swift)| Hard| O(n)| O(n)|
 
