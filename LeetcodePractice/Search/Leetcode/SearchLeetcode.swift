@@ -1096,3 +1096,59 @@ class CapacityToShipPackagesWithInDDays {
         return l
     }
 }
+
+// Simple binary search
+class GuessNumberHigherOrLower {
+    let hiddenNum: Int
+    init(num: Int) {
+        self.hiddenNum = num
+    }
+    
+    func callAsFunction(_ n: Int) -> Int {
+        var low = 0, high = n
+        while low <= high {
+            let num = low + (high - low)/2
+            let guess = guess(num)
+            if guess == 0 {
+                return num
+            } else if guess == 1 {
+                low = num + 1
+            } else {
+                high = num - 1
+            }
+        }
+        return -1
+    }
+    
+    func guess(_ num: Int) -> Int {
+        if num == hiddenNum {
+            return 0
+        } else if num < hiddenNum {
+            return 1
+        } else {
+            return -1
+        }
+    }
+}
+
+class ValidPerfectSquare {
+    func callAsFunction(_ num: Int) -> Bool {
+        if num == 1 {
+            return true
+        }
+        
+        var low = 2, high = num/2 + 1
+        while low <= high {
+            let current = low + (high - low)/2
+            let squaredNum = current * current
+            if squaredNum == num {
+                return true
+            } else if squaredNum < num {
+                low = current + 1
+            } else {
+                high = current - 1
+            }
+        }
+        return false
+    }
+}

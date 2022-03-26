@@ -423,7 +423,7 @@ class LongestSubstringWithAtmost2DistinctChar {
 /*
  problem:
  ❤️ - Premium problem [Not tested]
- Given a string, find the length of the longest substring T that contains at most 2 distinct characters.
+ Given a string, find the length of the longest substring T that contains at most k distinct characters.
  
  Testcases:
  
@@ -699,5 +699,97 @@ class MinFlipsToMakeBinaryStringAlternating {
             }
         }
         return res
+    }
+}
+
+/*
+ problem:
+ You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+ You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+ Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+ 
+ Testcases:
+ Input: prices = [7,1,5,3,6,4]
+ Output: 5
+ Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+ Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+ 
+ Input: prices = [7,6,4,3,1]
+ Output: 0
+ Explanation: In this case, no transactions are done and the max profit = 0.
+ 
+ Constraints:
+ 1 <= prices.length <= 105
+ 0 <= prices[i] <= 104
+ 
+ link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+ explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ primary idea:
+ - Non DP, self explanatory
+ Time Complexity: O(n)
+ Space Complexity: O(1)
+ */
+class BestTimeToBuyAndSellStock {
+    func maxProfit(_ prices: [Int]) -> Int {
+        var buy = 0, profit = 0
+        for sell in 1..<prices.count {
+            if prices[sell] < prices[buy] {
+                buy = sell
+            }
+            let currentProfit = prices[sell] - prices[buy]
+            if profit < currentProfit {
+                profit = currentProfit
+            }
+        }
+        return profit
+    }
+}
+
+/*
+ problem:
+ The DNA sequence is composed of a series of nucleotides abbreviated as 'A', 'C', 'G', and 'T'.
+
+ For example, "ACGAATTCCG" is a DNA sequence.
+ When studying DNA, it is useful to identify repeated sequences within the DNA.
+
+ Given a string s that represents a DNA sequence, return all the 10-letter-long sequences (substrings) that occur more than once in a DNA molecule. You may return the answer in any order.
+ 
+ Testcases:
+ Input: s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"
+ Output: ["AAAAACCCCC","CCCCCAAAAA"]
+
+ Input: s = "AAAAAAAAAAAAA"
+ Output: ["AAAAAAAAAA"]
+ 
+ Constraints:
+ 1 <= s.length <= 105
+ s[i] is either 'A', 'C', 'G', or 'T'.
+ 
+ link: https://leetcode.com/problems/repeated-dna-sequences/
+ explanation: https://www.youtube.com/watch?v=FzTYfsmtOso
+ primary idea:
+ - Initial check is to check if s itself is > 10 or not
+ - use seen set to keep track of already seen DNA's
+ - if we encounter a DNA which is seen then we append it to our result and there are cance of multiple occurences of same DNA we use set for res
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class RepeatedDNASequences {
+    func callAsFunction(_ s: String) -> [String] {
+        let s = Array(s)
+        if s.count < 10 {
+            return []
+        }
+        var seen = Set<String>(), res = Set<String>()
+        for index in 0..<s.count - 9 {
+            let dna = String(s[index..<index+10])
+            if seen.contains(dna) {
+                res.insert(String(dna))
+            }
+            seen.insert(dna)
+        }
+        return Array(res)
     }
 }

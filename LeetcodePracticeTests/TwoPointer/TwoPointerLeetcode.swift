@@ -35,4 +35,11 @@ class TwoPointerLeetcode: XCTestCase {
         let obj = CountBinarySubstrings()
         XCTAssertEqual(obj("00110011"), 6)
     }
+    
+    func testBoatsToSavePeople() {
+        let obj = BoatsToSavePeople()
+//        XCTAssertEqual(obj([1,2], 3), 1)
+        XCTAssertEqual(obj([3,2,2,1], 3), 3)
+//        XCTAssertEqual(obj([3,5,3,4], 5), 4)
+    }
 }

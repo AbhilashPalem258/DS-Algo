@@ -57,6 +57,60 @@ class SumOfSquareNumbers {
 
 /*
  problem:
+ You are given an array people where people[i] is the weight of the ith person, and an infinite number of boats where each boat can carry a maximum weight of limit. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most limit.
+
+ Return the minimum number of boats to carry every given person.
+ 
+ Testcases:
+ Input: people = [1,2], limit = 3
+ Output: 1
+ Explanation: 1 boat (1, 2)
+
+ Input: people = [3,2,2,1], limit = 3
+ Output: 3
+ Explanation: 3 boats (1, 2), (2) and (3)
+
+ Input: people = [3,5,3,4], limit = 5
+ Output: 4
+ Explanation: 4 boats (3), (3), (4), (5)
+ 
+ Constraints:
+ 1 <= people.length <= 5 * 104
+ 1 <= people[i] <= limit <= 3 * 104
+ 
+ link: https://leetcode.com/problems/boats-to-save-people/
+ explanation: https://www.youtube.com/watch?v=XbaxWuHIWUs
+ primary idea:
+ - Two sum variation
+ - Sort the people arr
+ - if we find the sum of weight more than limit, the person with higher weight should go alone in a boat
+ - If sum is <= limit, then both can travel along eachother in single boat
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class BoatsToSavePeople {
+    func callAsFunction(_ people: [Int], _ limit: Int) -> Int {
+        let people = people.sorted()
+        
+        var res = 0
+        var i = 0, j = people.count - 1
+        while i <= j {
+            let sumOfWeights = people[i] + people[j]
+            if sumOfWeights > limit {
+                j -= 1
+            } else {
+                i += 1
+                j -= 1
+            }
+            res += 1
+        }
+        return res
+    }
+}
+
+
+/*
+ problem:
  Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
  
  Testcases:

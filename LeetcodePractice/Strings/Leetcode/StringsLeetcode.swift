@@ -112,7 +112,7 @@ struct ValidPalindrome {
             while !(s[i].isLetter || s[i].isNumber) && i < j {
                 i += 1
             }
-            while !(s[i].isLetter || s[i].isNumber) && i < j {
+            while !(s[j].isLetter || s[j].isNumber) && i < j {
                 j -= 1
             }
             if s[i].lowercased() != s[j].lowercased() {
@@ -501,8 +501,6 @@ struct ReverseVowels {
         
         return String(sChars)
     }
-    
-
 }
 
 //link: https://leetcode.com/problems/reverse-words-in-a-string/
@@ -737,32 +735,35 @@ class MultiplyTwoNumbers {
 //link: https://leetcode.com/problems/valid-anagram/
 class ValidAnagram {
     func isAnagram(_ s: String, _ t: String) -> Bool {
-        var ss = Array(repeating: 0, count: 26)
-        var tt = Array(repeating: 0, count: 26)
-        
-        let aVal = Int("a".unicodeScalars.first!.value)
-        
-        for scalar in s.unicodeScalars {
-            ss[Int(scalar.value) - aVal] += 1
+        var sMap = [Character: Int]()
+        for char in s {
+            sMap[char, default: 0] += 1
         }
         
-        for scalar in t.unicodeScalars {
-            tt[Int(scalar.value) - aVal] += 1
+        var tMap = [Character: Int]()
+        for char in t {
+            tMap[char, default: 0] += 1
         }
         
-        return ss == tt
+        return sMap == tMap
     }
 }
 
 //link: https://leetcode.com/problems/ransom-note/
 class RansomeNote {
     func canConstruct(_ ransomNote: String, _ magazine: String) -> Bool {
-        var mutableMagazine = magazine
+        var magazineMap = [Character: Int]()
+        for char in magazine {
+            magazineMap[char, default: 0] += 1
+        }
+        
         for char in ransomNote {
-            if let index = mutableMagazine.firstIndex(of: char) {
-                mutableMagazine.remove(at: index)
-            } else {
+            if magazineMap[char] == nil {
                 return false
+            }
+            magazineMap[char]! -= 1
+            if magazineMap[char] == 0 {
+                magazineMap.removeValue(forKey: char)
             }
         }
         return true
@@ -771,11 +772,15 @@ class RansomeNote {
 
 struct GroupAnagrams {
     func groupAnagrams(_ strs: [String]) -> [[String]] {
-        var sortedStrToStrs = [String: [String]]()
+        var map = [[Character: Int]: [String]]()
         for str in strs {
-            sortedStrToStrs[String(str.sorted()), default: []].append(str)
+            var strMap = [Character: Int]()
+            for char in str {
+                strMap[char, default: 0] += 1
+            }
+            map[strMap, default: []].append(str)
         }
-        return Array(sortedStrToStrs.values)
+        return Array(map.values)
     }
 }
 
@@ -816,23 +821,22 @@ class LongestCommonPrefix {
         
         return prefix
     }
-}
-
-class LengthOfLongestSubsctring {
-    func lengthOfLongestSubstring(_ s: String) -> Int {
-        var left = 0, sChars = Array(s), ans = 0, charMap = [Character: Int]()
-        
-        for r in 0..<sChars.count {
-            let element = sChars[r]
-            if let existingIndex = charMap[element] {
-                left = max(left, existingIndex)
+    
+    func neetcodeSolution(_ strs: [String]) -> String {
+        var res = ""
+        let first = strs[0]
+        for i in 0..<first.count {
+            for str in strs {
+                if i == str.count || (first[first.index(first.startIndex, offsetBy: i)] != str[str.index(str.startIndex, offsetBy: i)]) {
+                    return res
+                }
             }
-            ans = max(ans, r - left + 1)
-            charMap[element] = r + 1
+            res.append(first[first.index(first.startIndex, offsetBy: i)])
         }
-        return ans
+        return res
     }
 }
+
 /*
  Given two strings s and t, determine if they are both one edit distance apart.
 

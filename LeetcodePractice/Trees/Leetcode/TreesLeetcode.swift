@@ -86,25 +86,25 @@ class TreeInorderTraversal {
 
 //link: https://leetcode.com/problems/balanced-binary-tree/
 class BalancedBinaryTree {
-    func callAsFunction(_ root: TreeLeetcode.TreeNode?) -> Bool {
+    typealias TreeNode = TreeLeetcode.TreeNode
+    var isBalanced = true
+    func callAsFunction(_ root: TreeNode?) -> Bool {
         guard let node = root else {
             return true
         }
-        var isBalanced = true
-
-        isBalancedHelper(node, isBalanced: &isBalanced)
+        isBalancedHelper(node)
         return isBalanced
     }
     
     @discardableResult
-    func isBalancedHelper(_ node: TreeLeetcode.TreeNode?, isBalanced: inout Bool) -> Int {
+    func isBalancedHelper(_ node: TreeNode?) -> Int {
         guard let node = node, isBalanced else {
-            return -1
+            return 0
         }
 
-        let left = isBalancedHelper(node.left, isBalanced: &isBalanced), right = isBalancedHelper(node.right, isBalanced: &isBalanced)
+        let left = isBalancedHelper(node.left), right = isBalancedHelper(node.right)
         if abs(left - right) > 1 {
-            isBalanced = false
+            self.isBalanced = false
         }
         return max(left, right) + 1
     }
@@ -429,44 +429,33 @@ struct PathSumII {
 }
 
 class PathSumIII {
-    
-    // Prefix sum!
-    var map: [Int: Int] = [:]
-    var k = 0
-    var result = 0
-    
-    func pathSum(_ root: TreeLeetcode.TreeNode?, _ sum: Int) -> Int {
-        k = sum
-        // Situation where target sum starts from beginning
-        map[0] = 1
-        dfs(root, 0)
-        return result
-    }
-    
-    func dfs(_ root: TreeLeetcode.TreeNode?, _ currentSum: Int) {
-        guard root != nil else {return }
-        
-        let currentSum = currentSum + root!.val
-        
-        if let value = map[currentSum-k] {
-            result += value
+    typealias TreeNode = TreeLeetcode.TreeNode
+    func pathSum(_ root: TreeNode?, _ targetSum: Int) -> Int {
+        if root == nil {
+            return 0
         }
         
-        map[currentSum, default:0] += 1
+        func findNumOfPathsSumHelper(_ node: TreeNode?, target: Int) -> Int {
+            if node == nil {
+                return 0
+            }
+            
+            var res = 0
+            if node?.val == target {
+                res += 1
+            }
+            res += findNumOfPathsSumHelper(node?.left, target: target - node!.val)
+            res += findNumOfPathsSumHelper(node?.right, target: target - node!.val)
+            
+            return res
+        }
         
+        var pathsCount = findNumOfPathsSumHelper(root, target: targetSum)
+        pathsCount += pathSum(root?.left, targetSum)
+        pathsCount += pathSum(root?.right, targetSum)
         
-        // Recurse left & right
-        dfs(root?.left, currentSum)
-        dfs(root?.right, currentSum)
-        
-        // Path must go downwards, don't mix prefix sums from left & right subtrees
-        // print("NODE: \(root!.val)")
-        // print("Before", map)
-        map[currentSum, default:0] -= 1
-        // print("After", map)
-        // print()
+        return pathsCount
     }
-    
 }
 
 //explanation link: https://www.youtube.com/watch?v=nHR8ytpzz7c
@@ -763,11 +752,12 @@ class PopulatingNextRightPointersII {
             while head != nil {
                 if head?.left != nil {
                     temp.next = head?.left
+                    temp = temp.next!
                 }
                 if head?.right != nil {
                     temp.next = head?.right
+                    temp = temp.next!
                 }
-                temp = temp.next!
                 head = head?.next
             }
             head = dummy.next
@@ -1057,6 +1047,39 @@ class SumRootToLeafNumbers {
     }
 }
 
+/*
+ problem:
+ Given the root of a complete binary tree, return the number of the nodes in the tree.
+
+ According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+
+ Design an algorithm that runs in less than O(n) time complexity.
+ 
+ Testcases:
+ Input: root = [1,2,3,4,5,6]
+ Output: 6
+
+ Input: root = []
+ Output: 0
+
+ Input: root = [1]
+ Output: 1
+ 
+ Constraints:
+ The number of nodes in the tree is in the range [0, 5 * 104].
+ 0 <= Node.val <= 5 * 104
+ The tree is guaranteed to be complete.
+ 
+ link: https://leetcode.com/problems/count-complete-tree-nodes/
+ explanation:
+ primary idea:
+ - If we know depth (d) of a complete binary tree, Number of nodes = 2^d - 1. Here we subtract 1 only because in level 1 we have only one node root
+ - Divide and conquer
+ - Divide it untill we find complete tree and return number of nodes. If we dont find complete binary tree, we divide it further till either we find complete Binary tree or nil
+ - If not complete binary tree, number of nodes = left tree nodes + right tree nodes + 1
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
 class CountCompleteTreeNodes {
     typealias TreeNode = TreeLeetcode.TreeNode
     func countNodes(_ root: TreeNode?) -> Int {
@@ -1186,6 +1209,32 @@ class FlipEquivalentBinaryTrees {
     }
 }
 
+/*
+ problem:
+ Given an integer n, return a list of all possible full binary trees with n nodes. Each node of each tree in the answer must have Node.val == 0.
+
+ Each element of the answer is the root node of one possible tree. You may return the final list of trees in any order.
+
+ A full binary tree is a binary tree where each node has exactly 0 or 2 children.
+ 
+ Testcases:
+ Input: n = 7
+ Output: [[0,0,0,null,null,0,0,null,null,0,0],[0,0,0,null,null,0,0,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,null,null,null,null,0,0],[0,0,0,0,0,null,null,0,0]]
+
+ Input: n = 3
+ Output: [[0,0,0]]
+ 
+ Constraints:
+ 1 <= n <= 20
+ 
+ link: https://leetcode.com/problems/all-possible-full-binary-trees/
+ explanation:
+ primary idea:
+ - Dynamic programming memoization
+ - As we need to build n FBT, let's start from having 0 to n-1 left trees, then right trees will be n - 1 - lefttrees, we have -1 here as we exclude root node.
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
 class AllPossibleFullBinaryTrees {
     typealias TreeNode = TreeLeetcode.TreeNode
     func callAsfunction(_ n: Int) -> [TreeNode?] {
@@ -1217,6 +1266,7 @@ class AllPossibleFullBinaryTrees {
         return allPossibleFBT(n: n)
     }
 }
+
 
 class LockingTree {
     
@@ -1326,7 +1376,7 @@ class LockingTree {
  link: https://leetcode.com/problems/binary-tree-tilt/
  explanation:
  primary idea:
- - Inordertraversal and return sum, tiltSum
+ - postordertraversal and return sum, tiltSum
  Time Complexity: O(n)
  Space Complexity: O(logn)
  */

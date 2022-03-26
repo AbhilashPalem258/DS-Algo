@@ -101,6 +101,8 @@
 [Permutation in String](https://leetcode.com/problems/permutation-in-string/)| [Swift](/.String/PermutationInString.swift)| Medium| O(nm)| O(n)|
 [Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)| [Swift](./Array/MinimumSizeSubarraySum.swift)| Medium| O(n)| O(1)|
 [Minimum Flips To Make Binary String Alternating](https://leetcode.com/problems/minimum-number-of-flips-to-make-the-binary-string-alternating/)| [Swift](./Array/MinimumSizeSubarraySum.swift)| Medium| O(n)| O(1)|
+[Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)| [Swift](./DP/BestTimeBuySellStock.swift)| Easy| O(n)| O(1)|
+[Repeated DNA Sequences](https://leetcode.com/problems/repeated-dna-sequences/)| [Swift](./DP/BestTimeBuySellStock.swift)| Easy| O(n)| O(1)|
 
 
 ## String
@@ -114,7 +116,7 @@
 [Valid Palindrome II](https://leetcode.com/problems/valid-palindrome-ii/)| [Swift](./String/ValidPalindromeII.swift)| Easy| O(n)| O(n)|
 [Detect Capital](https://leetcode.com/problems/detect-capital/)| [Swift](./String/DetectCapital.swift)| Easy| O(n)| O(1)|
 [Count and Say](https://leetcode.com/problems/count-and-say/)| [Swift](./String/CountAndSay.swift)| Easy| O(n^2)| O(1)|
-[Flip Game](https://leetcode.com/problems/flip-game/)| [Swift](./String/FlipGame.swift)| Easy| O(n)| O(n)|
+[Flip Game &hearts;](https://leetcode.com/problems/flip-game/)| [Swift](./String/FlipGame.swift)| Easy| O(n)| O(n)|
 [Implement strStr()](https://leetcode.com/problems/implement-strstr/)| [Swift](./String/StrStr.swift)| Easy| O(nm)| O(n)|
 [Isomorphic Strings](https://leetcode.com/problems/isomorphic-strings/)| [Swift](./String/IsomorphicStrings.swift)| Easy| O(n)| O(n)|
 [Reverse String](https://leetcode.com/problems/reverse-string/)| [Swift](./String/ReverseString.swift)| Easy| O(n)| O(n)|
@@ -128,13 +130,13 @@
 [Add Strings](https://leetcode.com/problems/add-strings/)| [Swift](./String/LengthLastWord.swift)| Easy| O(n)| O(1)|
 [Shortest Distance to a Character](https://leetcode.com/problems/shortest-distance-to-a-character/)| [Swift](./String/ShortestDistanceToACharacter.swift)| Easy| O(n)| O(1)|
 [Multiply Strings](https://leetcode.com/problems/multiply-strings/)| [Swift](./String/MultiplyStrings.swift)| Medium| O(n)| O(1)|
-[Palindrome Permutation](https://leetcode.com/problems/palindrome-permutation/)| [Swift](./String/PalindromePermutation.swift)| Easy| O(n)| O(n)|
+[Palindrome Permutation &hearts;](https://leetcode.com/problems/palindrome-permutation/)| [Swift](./String/PalindromePermutation.swift)| Easy| O(n)| O(n)|
 [Valid Anagram](https://leetcode.com/problems/valid-anagram/)| [Swift](./String/ValidAnagram.swift)| Easy| O(n)| O(n)|
 [Ransom Note](https://leetcode.com/problems/ransom-note/)| [Swift](./String/RansomNote.swift)| Easy| O(n)| O(n)|
 [Group Anagrams](https://leetcode.com/problems/anagrams/)| [Swift](./String/GroupAnagrams.swift)| Medium| O(nmlogm + nlogn)| O(n)
 [Find Duplicate File in System](https://leetcode.com/problems/find-duplicate-file-in-system/)| [Swift](./String/FindDuplicateFileInSystem.swift)| Medium| O(nm)| O(n)
 [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)| [Swift](./String/LongestCommonPrefix.swift)| Easy| O(nm)| O(m)|
-[One Edit Distance](https://leetcode.com/problems/one-edit-distance/)| [Swift](./String/OneEditDistance.swift)| Medium| O(n)| O(n)|
+[One Edit Distance &hearts;](https://leetcode.com/problems/one-edit-distance/)| [Swift](./String/OneEditDistance.swift)| Medium| O(n)| O(n)|
 [Word Pattern](https://leetcode.com/problems/word-pattern/)| [Swift](./String/WordPattern.swift)| Easy| O(n)| O(n)|
 [Text Justification](https://leetcode.com/problems/text-justification/)| [Swift](./String/TextJustification.swift)| Hard| O(n)| O(n)|
 [Find the Closest Palindrome](https://leetcode.com/problems/find-the-closest-palindrome/)| [Swift](./String/FindClosestPalindrome.swift)| Hard| O(n)| O(n)|
@@ -214,7 +216,7 @@
 [Binary Tree Level Order Traversal II](https://leetcode.com/problems/binary-tree-level-order-traversal-ii/)| [Swift](./Tree/BinaryTreeLevelOrderTraversalII.swift)| Easy| O(n)| O(n)|
 [Merge Two Binary Trees](https://leetcode.com/problems/merge-two-binary-trees/description/) | [Swift](./Tree/MergeTwoBinaryTrees.swift) | Easy | O(n) | O(n) |
 [Binary Tree Zigzag Level Order Traversal](https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/)| [Swift](./Tree/BinaryTreeZigzagLevelOrderTraversal.swift)| Medium| O(n)| O(n)|
-[Binary Tree Vertical Order Traversal](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)| [Swift](./Tree/BinaryTreeVerticalOrderTraversal.swift)| Medium| O(n)| O(n)|
+[Binary Tree Vertical Order Traversal &hearts;](https://leetcode.com/problems/binary-tree-vertical-order-traversal/)| [Swift](./Tree/BinaryTreeVerticalOrderTraversal.swift)| Medium| O(n)| O(n)|
 [Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)| [Swift](./Tree/KthSmallestElementBST.swift)| Medium| O(n)| O(n)|
 [Binary Tree Right Side View](https://leetcode.com/problems/binary-tree-right-side-view/)| [Swift](./Tree/BinaryTreeRightSideView.swift)| Medium| O(n)| O(n)|
 [Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)| [Swift](./Tree/ConstructBinaryTreePreorderInorder.swift)| Medium| O(nlogn)| O(1)|
@@ -226,9 +228,29 @@
 [Binary Tree Maximum Path Sum](https://leetcode.com/problems/binary-tree-maximum-path-sum/)| [Swift](./Tree/BinaryTreeMaximumPathSum.swift)| Hard| O(n)| O(1)|
 [House Robber III](https://leetcode.com/problems/house-robber-iii/)| [Swift](./Tree/HouseRobberIII.swift)| Medium| O(n)| O(1)|
 [Unique Binary Search Trees](https://leetcode.com/problems/unique-binary-search-trees/)| [Swift](./Tree/UniqueBinarySearchTrees.swift)| Medium| O(n^2)| O(n)|
+[Unique Binary Search Trees II](https://leetcode.com/problems/unique-binary-search-trees/)| [Swift](./Tree/UniqueBinarySearchTrees.swift)| Medium| O(n^2)| O(n)|
 [Recover Binary Search Tree](https://leetcode.com/problems/recover-binary-search-tree/)| [Swift](./Tree/RecoverBinarySearchTree.swift)| Hard| O(n)| O(1)|
 [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/)| [Swift](./Tree/SerializeDeserializeBinaryTree.swift)| Hard| O(n)| O(n)|
 [Serialize and Deserialize N-ary Tree](https://leetcode.com/problems/serialize-and-deserialize-n-ary-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Count Good Nodes In Binary Tree](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Populating Next Right Pointers](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Populating Next Right Pointers II](https://leetcode.com/problems/count-good-nodes-in-binary-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Lowest Common Ancestor Of A BinaryTree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Lowest Common Ancestor Of A BST](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Convert Sorted Array to Binary Search Tree](https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Triangle](https://leetcode.com/problems/triangle/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Maximum Difference Between Node and Ancestor](https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Sum Root to Leaf Numbers](https://leetcode.com/problems/sum-root-to-leaf-numbers/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Count Complete Tree Nodes](https://leetcode.com/problems/count-complete-tree-nodes/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Trim a Binary Search Tree](https://leetcode.com/problems/trim-a-binary-search-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Find Bottom Left Tree Value](https://leetcode.com/problems/find-bottom-left-tree-value/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[All Possible Full Binary Trees](https://leetcode.com/problems/all-possible-full-binary-trees/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Flip Equivalent Binary Trees](https://leetcode.com/problems/flip-equivalent-binary-trees/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[All Possible Full Binary Trees](https://leetcode.com/problems/all-possible-full-binary-trees/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Operations on Tree](https://leetcode.com/problems/operations-on-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+[Binary Tree Tilt](https://leetcode.com/problems/binary-tree-tilt/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
 
 ## Dynamic programming
 | Title | Solution | Difficulty | Time | Space |
@@ -259,7 +281,6 @@
 [Flip Game II &hearts;](https://leetcode.com/problems/flip-game-ii/)| [Swift](./DP/FlipGameII.swift)| Medium| O(n)| O(n)|
 [Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)| [Swift](./DP/GenerateParentheses.swift)| Medium| O(2^n)| O(n)|
 [Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/)| [Swift](./DP/DifferentWaysAddParentheses.swift)| Medium| O(n^n)| O(n)|
-[Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/)| [Swift](./DP/BestTimeBuySellStock.swift)| Easy| O(n)| O(1)|
 [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)| [Swift](./DP/BestTimeBuySellStockII.swift)| Medium| O(n)| O(1)|
 [Maximum Alternating Subsequence Sum](https://leetcode.com/problems/maximum-alternating-subsequence-sum/)| [Swift](./DP/BestTimeBuySellStockII.swift)| Medium| O(n)| O(1)|
 [Best Time to Buy and Sell Stock III](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/)| [Swift](./DP/BestTimeBuySellStockIII.swift)| Hard| O(n)| O(n)|

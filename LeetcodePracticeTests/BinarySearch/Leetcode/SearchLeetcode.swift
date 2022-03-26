@@ -140,5 +140,10 @@ class SearchLeetcodeTests: XCTestCase {
         let obj = CapacityToShipPackagesWithInDDays()
         XCTAssertEqual(obj([1,2,3,4,5,6,7,8,9,10], 5), 15)
     }
+    
+    func testValidPerfectSquare() {
+        let obj = ValidPerfectSquare()
+        XCTAssertEqual(obj(16), true)
+    }
 }
 
