@@ -9,6 +9,7 @@
 * [Stack](#stack)
 * [Queue](#queue)
 * [Tree](#tree)
+* [Binary Search Tree](#binary-search-tree)
 * [Dynamic programming](#dynamic-programming)
 * [Depth-first search](#depth-first-search)
 * [Breadth-first search](#breadth-first-search)
@@ -251,6 +252,18 @@
 [All Possible Full Binary Trees](https://leetcode.com/problems/all-possible-full-binary-trees/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
 [Operations on Tree](https://leetcode.com/problems/operations-on-tree/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
 [Binary Tree Tilt](https://leetcode.com/problems/binary-tree-tilt/)| [Swift](./Tree/SerializeDeserializeNAryTree.swift)| Hard| O(n)| O(n)|
+
+## Binary Search Tree
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[Delete Node in a BST](https://leetcode.com/problems/delete-node-in-a-bst/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[All Elements in Two Binary Search Trees](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+
 
 ## Dynamic programming
 | Title | Solution | Difficulty | Time | Space |
