@@ -263,6 +263,8 @@
 [Insert into a Binary Search Tree](https://leetcode.com/problems/insert-into-a-binary-search-tree/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
 [All Elements in Two Binary Search Trees](https://leetcode.com/problems/all-elements-in-two-binary-search-trees/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
 [Construct Binary Search Tree from Preorder Traversal](https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
+[Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/)| [Swift](./Search/ClosestBinarySearchTreeValue.swift)| Easy| O(logn)| O(1)|
+[Closest Binary Search Tree Value II](https://leetcode.com/problems/closest-binary-search-tree-value-ii/)| [Swift](./Search/ClosestBinarySearchTreeValueII.swift)| Hard| O(n)| O(n)|
 
 
 ## Dynamic programming
@@ -416,8 +418,6 @@
 ## Search
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
-[Closest Binary Search Tree Value](https://leetcode.com/problems/closest-binary-search-tree-value/)| [Swift](./Search/ClosestBinarySearchTreeValue.swift)| Easy| O(logn)| O(1)|
-[Closest Binary Search Tree Value II](https://leetcode.com/problems/closest-binary-search-tree-value-ii/)| [Swift](./Search/ClosestBinarySearchTreeValueII.swift)| Hard| O(n)| O(n)|
 [Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/)| [Swift](./Search/SearchInRotatedSortedArray.swift)| Hard| O(logn)| O(1)|
 [Search in Rotated Sorted Array II](https://leetcode.com/problems/search-in-rotated-sorted-array-ii/)| [Swift](./Search/SearchInRotatedSortedArrayII.swift)| Medium| O(logn)| O(1)|
 [Find Minimum in Rotated Sorted Array](https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/)| [Swift](./Search/FindMinimumRotatedSortedArray.swift)| Medium| O(logn)| O(1)|
@@ -433,7 +433,14 @@
 [Maximum Number of Removable Characters](https://leetcode.com/problems/maximum-number-of-removable-characters/)| [Swift](./Search/Sqrtx.swift)| Medium| O(logn)| O(1)|
 [Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
 [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
+[Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
+[Capacity To Ship Packages With In D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
+[Guess Number Higher or Lower](https://leetcode.com/problems/guess-number-higher-or-lower/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
+[Valid Perfect Square](https://leetcode.com/problems/valid-perfect-square/)| [Swift](./Search/MedianTwoSortedArrays.swift)| Hard| O(log(m + n))| O(1)|
+[Arranging Coins](https://leetcode.com/problems/arranging-coins/)| [Swift](./Search/MinimizeMaxDistanceGasStation.swift)| Hard| O(nlogm)| O(1)|
+[Find K Closest Elements](https://leetcode.com/problems/find-k-closest-elements/)| [Swift](./Search/MinimizeMaxDistanceGasStation.swift)| Hard| O(nlogm)| O(1)|
 [Minimize Max Distance to Gas Station](https://leetcode.com/problems/minimize-max-distance-to-gas-station/)| [Swift](./Search/MinimizeMaxDistanceGasStation.swift)| Hard| O(nlogm)| O(1)|
+
 
 ## Sort
 | Title | Solution | Difficulty | Time | Space |
