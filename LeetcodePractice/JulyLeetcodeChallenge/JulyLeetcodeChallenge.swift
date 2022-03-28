@@ -7,45 +7,6 @@
 
 import Foundation
 
-struct FindClosestElements {
-    func callAsFunction(_ arr: [Int], _ k: Int, _ x: Int) -> [Int] {
-        let count = arr.count
-        guard k < count else {
-            return arr
-        }
-        
-        var diff = 0
-        for i in 0..<k {
-            diff += abs(x - arr[i])
-        }
-        var mindiff = diff, mindiffId = k - 1
-        
-        for i in k..<count {
-            diff += abs(x - arr[i]) - abs(x - arr[i - k])
-            if diff < mindiff {
-                mindiff = diff
-                mindiffId = i
-            }
-        }
-        return Array(arr[mindiffId - (k - 1)...mindiffId])
-    }
-    
-    func binarySearchWindow(_ arr: [Int], _ k: Int, _ x: Int) -> [Int] {
-        var l = 0, r = arr.count - k
-        
-        while l < r {
-            let midId = l + (r - l)/2
-            
-            if x - arr[midId] > arr[midId + k] - x {
-                l = midId + 1
-            } else {
-                r = midId
-            }
-        }
-        return Array(arr[l..<l+k])
-    }
-}
-
 struct MaxSumofRectangleNoLargerThanK {
     func callAsFunction(_ matrix: [[Int]], _ k: Int) -> Int {
         var res = Int.min

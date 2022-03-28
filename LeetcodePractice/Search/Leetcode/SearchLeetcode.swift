@@ -1152,3 +1152,68 @@ class ValidPerfectSquare {
         return false
     }
 }
+
+/*
+ problem:
+ Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+ 
+ Testcases:
+ Input: heights = [2,1,5,6,2,3]
+ Output: 10
+ Explanation: The above is a histogram where width of each bar is 1.
+ The largest rectangle is shown in the red area, which has an area = 10 units.
+ 
+ Input: heights = [2,4]
+ Output: 4
+ 
+ 
+ Constraints:
+ 1 <= heights.length <= 105
+ 0 <= heights[i] <= 104
+ 
+ 
+ link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+ explanation: https://www.youtube.com/watch?v=zx5Sw9130L0&list=PLot-Xpze53letfIu9dMzIIO7na_sqvl0w&index=5
+ primary idea:
+ - Use stack and as soon as the current height is lower than earlier, pop all last height's in stack which are higher than current one. calculate area and modify maxArea if needed. After Iteration, check if stack is empty. if not calculate maxArea with all stack elementss
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+struct FindClosestElements {
+    func callAsFunction(_ arr: [Int], _ k: Int, _ x: Int) -> [Int] {
+        let count = arr.count
+        guard k < count else {
+            return arr
+        }
+        
+        var diff = 0
+        for i in 0..<k {
+            diff += abs(x - arr[i])
+        }
+        var mindiff = diff, mindiffId = k - 1
+        
+        for i in k..<count {
+            diff += abs(x - arr[i]) - abs(x - arr[i - k])
+            if diff < mindiff {
+                mindiff = diff
+                mindiffId = i
+            }
+        }
+        return Array(arr[mindiffId - (k - 1)...mindiffId])
+    }
+    
+    func binarySearchWindow(_ arr: [Int], _ k: Int, _ x: Int) -> [Int] {
+        var l = 0, r = arr.count - k
+        
+        while l < r {
+            let midId = l + (r - l)/2
+            
+            if x - arr[midId] > arr[midId + k] - x {
+                l = midId + 1
+            } else {
+                r = midId
+            }
+        }
+        return Array(arr[l..<l+k])
+    }
+}

@@ -452,12 +452,16 @@
 [Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
 [Sort Transformed Array](https://www.lintcode.com/problem/906/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
 [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)| [Swift](./Sort/TopKFrequentElements.swift)| Medium| O(nlogn)| O(n)|
+[Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/)| [Swift](./Sort/TopKFrequentElements.swift)| Medium| O(nlogn)| O(n)|
 [Meeting Rooms &hearts;](https://www.lintcode.com/problem/920/)| [Swift](./Sort/MeetingRooms.swift)| Easy| O(nlogn)| O(1)|
 [Meeting Rooms II &hearts;](https://www.lintcode.com/problem/919/)| [Swift](./Sort/MeetingRoomsII.swift)| Medium| O(nlogn)| O(n)|
 [Merge Intervals](https://leetcode.com/problems/merge-intervals/)| [Swift](./Sort/MergeIntervals.swift)| Hard| O(nlogn)| O(n)|
+[Insert Interval](https://leetcode.com/problems/insert-interval/description/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
+[Remove Covered Intervals](https://leetcode.com/problems/remove-covered-intervals/)| [Swift](./Sort/MergeIntervals.swift)| Hard| O(nlogn)| O(n)|
+[Non Overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
+[Insert Interval](https://leetcode.com/problems/insert-interval/description/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
 [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)| [Swift](./Sort/KthLargestElementInArray.swift)| Medium| O(nlogn)| O(n)|
 [Array Partition I](https://leetcode.com/problems/array-partition-i/description/)| [Swift](./Sort/ArrayPartitionI.swift)|Easy| O(nlogn)| O(n)|
-[Insert Interval](https://leetcode.com/problems/insert-interval/description/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
 [Largest Number](https://leetcode.com/problems/largest-number/)| [Swift](./Sort/LargestNumber.swift)| Medium| O(nlogn)| O(1)|
 
 ## Graph
