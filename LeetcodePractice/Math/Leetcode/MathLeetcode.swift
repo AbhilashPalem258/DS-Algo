@@ -1086,54 +1086,6 @@ class FractionToDecimal {
     }
 }
 
-/*
- problem:
- Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
- 
- Testcases:
- Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
- Output: 6
- Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
- 
- Input: height = [4,2,0,3,2,5]
- Output: 9
- 
- Constraints:
- n == height.length
- 1 <= n <= 2 * 104
- 0 <= height[i] <= 105
- 
- link: https://leetcode.com/problems/trapping-rain-water/
- explanation: https://www.youtube.com/watch?v=ZI2z5pq0TqA&t=213s (Only check explanation part, coding part is wrong in video)
- primary idea:
- - Two pointer, l is left pointer starts at start of arr and r is right pointer, starts at end of arr.
- Time Complexity: O(n)
- Space Complexity: O(1)
- */
-
-class TrappingRainWater {
-    func callAsFunction(_ height: [Int]) -> Int {
-        var l = 0, r = height.count - 1
-        var maxLeft = height[0], maxRight = height[height.count - 1]
-        
-        var result = 0
-        
-        while l < r {
-            if maxLeft <= maxRight {
-                l += 1
-                result += max(0, maxLeft - height[l])
-                maxLeft = max(maxLeft, height[l])
-            } else {
-                r -= 1
-                result += max(0, maxRight - height[r])
-                maxRight = max(maxRight, height[r])
-            }
-        }
-        
-        return result
-    }
-}
-
 class CountingBits {
     func callAsFunction(_ n: Int) -> [Int] {
         var dp = [Int](repeating: 0, count: n + 1)

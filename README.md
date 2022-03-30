@@ -84,7 +84,10 @@
 ## TWO POINTER
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
+[Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)| [Swift](./Math/TrappingRainWater.swift)| Hard| O(n)| O(n)|
+[Container With Most Water](https://leetcode.com/problems/container-with-most-water/)| [Swift](./Math/ContainerMostWater.swift)| Medium| O(n)| O(1)|
 [Sum Of Square Numbers](https://leetcode.com/problems/sum-of-square-numbers/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
+[Boats To Save People](https://leetcode.com/problems/boats-to-save-people/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
 [Two Sum IV](https://leetcode.com/problems/two-sum-iv-input-is-a-bst/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
 [Count Binary Substrings](https://leetcode.com/problems/count-binary-substrings/)|[Swift](Array/VerifyingAlienDictionary.swift)| Easy| O(n)| O(n)|
 
@@ -184,10 +187,6 @@
 [Simplify Path](https://leetcode.com/problems/simplify-path/)| [Swift](./Stack/SimplifyPath.swift)| Medium| O(n)| O(n)|
 [Remove K Digits](https://leetcode.com/problems/remove-k-digits/)| [Swift](./Stack/RemoveKDigits.swift)| Medium| O(n)| O(n)|
 [Ternary Expression Parser &hearts;](https://leetcode.com/problems/ternary-expression-parser/)| [Swift](./Stack/TernaryExpressionParser.swift)| Medium| O(n)| O(n)|
-[Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)| [Swift](./Stack/PreorderTraversal.swift)| Medium| O(n)| O(n)|
-[Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)| [Swift](./Stack/InorderTraversal.swift)| Medium| O(n)| O(n)|
-[Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)| [Swift](./Stack/BinarySearchTreeIterator.swift)| Medium| O(n)| O(n)|
-[Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)| [Swift](./Stack/PostorderTraversal.swift)| Hard| O(n)| O(n)|
 [Decode String](https://leetcode.com/problems/decode-string/)| [Swift](./Stack/DecodeString.swift)| Medium| O(n)| O(n)|
 [Basic Calculator](https://leetcode.com/problems/basic-calculator/)| [Swift](./Stack/BasicCalculator.swift)| Hard| O(n)| O(n)|
 [Online Stock Span](https://leetcode.com/problems/online-stock-span/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(n)| O(n)|
@@ -201,6 +200,9 @@
 ## Tree
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
+[Binary Tree Preorder Traversal](https://leetcode.com/problems/binary-tree-preorder-traversal/)| [Swift](./Stack/PreorderTraversal.swift)| Medium| O(n)| O(n)|
+[Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)| [Swift](./Stack/InorderTraversal.swift)| Medium| O(n)| O(n)|
+[Binary Tree Postorder Traversal](https://leetcode.com/problems/binary-tree-postorder-traversal/)| [Swift](./Stack/PostorderTraversal.swift)| Hard| O(n)| O(n)|
 [Same Tree](https://oj.leetcode.com/problems/same-tree/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
 [Symmetric Tree](https://leetcode.com/problems/symmetric-tree/)| [Swift](./Tree/SymmetricTree.swift)| Easy| O(n)| O(n)|
 [Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)| [Swift](./Tree/InvertBinaryTree.swift)| Easy| O(n)| O(n)|
@@ -256,6 +258,7 @@
 ## Binary Search Tree
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
+[Binary Search Tree Iterator](https://leetcode.com/problems/binary-search-tree-iterator/)| [Swift](./Stack/BinarySearchTreeIterator.swift)| Medium| O(n)| O(n)|
 [Search in a Binary Search Tree](https://leetcode.com/problems/search-in-a-binary-search-tree/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
 [Minimum Absolute Difference in BST](https://leetcode.com/problems/minimum-absolute-difference-in-bst/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
 [Range Sum of BST](https://leetcode.com/problems/range-sum-of-bst/)| [Swift](./Tree/SameTree.swift)| Easy| O(n)| O(n)|
@@ -406,8 +409,6 @@
 [Sparse Matrix Multiplication](https://leetcode.com/problems/sparse-matrix-multiplication/)| [Swift](./Math/SparseMatrixMultiplication.swift)| Medium| O(n^3)| O(n^2)|
 [Rectangle Area](https://leetcode.com/problems/rectangle-area/)| [Swift](./Math/RectangleArea.swift)| Easy| O(1)| O(1)|
 [Minimum Moves to Equal Array Elements](https://leetcode.com/problems/minimum-moves-to-equal-array-elements/)| [Swift](./Math/MinimumMovesEqualArrayElements.swift)| Easy| O(n)| O(1)|
-[Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/)| [Swift](./Math/TrappingRainWater.swift)| Hard| O(n)| O(n)|
-[Container With Most Water](https://leetcode.com/problems/container-with-most-water/)| [Swift](./Math/ContainerMostWater.swift)| Medium| O(n)| O(1)|
 [Counting Bits](https://leetcode.com/problems/counting-bits/)| [Swift](./Math/CountingBits.swift)| Medium| O(n)| O(n)|
 [K-th Smallest in Lexicographical Order](https://leetcode.com/problems/k-th-smallest-in-lexicographical-order/)| [Swift](./Math/KthSmallestLexicographicalOrder.swift)| Hard| O(n)| O(1)|
 [Gary Code](https://leetcode.com/problems/gray-code/)| [Swift](./Math/GaryCode.swift)| Medium| O(n)| O(2^n)|

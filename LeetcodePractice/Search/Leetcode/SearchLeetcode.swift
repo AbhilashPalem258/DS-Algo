@@ -823,39 +823,6 @@ struct FindPeakElement {
 }
 
 /*
- link: https://leetcode.com/problems/container-with-most-water/
- explanation: https://www.youtube.com/watch?v=UuiTKBwPgAo
- Primary Idea:
-     - Two Pointer
-     - --> L , R <--
- */
-struct ContainerWithMaxWater {
-    func callAsFunction(_ height: [Int]) -> Int {
-        var l = 0, r = height.count - 1
-        var maxArea = 0
-        
-        while l < r {
-            let h = min(height[l], height[r])
-            let w = r - l
-            maxArea = max(h * w, maxArea)
-            if height[l] < height[r] {
-                l += 1
-            } else if height[l] == height[r] {
-                if height[l+1] < height[r-1] {
-                    l += 1
-                } else {
-                    r -= 1
-                }
-            } else {
-                r -= 1
-            }
-        }
-        
-        return maxArea
-    }
-}
-
-/*
  problem:
  Given a non-negative integer x, compute and return the square root of x.
 
