@@ -189,32 +189,49 @@ class WordSearchII {
 
 struct Subsets {
     
+    //TimeComplexity: O(n * lengthOfSubset(2^n)) where n is length of nums and in the worst case the length of each subset can be 2^n
+    // for each element in nums, we have 2 choices, either to include it in subset or not include it. for an array of [1,2,3], the number of sets is 2 * 2 * 2 = 2^n
+    //Neetcode
     func subsets(_ nums: [Int]) -> [[Int]] {
-        var powerset: [[Int]] = [[]]
-        nums.forEach { num in
-            powerset.forEach { set in
-                powerset.append(set + [num])
+        var result: [[Int]] = []
+        
+        func dfs(index: Int, subset: [Int]) {
+            if index == nums.count {
+                result.append(subset)
+                return
             }
+            
+            let nextIndex = index + 1
+            dfs(index: nextIndex, subset: subset + [nums[index]])
+            dfs(index: nextIndex, subset: subset)
         }
-        return powerset
+        
+        dfs(index: 0, subset: [])
+        return result
     }
     
+    //TimeComplexity: O(n * lengthOfSubset(2^n)) where n is length of nums and in the worst case the length of each subset can be 2^n
+    //First element of mutiple ocuurence of number will be included and when not including we go forward with next duplicate number, so in not including when avoid duplicate number.
     func subsetsWithDup(_ nums: [Int]) -> [[Int]] {
-        let nums = nums.sorted()
-        var result = [[Int]]()
-        result.append([])
-        result.append([nums[0]])
-        var lastIndex = 1
-        for i in 1..<nums.count {
-            var startIndex = 0
-            if nums[i] == nums[i-1] {
-                startIndex = lastIndex
+       let nums = nums.sorted()
+       var result = [[Int]]()
+        
+        func dfs(index: Int, subset: [Int]) {
+            if index >= nums.count {
+                result.append(subset)
+                return
             }
-            lastIndex = result.count
-            for j in startIndex..<lastIndex {
-                result.append(result[j]+[nums[i]])
+            
+            dfs(index: index + 1, subset: subset + [nums[index]])
+
+            var nextIndex = index + 1
+            while nextIndex < nums.count && nums[index] == nums[nextIndex] {
+                nextIndex += 1
             }
+            
+            dfs(index: nextIndex, subset: subset)
         }
+        dfs(index: 0, subset: [])
         return result
    }
 }
@@ -375,6 +392,7 @@ class LetterCombinationsPhoneNumber {
     }
 }
 
+//https://leetcode.com/problems/find-unique-binary-string/
 class FindDiffBinaryStr {
     func callAsFunction(_ nums: [String]) -> String {
         let n = nums[0].count
@@ -435,7 +453,7 @@ class MaxLengthOfConcatenatedStrWithUniqChars {
                     charSet.remove(char)
                 }
             }
-            return max(res, dfs(i + 1))
+            return max(res, dfs(i + 1)) // dont concante current str
         }
         return dfs(0)
     }
@@ -469,7 +487,7 @@ class SplitStrIntoDescendingConsecutiveVals {
         return false
     }
 }
-
+//O(4^n)
 class MatchsticksToSquare {
     func callAsFunction(_ matchsticks: [Int]) -> Bool {
         let sum = matchsticks.reduce(0, +)
@@ -541,7 +559,44 @@ class RestoreIPAddress {
         return res
     }
 }
+/*
+ Numbers can be regarded as product of its factors. For example,
 
+ 8 = 2 x 2 x 2;
+   = 2 x 4.
+ Write a function that takes an integer n and return all possible combinations of its factors.
+
+ Note:
+
+ Each combination's factors must be sorted ascending, for example: The factors of 2 and 6 is [2, 6], not [6, 2].
+ You may assume that n is always positive.
+ Factors should be greater than 1 and less than n.
+ Examples:
+
+ input: 1
+ output:
+ []
+ input: 37
+ output:
+ []
+ input: 12
+ output:
+ [
+   [2, 6],
+   [2, 2, 3],
+   [3, 4]
+ ]
+ input: 32
+ output:
+ [
+   [2, 16],
+   [2, 2, 8],
+   [2, 2, 2, 4],
+   [2, 2, 2, 2, 2],
+   [2, 4, 4],
+   [4, 8]
+ ]
+ */
 class FactorCombinations {
     func getFactors(_ n: Int) -> [[Int]] {
         var factors = [[Int]]()
@@ -572,7 +627,13 @@ class FactorCombinations {
         return factors
     }
 }
+/*
+ A strobogrammatic number is a number that looks the same when rotated 180 degrees (looked at upside down).
 
+ Find all strobogrammatic numbers that are of length = n.
+
+ For example, Given n = 2, return ["11","69","88","96"].
+ */
 class StrobogrammaticNumberII {
     func callAsFunction(_ n: Int) -> [String] {
         let mirrorDigits = [0: 0, 1: 1, 6: 9, 8: 8, 9: 6]
@@ -605,6 +666,12 @@ class StrobogrammaticNumberII {
     }
 }
 
+/*
+ Write a function to generate the generalized abbreviations of a word.
+ Example:
+ Given word = "word", return the following list (order does not matter):
+ ["word", "1ord", "w1rd", "wo1d", "wor1", "2rd", "w2d", "wo2", "1o1d", "1or1", "w1r1", "1o2"
+ */
 class GeneralizedAbbreviation {
     func generateAbbreviations(_ word: String) -> [String] {
         var result = [String]()
