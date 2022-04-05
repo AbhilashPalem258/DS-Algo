@@ -34,6 +34,7 @@
 		004C92C5267C3D3E0094CC50 /* 143.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C4267C3D3E0094CC50 /* 143.swift */; };
 		004C92C7267C713B0094CC50 /* LL146.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92C6267C713B0094CC50 /* LL146.swift */; };
 		004C92CE267DACB60094CC50 /* longestParentheses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004C92CD267DACB60094CC50 /* longestParentheses.swift */; };
+		0063F3AE27FC38CD00AB679E /* GreedyLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0063F3AD27FC38CD00AB679E /* GreedyLeetcode.swift */; };
 		007738C426B49B2F001E5422 /* DPLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007738C326B49B2F001E5422 /* DPLeetcode.swift */; };
 		007738C826B49D11001E5422 /* DPLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007738C726B49D11001E5422 /* DPLeetcode.swift */; };
 		007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007A35DE267E260D0054CFE9 /* StackLeetcode.swift */; };
@@ -139,6 +140,7 @@
 		004C92C4267C3D3E0094CC50 /* 143.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 143.swift; sourceTree = "<group>"; };
 		004C92C6267C713B0094CC50 /* LL146.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LL146.swift; sourceTree = "<group>"; };
 		004C92CD267DACB60094CC50 /* longestParentheses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = longestParentheses.swift; sourceTree = "<group>"; };
+		0063F3AD27FC38CD00AB679E /* GreedyLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreedyLeetcode.swift; sourceTree = "<group>"; };
 		007738C326B49B2F001E5422 /* DPLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPLeetcode.swift; sourceTree = "<group>"; };
 		007738C726B49D11001E5422 /* DPLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPLeetcode.swift; sourceTree = "<group>"; };
 		007A35DE267E260D0054CFE9 /* StackLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackLeetcode.swift; sourceTree = "<group>"; };
@@ -362,6 +364,7 @@
 		004C9284267A24AC0094CC50 /* LeetcodePractice */ = {
 			isa = PBXGroup;
 			children = (
+				0063F3AB27FC38B000AB679E /* Greedy */,
 				0084399C27CFD70400A7FB98 /* Recursion */,
 				0084399627CC9E5200A7FB98 /* TwoPointer */,
 				00D2FF8127C49B7100717C4F /* SlidingWindow */,
@@ -481,6 +484,22 @@
 				007A35DE267E260D0054CFE9 /* StackLeetcode.swift */,
 			);
 			path = Stack;
+			sourceTree = "<group>";
+		};
+		0063F3AB27FC38B000AB679E /* Greedy */ = {
+			isa = PBXGroup;
+			children = (
+				0063F3AC27FC38B700AB679E /* Leetcode */,
+			);
+			path = Greedy;
+			sourceTree = "<group>";
+		};
+		0063F3AC27FC38B700AB679E /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				0063F3AD27FC38CD00AB679E /* GreedyLeetcode.swift */,
+			);
+			path = Leetcode;
 			sourceTree = "<group>";
 		};
 		007738C126B49B0F001E5422 /* DP */ = {
@@ -1223,6 +1242,7 @@
 				002BA83D269AE3CB00367D72 /* SearchLeetcode.swift in Sources */,
 				008EE83326B1C126002889EB /* Heap.swift in Sources */,
 				007738C426B49B2F001E5422 /* DPLeetcode.swift in Sources */,
+				0063F3AE27FC38CD00AB679E /* GreedyLeetcode.swift in Sources */,
 				007A35ED267F41540054CFE9 /* Queue.swift in Sources */,
 				007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */,
 				00C43F6227A39BA2009E78F5 /* BellmanFordGraph.swift in Sources */,

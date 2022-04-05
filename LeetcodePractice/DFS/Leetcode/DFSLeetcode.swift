@@ -807,6 +807,7 @@ class PossibleBipartition {
     }
 }
 
+//https://www.lintcode.com/problem/663/
 class WallsGates {
     func callAsFunction(_ rooms: inout [[Int]]) {
         let m = rooms.count, n = rooms[0].count
@@ -1437,6 +1438,8 @@ class FloodFill {
     }
 }
 
+// Time: O(E + V)^2 == O(E)^2
+//Space: O(E), as we are using adjacency list
 class ReconstructItinerary {
     func callAsFunction(_ tickets: [[String]]) -> [String] {
         var adjList = [String: [String]]()

@@ -69,7 +69,6 @@
 [Valid Sudoku](https://leetcode.com/problems/valid-sudoku/)| [Swift](./Array/ValidSudoku.swift)| Easy| O(n^2)| O(n)|
 [Set Matrix Zero](https://leetcode.com/problems/set-matrix-zeroes/)| [Swift](./Array/SetMatrixZeroes.swift)| Medium| O(n^2)| O(1)|
 [Next Permutation](https://leetcode.com/problems/next-permutation/)| [Swift](./Array/NextPermutation.swift)| Medium| O(n)| O(1)|
-[Gas Station](https://leetcode.com/problems/gas-station/)| [Swift](./Array/GasStation.swift)| Medium| O(n)| O(1)|
 [Game of Life](https://leetcode.com/problems/game-of-life/)| [Swift](./Array/GameLife.swift)| Medium| O(n)| O(1)|
 [Task Scheduler](https://leetcode.com/problems/task-scheduler/)| [Swift](./Array/TaskScheduler.swift)| Medium| O(nlogn)| O(n)|
 [Validate IP Address](https://leetcode.com/problems/validate-ip-address/)| [Swift](./Array/ValidateIPAddress.swift)| Medium| O(n)| O(1)|
@@ -306,14 +305,10 @@
 [Best Time to Buy and Sell Stock with Cooldown](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/)| [Swift](./DP/BestTimeBuySellStockCooldown.swift)| Medium| O(n^2)| O(n)|
 [Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)| [Swift](./DP/PalindromicSubstrings.swift)| Medium| O(n^2)| O(n^2)|
 [Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)| [Swift](./DP/LongestPalindromicSubstring.swift)| Medium| O(n^2)| O(n^2)|
-[Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
-[Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)| [Swift](./DP/MaximumProductSubarray.swift)| Medium| O(n)| O(1)|
 [Edit Distance](https://leetcode.com/problems/edit-distance/)| [Swift](./DP/EditDistance.swift)| Hard| O(mn)| O(mn)|
 [Wildcard Matching](https://leetcode.com/problems/wildcard-matching/)| [Swift](./DP/WildcardMatching.swift)| Hard| O(mn)| O(mn)|
 [Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/)| [Swift](./DP/RegularExpressionMatching.swift)| Hard| O(mn)| O(mn)|
 [Frog Jump](https://leetcode.com/problems/frog-jump/)| [Swift](./DP/FrogJump.swift)| Hard| O(n^2)| O(n)|
-[Jump Game](https://leetcode.com/problems/jump-game/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
-[Jump Game II](https://leetcode.com/problems/jump-game-ii/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
 [Pascal's Triangle](https://leetcode.com/problems/pascals-triangle/)| [Swift](./DP/ClimbingStairs.swift)| Easy| O(n)| O(1)|
 [Word Break](https://leetcode.com/problems/word-break/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
@@ -458,27 +453,49 @@
 [Sort Transformed Array](https://www.lintcode.com/problem/906/)| [Swift](./Sort/SortTransformedArray.swift)| Medium| O(n)| O(1)|
 [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)| [Swift](./Sort/TopKFrequentElements.swift)| Medium| O(nlogn)| O(n)|
 [Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/)| [Swift](./Sort/TopKFrequentElements.swift)| Medium| O(nlogn)| O(n)|
+[Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)| [Swift](./Sort/KthLargestElementInArray.swift)| Medium| O(nlogn)| O(n)|
+[Array Partition I](https://leetcode.com/problems/array-partition-i/description/)| [Swift](./Sort/ArrayPartitionI.swift)|Easy| O(nlogn)| O(n)|
+[Largest Number](https://leetcode.com/problems/largest-number/)| [Swift](./Sort/LargestNumber.swift)| Medium| O(nlogn)| O(1)|
+
+## Intervals
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
 [Meeting Rooms &hearts;](https://www.lintcode.com/problem/920/)| [Swift](./Sort/MeetingRooms.swift)| Easy| O(nlogn)| O(1)|
 [Meeting Rooms II &hearts;](https://www.lintcode.com/problem/919/)| [Swift](./Sort/MeetingRoomsII.swift)| Medium| O(nlogn)| O(n)|
 [Merge Intervals](https://leetcode.com/problems/merge-intervals/)| [Swift](./Sort/MergeIntervals.swift)| Hard| O(nlogn)| O(n)|
 [Insert Interval](https://leetcode.com/problems/insert-interval/description/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
 [Remove Covered Intervals](https://leetcode.com/problems/remove-covered-intervals/)| [Swift](./Sort/MergeIntervals.swift)| Hard| O(nlogn)| O(n)|
 [Non Overlapping Intervals](https://leetcode.com/problems/non-overlapping-intervals/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
-[Insert Interval](https://leetcode.com/problems/insert-interval/description/)| [Swift](./Sort/InsertInterval.swift)|Hard| O(n)| O(1)|
-[Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)| [Swift](./Sort/KthLargestElementInArray.swift)| Medium| O(nlogn)| O(n)|
-[Array Partition I](https://leetcode.com/problems/array-partition-i/description/)| [Swift](./Sort/ArrayPartitionI.swift)|Easy| O(nlogn)| O(n)|
-[Largest Number](https://leetcode.com/problems/largest-number/)| [Swift](./Sort/LargestNumber.swift)| Medium| O(nlogn)| O(1)|
+
+## Greedy
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/)| [Swift](./DP/MaximumProductSubarray.swift)| Medium| O(n)| O(1)|
+[Jump Game](https://leetcode.com/problems/jump-game/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
+[Jump Game II](https://leetcode.com/problems/jump-game-ii/)| [Swift](./DP/JumpGame.swift)| Medium| O(n)| O(1)|
+[Gas Station](https://leetcode.com/problems/gas-station/)| [Swift](./Array/GasStation.swift)| Medium| O(n)| O(1)|
+[Partition Labels](https://leetcode.com/problems/partition-labels/)| [Swift](./Array/GasStation.swift)| Medium| O(n)| O(1)|
+
+## Heap/PriorityQueue
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Longest Happy String](https://leetcode.com/problems/longest-happy-string/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Sort Characters By Frequency](https://leetcode.com/problems/sort-characters-by-frequency/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Reorganize String](https://leetcode.com/problems/reorganize-string/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Design Twitter](https://leetcode.com/problems/design-twitter/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Minimum Number of Refueling Stops](https://leetcode.com/problems/minimum-number-of-refueling-stops/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Find K Pairs with Smallest Sums](https://leetcode.com/problems/find-k-pairs-with-smallest-sums/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
+[Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/)| [Swift](./DP/MaximumSubarray.swift)| Medium| O(n)| O(1)|
 
 ## Graph
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
-[Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 [All Paths From Source to Target](https://leetcode.com/problems/all-paths-from-source-to-target/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
-[Number of Connected Components in an Undirected Graph](https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/)| [Swift](./Graph/NumberConnectedComponentsUndirectedGraph.swift)| Medium| O(nlogn)| O(n)|
 [Reorder Routes to Make All Paths Lead to the City Zero](https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
-[Redundant Connection](https://leetcode.com/problems/redundant-connection/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 [Graph Valid Tree](https://leetcode.com/problems/graph-valid-tree/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
-[Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)| [Swift](./Graph/AlienDictionary.swift)| Hard| O(nm)| O(nm)|
 [Clone Graph](https://leetcode.com/problems/clone-graph/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 [Number of Islands II](https://leetcode.com/problems/number-of-islands-ii/)| [Swift](./Graph/NumberIslandsII.swift)| Hard| O(klogmn)| O(mn)|
 [Number of Distinct Islands](https://www.lintcode.com/problem/860/)| [Swift](./Graph/NumberIslandsII.swift)| Medium| O(klogmn)| O(mn)|
@@ -487,8 +504,6 @@
 [Max Area of Island](https://leetcode.com/problems/max-area-of-island/)| [Swift](./Graph/NumberIslandsII.swift)| Medium| O(klogmn)| O(mn)|
 [Count Sub Islands](https://leetcode.com/problems/count-sub-islands/)| [Swift](./Graph/NumberIslandsII.swift)| Hard| O(klogmn)| O(mn)|
 [Pacific Atlantic Water Flow](https://leetcode.com/problems/pacific-atlantic-water-flow/)| [Swift](./Graph/NumberIslandsII.swift)| Hard| O(klogmn)| O(mn)|
-[Course Schedule](https://leetcode.com/problems/course-schedule/)| [Swift](./Graph/CourseSchedule.swift)| Medium| O(n)| O(n)|
-[Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)| [Swift](./Graph/CourseScheduleII.swift)| Medium| O(n)| O(n)|
 [Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 [Possible Bipartition](https://leetcode.com/problems/possible-bipartition/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 [Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/)| [Swift](./Graph/CourseScheduleII.swift)| Medium| O(n)| O(n)|
@@ -498,6 +513,27 @@
 [Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 [Path with Maximum Gold](https://leetcode.com/problems/path-with-maximum-gold/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
 
+## UNION FIND
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Number Of Connected Components In Undirected Graph](https://www.geeksforgeeks.org/connected-components-in-an-undirected-graph/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Number of Provinces](https://leetcode.com/problems/number-of-provinces/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Redundant Connection](https://leetcode.com/problems/redundant-connection/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Min Cost to Connect All Points](https://leetcode.com/problems/min-cost-to-connect-all-points/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Largest Component Size by Common Factor](https://leetcode.com/problems/largest-component-size-by-common-factor/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Most Stones Removed with Same Row or Column](https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Number of Operations to Make Network Connected](https://leetcode.com/problems/number-of-operations-to-make-network-connected/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Critical Connections in a Network](https://leetcode.com/problems/critical-connections-in-a-network/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Accounts Merge](https://leetcode.com/problems/accounts-merge/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Number of Islands](https://leetcode.com/problems/number-of-islands/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+[Satisfiability of Equality Equations](https://leetcode.com/problems/satisfiability-of-equality-equations/)| [Swift](./Graph/GraphValidTree.swift)| Medium| O(nlogn)| O(n)|
+
+## TOPOLOGICAL SORT
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Alien Dictionary](https://leetcode.com/problems/alien-dictionary/)| [Swift](./Graph/AlienDictionary.swift)| Hard| O(nm)| O(nm)|
+[Course Schedule](https://leetcode.com/problems/course-schedule/)| [Swift](./Graph/CourseSchedule.swift)| Medium| O(n)| O(n)|
+[Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)| [Swift](./Graph/CourseScheduleII.swift)| Medium| O(n)| O(n)|
 
 ## Design
 | Title | Solution | Difficulty | Time | Space |

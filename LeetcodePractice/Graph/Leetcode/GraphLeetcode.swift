@@ -99,51 +99,6 @@ class CloneGraph {
     }
 }
 
-struct AlienDictionary {
-    func callAsFunction(_ wordList: [String]) -> String {
-        var adjList = [Character: Set<Character>]()
-        
-        for i in 0..<wordList.count - 1 {
-            let word1 = wordList[i], word2 = wordList[i + 1]
-            let minLength = min(word1.count, word2.count)
-            if word1.count > word2.count, word1.prefix(minLength) == word2.prefix(minLength) {
-                return ""
-            }
-            for j in 0..<minLength {
-                let firstWChar = word1[word1.index(word1.startIndex, offsetBy: j)]
-                let secondWChar = word2[word2.index(word2.startIndex, offsetBy: j)]
-                if firstWChar != secondWChar {
-                    adjList[firstWChar, default: Set()].insert(secondWChar)
-                }
-            }
-        }
-        
-        var visited = [Character: Bool](), res = [Character]()
-        func dfs(_ c: Character) -> Bool {
-            if visited[c] != nil {
-                return visited[c]!
-            }
-            visited[c] = true
-            for neighbour in adjList[c] ?? [] {
-                if dfs(neighbour) {
-                    return true
-                }
-            }
-            visited[c] = false
-            res.append(c)
-            return false
-        }
-        
-        for c in adjList.keys {
-            if dfs(c) {
-                return ""
-            }
-        }
-        res = res.reversed()
-        return String(res)
-    }
-}
-
 struct GraphValidTree {
     func callAsFunction(n: Int, edges: [[Int]]) -> Bool {
         typealias Node = Int

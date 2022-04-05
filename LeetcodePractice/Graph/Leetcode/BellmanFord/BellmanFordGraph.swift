@@ -102,6 +102,9 @@ class CheapestFlightsWithinKStops {
 }
 
 class NetworkDelayTime {
+    //Relaxing all edges n - 1 times where n is number of vertices
+    //Time: O(E * (v - 1)) == O(E*v) == O(n^2)
+    //Belman ford will not work if there is any negative weight cycle
     func bellmanFord(_ times: [[Int]], _ n: Int, _ k: Int) -> Int {
         var distances = [Int](repeating: Int.max, count: n+1)
         distances[k] = 0

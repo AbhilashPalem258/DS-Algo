@@ -275,3 +275,42 @@ class FindKSmallestPairs {
         return res
     }
 }
+
+//https://leetcode.com/problems/find-median-from-data-stream/
+class MedianFinder {
+    var smallHeap = RHeap<Int>(array: [], sort: {$0>$1})
+    var largeHeap = RHeap<Int>(array: [], sort: {$0<$1})
+    
+    init() {}
+    
+    func addNum(_ num: Int) {
+        smallHeap.insert(num)
+        
+        if !smallHeap.isEmpty && !largeHeap.isEmpty && smallHeap.peek()! > largeHeap.peek()! {
+            let popedVal = smallHeap.remove()!
+            largeHeap.insert(popedVal)
+        }
+        
+        if abs(smallHeap.count - largeHeap.count) > 1 {
+            if smallHeap.count > largeHeap.count {
+                if let popedVal = smallHeap.remove() {
+                    largeHeap.insert(popedVal)
+                }
+            } else {
+                if let popedVal = largeHeap.remove() {
+                    smallHeap.insert(popedVal)
+                }
+            }
+        }
+    }
+    
+    func findMedian() -> Double {
+        if smallHeap.count > largeHeap.count {
+            return Double(smallHeap.peek()!)
+        }
+        if largeHeap.count > smallHeap.count {
+            return Double(largeHeap.peek()!)
+        }
+        return Double(smallHeap.peek()! + largeHeap.peek()!)/2
+    }
+}
