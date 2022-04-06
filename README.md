@@ -16,7 +16,13 @@
 * [Math](#math)
 * [Search](#search)
 * [Sort](#sort)
+* [Tries](#tries)
+* [Intervals](#intervals)
+* [Greedy](#greedy)
+* [Heap](#heap)
 * [Graph](#graph)
+* [UNION FIND](#union-find)
+* [TOPOLOGICAL SORT](#topological-sort)
 * [Design](#design)
 
 ## Array
@@ -456,6 +462,13 @@
 [Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)| [Swift](./Sort/KthLargestElementInArray.swift)| Medium| O(nlogn)| O(n)|
 [Array Partition I](https://leetcode.com/problems/array-partition-i/description/)| [Swift](./Sort/ArrayPartitionI.swift)|Easy| O(nlogn)| O(n)|
 [Largest Number](https://leetcode.com/problems/largest-number/)| [Swift](./Sort/LargestNumber.swift)| Medium| O(nlogn)| O(1)|
+
+## Tries
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)| [Swift](./Sort/MergeSortedArray.swift)| Easy| O(n)| O(1)|
+[Design Add and Search Words Data Structure](https://leetcode.com/problems/design-add-and-search-words-data-structure/)| [Swift](./Sort/MergeSortedArray.swift)| Easy| O(n)| O(1)|
+[Word Search II](https://leetcode.com/problems/word-search-ii/)| [Swift](./Sort/MergeSortedArray.swift)| Easy| O(n)| O(1)|
 
 ## Intervals
 | Title | Solution | Difficulty | Time | Space |
