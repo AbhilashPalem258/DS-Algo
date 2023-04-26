@@ -29,6 +29,9 @@ import Foundation
  explanation: https://www.youtube.com/watch?v=ZI2z5pq0TqA&t=213s (Only check explanation part, coding part is wrong in video)
  primary idea:
  - Two pointer, l is left pointer starts at start of arr and r is right pointer, starts at end of arr.
+ - Equation to find water trapped at each index i = min(maxLeft, maxRight) - height[i]
+ - MaxLeft is maximum value of height towards left of index i
+ - MaxRight is maximum value of height towards right of index i
  Time Complexity: O(n)
  Space Complexity: O(1)
  */
@@ -60,8 +63,11 @@ class TrappingRainWater {
  link: https://leetcode.com/problems/container-with-most-water/
  explanation: https://www.youtube.com/watch?v=UuiTKBwPgAo
  Primary Idea:
-     - Two Pointer
-     - --> L , R <--
+ - Two Pointer
+ - --> L , R <--
+ - Equation to find water contained at each iteration = Area of container = Height * width = min(height[l], height[r]) * (r - l)
+ - We need to be greedy, we always move pointer which has less height than the pointer that has more height. It results in getting more container area
+ - If both the left and right heights are same, we will the next pointer value which is less than other and we move that specific pointer - Greedy
  */
 struct ContainerWithMaxWater {
     func callAsFunction(_ height: [Int]) -> Int {
@@ -75,7 +81,7 @@ struct ContainerWithMaxWater {
             if height[l] < height[r] {
                 l += 1
             } else if height[l] == height[r] {
-                if height[l+1] < height[r-1] {
+                if height[l+1] > height[r-1] {
                     l += 1
                 } else {
                     r -= 1
@@ -250,6 +256,61 @@ class TwoSumIV {
             }
         }
         return false
+    }
+}
+
+
+/*
+ problem:
+ Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+ 
+ Testcases:
+ Input: heights = [2,1,5,6,2,3]
+ Output: 10
+ Explanation: The above is a histogram where width of each bar is 1.
+ The largest rectangle is shown in the red area, which has an area = 10 units.
+ 
+ Input: heights = [2,4]
+ Output: 4
+ 
+ 
+ Constraints:
+ 1 <= heights.length <= 105
+ 0 <= heights[i] <= 104
+ 
+ 
+ link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+ explanation: https://www.youtube.com/watch?v=zx5Sw9130L0&list=PLot-Xpze53letfIu9dMzIIO7na_sqvl0w&index=5
+ primary idea:
+ - Use stack and as soon as the current height is lower than earlier, pop all last height's in stack which are higher than current one. calculate area and modify maxArea if needed. After Iteration, check if stack is empty. if not calculate maxArea with all stack elementss
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+class SearchSuggestionSystem {
+    func callAsFunction(_ products: [String], _ searchWord: String) -> [[String]] {
+        let products = products.sorted()
+        var res = [[String]]()
+        
+        var l = 0, r = products.count - 1
+        for i in 0..<searchWord.count {
+            let c = searchWord[searchWord.index(searchWord.startIndex, offsetBy: i)]
+            
+            while l <= r && (products[l].count <= i || products[l][products[l].index(products[l].startIndex, offsetBy: i)] != c) {
+                l += 1
+            }
+            
+            while l <= r && (products[r].count <= i || products[r][products[r].index(products[r].startIndex, offsetBy: i)] != c) {
+                r -= 1
+            }
+            
+            let remain = r - l + 1
+            var currentSuggestions = [String]()
+            for j in 0..<min(3, remain) {
+                currentSuggestions.append(products[l + j])
+            }
+            res.append(currentSuggestions)
+        }
+        return res
     }
 }
 

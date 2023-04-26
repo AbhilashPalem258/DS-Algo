@@ -302,7 +302,6 @@
 [Combination Sum IV](https://leetcode.com/problems/combination-sum-iv/)| [Swift](./DP/CombinationSumIV.swift)| Medium| O(2^n)| O(n)|
 [Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)| [Swift](./DP/CombinationSumIV.swift)| Medium| O(m*n)| O(m*n)|
 [Flip Game II &hearts;](https://leetcode.com/problems/flip-game-ii/)| [Swift](./DP/FlipGameII.swift)| Medium| O(n)| O(n)|
-[Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)| [Swift](./DP/GenerateParentheses.swift)| Medium| O(2^n)| O(n)|
 [Different Ways to Add Parentheses](https://leetcode.com/problems/different-ways-to-add-parentheses/)| [Swift](./DP/DifferentWaysAddParentheses.swift)| Medium| O(n^n)| O(n)|
 [Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)| [Swift](./DP/BestTimeBuySellStockII.swift)| Medium| O(n)| O(1)|
 [Maximum Alternating Subsequence Sum](https://leetcode.com/problems/maximum-alternating-subsequence-sum/)| [Swift](./DP/BestTimeBuySellStockII.swift)| Medium| O(n)| O(1)|
@@ -353,6 +352,8 @@
 [Factor Combinations](https://leetcode.com/problems/factor-combinations/)| [Swift](./DFS/FactorCombinations.swift)| Medium| O(n^n))| O(2^n - 1)|
 [Maximum Length of a Concatenated String with Unique Characters](https://leetcode.com/problems/maximum-length-of-a-concatenated-string-with-unique-characters/)| [Swift](./DFS/FactorCombinations.swift)| Medium| O(n^n))| O(2^n - 1)|
 [Matchsticks to Square](https://leetcode.com/problems/matchsticks-to-square/)| [Swift](./DFS/StrobogrammaticNumberII.swift)| Medium| O(m^n)| O(n)|
+[Generate Parentheses](https://leetcode.com/problems/generate-parentheses/)| [Swift](./DP/GenerateParentheses.swift)| Medium| O(2^n)| O(n)|
+[Restore IP Addresses](https://leetcode.com/problems/restore-ip-addresses/)| [Swift](./DFS/StrobogrammaticNumberII.swift)| Medium| O(m^n)| O(n)|
 [Strobogrammatic Number II](https://leetcode.com/problems/strobogrammatic-number-ii/)| [Swift](./DFS/StrobogrammaticNumberII.swift)| Medium| O(m^n)| O(n)|
 [Generalized Abbreviation](https://leetcode.com/problems/generalized-abbreviation/)| [Swift](./DFS/GeneralizedAbbreviation.swift)| Medium| O(n^n)| O(2^n)|
 [Palindrome Partitioning](https://leetcode.com/problems/palindrome-partitioning/)| [Swift](./DFS/PalindromePartitioning.swift)| Medium| O(n^n)| O(n)|

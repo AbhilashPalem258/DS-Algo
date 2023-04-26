@@ -15,6 +15,17 @@ class TwoPointerLeetcode: XCTestCase {
         XCTAssertEqual(obj(5), true)
         XCTAssertEqual(obj(3), false)
     }
+    
+    func testSearchSuggestionSystem() {
+        let obj = SearchSuggestionSystem()
+        XCTAssertEqual(obj(["mobile","mouse","moneypot","monitor","mousepad"], "mouse"), [
+            ["mobile","moneypot","monitor"],
+            ["mobile","moneypot","monitor"],
+            ["mouse","mousepad"],
+            ["mouse","mousepad"],
+            ["mouse","mousepad"]
+            ])
+    }
 
     func testTwoSumIV() {
         typealias TreeNode = TreeLeetcode.TreeNode

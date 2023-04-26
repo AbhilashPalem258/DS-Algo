@@ -1592,10 +1592,7 @@ extension String {
  link: https://leetcode.com/problems/partition-equal-subset-sum/
  explanation: https://www.youtube.com/watch?v=dJmyfFC3-3A
  primary idea:
- - create Adj list, map from course to its prerequisite courses
- - perform classic DFS on Adj list
- - once we get to know that specific course is completable, mark it's adj list value as empty which helps reduce redundant operations #44
- - Given prerequites may contain un connected graphs, better to loops through evey course so that we don miss any course #67
+
  Time Complexity:
  Space Complexity:
  */
@@ -1661,24 +1658,69 @@ class PartitionEqualSubsetSum {
     }
 }
 
+/*
+ problem:
+ You are given an integer array nums and an integer target.
+
+ You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
+
+ For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the expression "+2-1".
+ Return the number of different expressions that you can build, which evaluates to target.
+
+  
+ Testcases:
+ Example 1:
+ Input: nums = [1,1,1,1,1], target = 3
+ Output: 5
+ Explanation: There are 5 ways to assign symbols to make the sum of nums be target 3.
+ -1 + 1 + 1 + 1 + 1 = 3
+ +1 - 1 + 1 + 1 + 1 = 3
+ +1 + 1 - 1 + 1 + 1 = 3
+ +1 + 1 + 1 - 1 + 1 = 3
+ +1 + 1 + 1 + 1 - 1 = 3
+ 
+ Example 2:
+ Input: nums = [1], target = 1
+ Output: 1
+ 
+ 
+ Constraints:
+ 1 <= nums.length <= 20
+ 0 <= nums[i] <= 1000
+ 0 <= sum(nums[i]) <= 1000
+ -1000 <= target <= 1000
+ 
+ 
+ link: https://leetcode.com/problems/target-sum/
+ explanation: https://www.youtube.com/watch?v=g0npyaQtAQM
+ primary idea:
+ - Backtracking + Caching
+ - Based on particular index and total, we cache the number of ways
+ Time Complexity: O(n * t)
+ Space Complexity: O(n)
+ */
 class TargetSum {
     func callAsFunction(_ nums: [Int], _ target: Int) -> Int {
-        if nums.isEmpty || target <= 0 {
-            return 0
-        }
-        var memo = Array(repeating: 0, count: target+1)
-        memo[0] = 1
-        print(memo)
         
-        for num in nums where num <= target {
-            var subTarget = target
-            while subTarget >= num {
-                memo[subTarget] = memo[subTarget] + memo[subTarget - num]
-                subTarget -= 1
-            }
-            print(memo)
+        struct Position: Hashable {
+            let index: Int
+            let total: Int
         }
-        return memo[target]
+        
+        var dp = [Position: Int]()
+        
+        func backtracking(position: Position) -> Int {
+            if position.index == nums.count {
+                return position.total == target ? 1 : 0
+            }
+            if let existingValidWays = dp[position] {
+                return existingValidWays
+            }
+            
+            dp[position] = backtracking(position: .init(index: position.index + 1, total:  position.total + nums[position.index])) + backtracking(position: .init(index: position.index + 1, total:  position.total - nums[position.index]))
+            return dp[position]!
+        }
+        return backtracking(position: .init(index: 0, total: 0))
     }
 }
 

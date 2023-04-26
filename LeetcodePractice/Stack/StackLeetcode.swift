@@ -538,3 +538,54 @@ class CarFleet {
         return stack.count
     }
 }
+
+
+/*
+ problem:
+ Given an array of integers heights representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.
+ 
+ Testcases:
+ Input: heights = [2,1,5,6,2,3]
+ Output: 10
+ Explanation: The above is a histogram where width of each bar is 1.
+ The largest rectangle is shown in the red area, which has an area = 10 units.
+ 
+ Input: heights = [2,4]
+ Output: 4
+
+ 
+ Constraints:
+ 1 <= heights.length <= 105
+ 0 <= heights[i] <= 104
+
+ 
+ link: https://leetcode.com/problems/largest-rectangle-in-histogram/
+ explanation: https://www.youtube.com/watch?v=zx5Sw9130L0&list=PLot-Xpze53letfIu9dMzIIO7na_sqvl0w&index=5
+ primary idea:
+ - Use stack and as soon as the current height is lower than earlier, pop all last height's in stack which are higher than current one. calculate area and modify maxArea if needed. After Iteration, check if stack is empty. if not calculate maxArea with all stack elementss
+ Time Complexity: O(2n)
+ Space Complexity: O(n)
+ */
+struct LargestRectangleHistogram {
+    func callAsFunction(_ heights: [Int]) -> Int {
+        var maxArea = 0, stack = [(index: Int, height: Int)]()
+        
+        var i = 0
+        for height in heights {
+            var start = i
+            while !stack.isEmpty && stack.last!.height > height {
+                let prev = stack.popLast()!
+                maxArea = max(maxArea, prev.height * (i - prev.index))
+                start = prev.index
+            }
+            stack.append((start, height))
+            i += 1
+        }
+        
+        for (index, height) in stack {
+            maxArea = max(maxArea, height * (heights.count - index))
+        }
+        
+        return maxArea
+    }
+}
