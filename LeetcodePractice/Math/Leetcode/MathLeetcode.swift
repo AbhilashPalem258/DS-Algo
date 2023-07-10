@@ -8,6 +8,45 @@
 import Foundation
 import CoreVideo
 
+/*
+ Bits understanding:
+ Convert Number to Bits and viceversa: https://www.youtube.com/watch?v=rsxT4FfRBaM
+ 
+ Understanding of Bitwise inverted(~), AND(&), OR(|), XOR(^) operators and understanding of Bit Shift operators: https://docs.swift.org/swift-book/documentation/the-swift-programming-language/advancedoperators
+ 
+ Bitwise,
+ 1. Inverted(~): Unary prefix operator: Flips all bits
+ 2. AND(&): Infix operator: If Both of the bit is 1, it results in 1 or else 0
+ 3. OR(|): Infix operator: either or both of the bit is 1, it results in 1
+ 4. XOR(^): Infix operator: either of the bit should be 1, Both of the bit to be 1 results in 0
+ 
+ 
+ Bit Shifting Operators:
+ 1. <<: Left Shifting operator: increase power of 2 by 1
+    2 << 1 == 2 * 2(pow 1) == 4
+    2 << 3 == 2 * 2(pow 3) == 16
+ 2. >>: Right Shifting Operator:  decrease power of 2 by 1
+    128 >> 1 == 128 / 2(pow 1) == 64
+    64 >> 3 == 64 / 2(pow 3) ==
+ More understanding: https://stackoverflow.com/questions/30332724/what-does-shift-left-actually-do-in-swift
+ */
+
+class PalindromeNumber {
+    func callAsFunction(_ x: Int) -> Bool  {
+        var xArr = Array(String(x))
+        
+        var l = 0, r = xArr.count - 1
+        while l < r {
+            if xArr[l] != xArr[r] {
+                return false
+            }
+            l += 1
+            r -= 1
+        }
+        return true
+    }
+}
+
 class AddBinary {
     //Time & space: O(a + b)
     func callAsFunction(_ a: String, _ b: String) -> String {
@@ -589,6 +628,36 @@ class SuperUglyNumber {
     }
 }
 
+/*
+ problem:
+ Given an integer n, return the number of prime numbers that are strictly less than n.
+ 
+ Example 1:
+ Input: n = 10
+ Output: 4
+ Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.
+ Example 2:
+
+ Input: n = 0
+ Output: 0
+ Example 3:
+
+ Input: n = 1
+ Output: 0
+
+ Constraints:
+ 0 <= n <= 5 * 106
+ 
+ link: https://leetcode.com/problems/count-primes/
+ explanation video: https://www.youtube.com/watch?v=5LMkddl2NCk&t=326s
+ Notes:
+ - Create a array of count n named compositeMap, which will let us know if the number is prime or composite. if the value is true then its composite and if the value if false then the index/number is prime.
+ - We start iterating from 2 to Sqrt(n) where compositeMap[i] == false or in other words prime number and map every mutiple of i to false as it's concluded it's composite and divisible by i
+ - Why Sqrt(n) as upper limit of iteration?
+    * The first index that was needed to be changed to true would be starting fro i * i
+    * The last prime for which the composite values needs to be calculated is sqrt(n)
+ - Iterate again through the composite array and calculate count of prime numbers
+ */
 class CountPrimes {
     func callAsFunction(_ n: Int) -> Int {
         if n <= 2 {
@@ -667,13 +736,32 @@ class StringToInteger {
     }
 }
 
+/*
+ problem:
+ 
+ link:
+ explanation video:
+ Notes:
+ Lets evaluate 2^10
+ * 2 ^ 10 = 2^5 * 2^5
+ * 2^5 = 2^2 * 2^2 * 2
+ * 2^2 = 2 * 2
+ * 2^1 = 2^0 * 2^0 * 2 == 1 * 1 * 2 = 2
+ 
+ Base cases:
+ * n^0 = n
+ * 0^n = 0
+ * 2^-n = 1/(2^n)
+ 
+ */
 class PowXN {
     func callAsFunction(_ x: Double, _ n: Int) -> Double {
         func helper(val: Double, exp: Int) -> Double {
             if val == 0 { return 0 }
             if exp == 0 { return 1 }
             
-            let res = helper(val: val * val, exp: exp/2)
+            var res = helper(val: val, exp: exp/2)
+            res *= res
             return exp % 2 == 0 ? res : res * val
         }
         
@@ -768,7 +856,7 @@ class SumOfTwoIntegers {
 class ReverseInteger {
     func callAsFunction(_ x: Int) -> Int {
         let sign = x < 0 ? -1 : 1
-        var x = abs(x), res = 0
+        var x = x, res = 0
         let max = Int(Int32.max)
         let min = Int(Int32.min)
         
@@ -776,6 +864,8 @@ class ReverseInteger {
             let digit = x % 10
             x = x / 10
             
+            
+            // https://www.youtube.com/watch?v=HAgLH58IgJQ&t=693s Time: 4:30 for understanding below condition
             if (res > max/10) || (res == max/10 && digit > max%10) {
                 return 0
             } else if (res < min/10) || (res == min/10 && digit < min%10) {
@@ -1046,6 +1136,42 @@ class IntegerToEnglish {
     }
 }
 
+/*
+ problem:
+ Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.
+
+ If the fractional part is repeating, enclose the repeating part in parentheses.
+
+ If multiple answers are possible, return any of them.
+
+ It is guaranteed that the length of the answer string is less than 104 for all the given inputs.
+
+ Example 1:
+ 
+ Input: numerator = 1, denominator = 2
+ Output: "0.5"
+ Example 2:
+
+ Input: numerator = 2, denominator = 1
+ Output: "2"
+ Example 3:
+
+ Input: numerator = 4, denominator = 333
+ Output: "0.(012)"
+  
+
+ Constraints:
+
+ -231 <= numerator, denominator <= 231 - 1
+ denominator != 0
+ 
+ link: https://leetcode.com/problems/fraction-to-recurring-decimal/
+ explanation video: No video
+ Notes:
+ - if numerator or denominator is < 0, append - sign to result at first position
+ - we use map here to check if there is any number repetition in decimals, the value of that map will be index where repition started so that we can append ( at that index and follwed by appending ) to result.
+ - After Dot(.), that value will be 10's place , 100's place, 1000's place...
+ */
 class FractionToDecimal {
     func callAsFunction(_ numerator: Int, _ denominator: Int) -> String {
         if numerator == 0 {
@@ -1083,6 +1209,26 @@ class FractionToDecimal {
             }
         }
         return output.joined()
+    }
+}
+
+class RectangleArea {
+    func computeArea(_ ax1: Int, _ ay1: Int, _ ax2: Int, _ ay2: Int, _ bx1: Int, _ by1: Int, _ bx2: Int, _ by2: Int) -> Int {
+        let ox1 = max(ax1, bx1)
+        let ox2 = min(ax2, bx2)
+        let oy1 = max(ay1, by1)
+        let oy2 = min(ay2, by2)
+
+        return area(ax1, ay1, ax2, ay2) + area(bx1, by1, bx2, by2) - area(ox1, oy1, ox2, oy2)
+    }
+
+    private func area(_ x1: Int, _ y1: Int, _ x2: Int, _ y2: Int) -> Int {
+        let width = x2 - x1
+        let height = y2 - y1
+
+        guard width > 0 else { return 0 }
+        guard height > 0 else { return 0 }
+        return width * height
     }
 }
 
@@ -1218,7 +1364,7 @@ class BasicCalculatorII {
         var current = 0
         var op = "+"
         
-        for ch in s {
+        for ch in s+"+" {
             switch ch {
                 case "+", "-", "*", "/":
                     if op == "+" || op == "-" {
@@ -1236,16 +1382,16 @@ class BasicCalculatorII {
                     if let n = Int(String(ch)) { current = current*10 + n }
             }
         }
-        
-        if op == "+" || op == "-" {
-            stack.append(op == "+" ? current : -current)
-        } else if op == "*" {
-            assert(stack.count > 0)
-            stack[stack.count-1] = stack.last! * current
-        } else if op == "/" {
-            assert(stack.count > 0)
-            stack[stack.count-1] = stack.last! / current
-        }
+//
+//        if op == "+" || op == "-" {
+//            stack.append(op == "+" ? current : -current)
+//        } else if op == "*" {
+//            assert(stack.count > 0)
+//            stack[stack.count-1] = stack.last! * current
+//        } else if op == "/" {
+//            assert(stack.count > 0)
+//            stack[stack.count-1] = stack.last! / current
+//        }
         
         return stack.reduce(0, +)
     }

@@ -233,6 +233,46 @@ class FindAllAnagramsInString {
         }
         return res
     }
+    
+    //self wrote solution, align with above problem thinking
+    func solution2(_ s: String, _ p: String) -> [Int] {
+        guard p.count <= s.count else {
+            return []
+        }
+        
+        var s = Array(s), p = Array(p)
+        var result = [Int]()
+        
+        var pMap = [Character: Int]()
+        for char in p {
+            pMap[char, default: 0] += 1
+        }
+        
+        var sMap = [Character: Int]()
+        
+        var l = 0
+        let windowLength = p.count
+        
+        for r in 0..<s.count {
+            let char = s[r]
+            sMap[char, default: 0] += 1
+            
+            if sMap == pMap {
+                result.append(l)
+            }
+            
+            if (r - l + 1) == windowLength {
+                let removableChar = s[l]
+                sMap[removableChar]! -= 1
+                if let count = sMap[removableChar], count == 0 {
+                    sMap[removableChar] = nil
+                }
+                l += 1
+            }
+        }
+        
+        return result
+    }
 }
 
 /*

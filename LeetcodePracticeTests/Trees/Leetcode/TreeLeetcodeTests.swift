@@ -19,6 +19,10 @@ class TreeLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj(first), [1,2,3])
         XCTAssertEqual(obj(nil), [])
         XCTAssertEqual(obj(TreeLeetcode.TreeNode(1)), [1])
+        
+        XCTAssertEqual(obj.iterativeSolution(first), [1,2,3])
+        XCTAssertEqual(obj.iterativeSolution(nil), [])
+        XCTAssertEqual(obj.iterativeSolution(TreeLeetcode.TreeNode(1)), [1])
     }
     
     func testTreeInorderTraversal() {
@@ -30,6 +34,10 @@ class TreeLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj(first), [1,3, 2])
         XCTAssertEqual(obj(nil), [])
         XCTAssertEqual(obj(TreeLeetcode.TreeNode(1)), [1])
+        
+        XCTAssertEqual(obj.iterativeSolution(first), [1,3, 2])
+        XCTAssertEqual(obj.iterativeSolution(nil), [])
+        XCTAssertEqual(obj.iterativeSolution(TreeLeetcode.TreeNode(1)), [1])
     }
     
     func testBalancedBT() {

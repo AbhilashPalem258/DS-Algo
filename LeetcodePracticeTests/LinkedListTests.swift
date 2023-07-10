@@ -90,7 +90,7 @@ extension LinkedListTests {
     
     func testLongestParentheses() {
 //        LongestValidParentheses().longestValidParentheses("(()")
-        LongestValidParentheses().longestValidParentheses(")()())")
+        LongestValidParentheses().constantSpaceSolution(")()())")
     }
     
     func testExclusiveTF() {

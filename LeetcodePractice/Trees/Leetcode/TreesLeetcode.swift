@@ -63,6 +63,24 @@ class TreePreorderTraversal {
         helper(node?.left, storage: &storage)
         helper(node?.right, storage: &storage)
     }
+    
+    func iterativeSolution(_ root: TreeLeetcode.TreeNode?) -> [Int] {
+        var current = root, stack = [TreeLeetcode.TreeNode]()
+        var result = [Int]()
+        
+        while !stack.isEmpty || current != nil {
+            if let cur = current {
+                result.append(cur.val)
+                if let right = cur.right {
+                    stack.append(right)
+                }
+                current = cur.left
+            } else {
+                current = stack.removeLast()
+            }
+        }
+        return result
+    }
 }
 
 class TreeInorderTraversal {
@@ -81,6 +99,61 @@ class TreeInorderTraversal {
         helper(node?.left, storage: &storage)
         storage.append(nodeVal)
         helper(node?.right, storage: &storage)
+    }
+    
+    func iterativeSolution(_ root: TreeLeetcode.TreeNode?) -> [Int] {
+        var current = root, stack = [TreeLeetcode.TreeNode]()
+        var result = [Int]()
+        
+        while !stack.isEmpty || current != nil {
+            if let cur = current {
+                stack.append(cur)
+                current = cur.left
+            } else {
+                let node = stack.removeLast()
+                result.append(node.val)
+                current = node.right
+            }
+        }
+        return result
+    }
+}
+
+class TreePostOrderTraversal {
+    func callAsFunction(_ root: TreeLeetcode.TreeNode?) -> [Int] {
+        var result = [Int]()
+        
+        func helper(node: TreeLeetcode.TreeNode?) {
+            if node == nil {
+                return
+            }
+            helper(node: node?.left)
+            helper(node: node?.right)
+            result.append(node!.val)
+        }
+        helper(node: root)
+        return result
+    }
+    
+    //https://www.youtube.com/watch?v=QhszUQhGGlA&list=PLQpVsaqBj4RIJdYW6Y-iAswxCZeocfoRW&index=4
+    // Post Order Iterative is slightly different from Inorder and Preorder iterative. Better watch video
+    func iterativeSolution(root: TreeLeetcode.TreeNode?) -> [Int] {
+        var stack: [(TreeLeetcode.TreeNode?, Bool)] = [(root, false)]
+        var result = [Int]()
+        
+        while !stack.isEmpty {
+            let (current, isVisited) = stack.removeLast()
+            if let cur = current {
+                if isVisited {
+                    result.append(cur.val)
+                } else {
+                    stack.append((cur, true))
+                    stack.append((cur.right, false))
+                    stack.append((cur.left, false))
+                }
+            }
+        }
+        return result
     }
 }
 
@@ -462,7 +535,7 @@ class PathSumIII {
 //leetcode link:
 class HouseRobberyIII {
     func rob(_ root: TreeLeetcode.TreeNode?) -> Int {
-        func dfs(_ node: TreeLeetcode.TreeNode?) -> (Int, Int) {
+        func dfs(_ node: TreeLeetcode.TreeNode?) -> (withRoot: Int, withoutRoot: Int) {
             guard let node = node else {
                 return (0, 0)
             }
@@ -470,13 +543,13 @@ class HouseRobberyIII {
             let leftPair = dfs(node.left)
             let rightPair = dfs(node.right)
             
-            let withRoot = leftPair.1 + node.val + rightPair.1
-            let withoutRoot = max(leftPair.0, leftPair.1) + max(rightPair.0, rightPair.1)
+            let withRoot = leftPair.withoutRoot + node.val + rightPair.withoutRoot
+            let withoutRoot = max(leftPair.withRoot, leftPair.withoutRoot) + max(rightPair.withRoot, rightPair.withoutRoot)
             
             return (withRoot, withoutRoot)
         }
         let result = dfs(root)
-        return max(result.0, result.1)
+        return max(result.withRoot, result.withoutRoot)
     }
 }
 

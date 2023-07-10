@@ -48,6 +48,7 @@ struct FirstUniqCharInStr {
 }
 
 //link: https://leetcode.com/problems/keyboard-row/
+
 struct KeyboardRow {
     func callAsFunction(_ words: [String]) -> [String] {
         let rowOne = "qwertyuiop", rowTwo = "asdfghjkl", rowThree = "zxcvbnm"
@@ -838,6 +839,7 @@ class LongestCommonPrefix {
 }
 
 /*
+ https://www.lintcode.com/problem/640/
  Given two strings s and t, determine if they are both one edit distance apart.
 
  Note:
@@ -943,84 +945,35 @@ class WordPattern {
         return true
     }
 }
+/*
+ problem:
+ 395. Longest Substring with At Least K Repeating Characters
+ 
+ Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
 
-struct PermutationInStr {
-    func callAsFunction(_ s1: String, _ s2: String) -> Bool {
-        guard s2.count > s1.count else {
-            return false
-        }
-        guard !s1.isEmpty else {
-            return true
-        }
-        
-        let len = s1.count
-        var dict = [Character: Int]()
-        for c in s1 {
-            dict[c, default: 0] += 1
-        }
-        var count = len
-        
-        let sChars = Array(s2)
-        var start = 0
-        
-        for end in 0..<sChars.count {
-            let element = sChars[end]
-            if (end - start + 1) > len {
-                if let n = dict[sChars[start]] {
-                    dict[sChars[start]] = n + 1
-                    if n + 1 > 0 {
-                        count += 1
-                    }
-                }
-                start += 1
-            }
-            if let n = dict[element] {
-                dict[element] = n - 1
-                if n - 1 >= 0 {
-                    count -= 1
-                }
-            }
-            if count == 0 {
-                return true
-            }
-        }
-        return false
-    }
-}
+ Example 1:
 
-class FindAnagramsInStr {
-    func findAnagrams(_ s: String, _ p: String) -> [Int] {
-        guard !s.isEmpty, s.count >= p.count else {
-            return []
-        }
-        
-        let s = s.map { letterIndex($0) }
-        let p = p.map { letterIndex($0) }
-        
-        var pArray = Array(repeating: 0, count: 26)
-        for value in p {
-            pArray[value] += 1
-        }
-        
-        var result = [Int]()
-        var slidingArr = Array(repeating: 0, count: 26)
-        for i in 0..<s.count {
-            slidingArr[s[i]] += 1
-            if i - p.count >= 0 {
-                slidingArr[s[i - p.count]] -= 1
-            }
-            if slidingArr == pArray {
-                result.append(i - p.count + 1)
-            }
-        }
-        return result
-    }
-    
-    private func letterIndex(_ c: Character) -> Int {
-        Int(c.unicodeScalars.first!.value - Unicode.Scalar("a").value)
-    }
-}
+ Input: s = "aaabb", k = 3
+ Output: 3
+ Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
+ Example 2:
 
+ Input: s = "ababbc", k = 2
+ Output: 5
+ Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
+  
+
+ Constraints:
+
+ 1 <= s.length <= 104
+ s consists of only lowercase English letters.
+ 1 <= k <= 105
+ 
+ link: https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/description/
+ explanation video: https://www.youtube.com/watch?v=5QpMpO2CAb0
+ Notes:
+ - Short explanation video better watch
+ */
 class LongestSubstringAtleastKRepeatingCharacters {
     //ababacb
     func callAsFunction(_ s: String, _ k: Int) -> Int {

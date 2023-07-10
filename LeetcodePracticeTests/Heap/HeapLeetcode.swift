@@ -40,8 +40,8 @@ class HeapLeetcode: XCTestCase {
     
     func testKclosestPointsToOrigin() {
         let obj = KclosestPointsToOrigin()
-        XCTAssertEqual(obj([[1,3],[-2,2]], 1), [[-2,2]])
-        XCTAssertEqual(obj([[3,3],[5,-1],[-2,4]], 2), [[-2,4],[3,3]])
+        XCTAssertEqual(obj.solution2([[1,3],[-2,2]], 1), [[-2,2]])
+        XCTAssertEqual(obj.solution2([[3,3],[5,-1],[-2,4]], 2), [[-2,4],[3,3]])
     }
     
     func testReorganizeString() {

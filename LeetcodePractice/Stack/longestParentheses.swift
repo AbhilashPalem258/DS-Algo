@@ -8,28 +8,64 @@
 import Foundation
 
 class LongestValidParentheses {
-    func longestValidParentheses(_ s: String) -> Int {
-        var stack = [Int](), longest = 0, start = 0
+    
+    func nSpaceSolution(_ s: String) -> Int {
+        var stack: [Int] = [-1], maxLength = 0
         
         for (i, char) in s.enumerated() {
             if char == "(" {
                 stack.append(i)
             } else {
-                if !stack.isEmpty {
-                    stack.removeLast()
-                    
-                    if let last = stack.last {
-                        longest = max(longest, i - last)
-                    } else {
-                        longest = max(longest, i - start + 1)
-                    }
+                _ = stack.popLast()
+                if stack.isEmpty {
+                    stack.append(i)
                 } else {
-                    start = i + 1
+                    let length = i - stack.last!
+                    maxLength = max(maxLength, length)
                 }
             }
         }
+        return maxLength
+    }
+    
+    func constantSpaceSolution(_ s: String) -> Int {
+        var maxLength = 0
+        var open: Int = 0
+        var close: Int = 0
         
-        return longest
+        for char in s {
+            if char == "(" {
+                open += 1
+            } else {
+                close += 1
+            }
+            if open == close {
+                maxLength = max(maxLength, open + close)
+            } else if close > open {
+                open = 0
+                close = 0
+            }
+        }
+        
+        open = 0
+        close = 0
+        
+        for char in s.reversed() {
+            if char == "(" {
+                open += 1
+            } else {
+                close += 1
+            }
+            if open == close {
+                maxLength = max(maxLength, open + close)
+            } else if open > close {
+                open = 0
+                close = 0
+            }
+        }
+        
+        return maxLength
+        
     }
 }
 

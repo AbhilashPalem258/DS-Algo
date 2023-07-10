@@ -368,7 +368,7 @@ struct EvaluateReversePolishNotation {
             if let num = Int(token) {
                 stack.append(num)
             } else {
-                if let postPrev = stack.popLast(), let prev = stack.popLast() {
+                if let prev = stack.popLast(), let postPrev = stack.popLast() {
                     stack.append(operate(token, prev, postPrev))
                 }
             }

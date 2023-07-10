@@ -812,13 +812,27 @@ struct FindPeakElement {
         var l = 0, r = nums.count - 1
         while l < r {
             let midId = (l+r)/2
-            if  nums[midId] < nums[midId + 1] {
+            if nums[midId] < nums[midId + 1] {
                 l = midId + 1
             } else {
                 r = midId
             }
         }
         return l
+        
+//        var l = 0, r = nums.count - 1
+//
+//        while l <= r {
+//            let midId = l + (r - 1)/2
+//            if midId > 0 && nums[midId - 1] > nums[midId] {
+//                r = midId - 1
+//            } else if midId < nums.count - 1 && nums[midId] < nums[midId + 1]  {
+//                l = midId + 1
+//            } else {
+//                return midId
+//            }
+//        }
+//        return -1
     }
 }
 
@@ -1169,6 +1183,7 @@ struct FindClosestElements {
         return Array(arr[mindiffId - (k - 1)...mindiffId])
     }
     
+    //https://www.youtube.com/watch?v=o-YDQzHoaKM
     func binarySearchWindow(_ arr: [Int], _ k: Int, _ x: Int) -> [Int] {
         var l = 0, r = arr.count - k
         

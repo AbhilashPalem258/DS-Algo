@@ -196,7 +196,8 @@
 [Basic Calculator](https://leetcode.com/problems/basic-calculator/)| [Swift](./Stack/BasicCalculator.swift)| Hard| O(n)| O(n)|
 [Online Stock Span](https://leetcode.com/problems/online-stock-span/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(n)| O(n)|
 [Car Fleet](https://leetcode.com/problems/car-fleet/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(nlogn)| O(n)|
-
+[Largest Rectangle In Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(nlogn)| O(n)|
+  
 ## Queue
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
@@ -385,6 +386,7 @@
 ## Math
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |
+[Palindrome Number](https://leetcode.com/problems/palindrome-number/)| [Swift](./Math/ValidNumber.swift)| Hard| O(n)| O(1)|
 [Add Binary](https://leetcode.com/problems/add-binary/)| [Swift](./Math/AddBinary.swift)| Easy| O(n)| O(n)|
 [Add Digits](https://leetcode.com/problems/add-digits/)| [Swift](./Math/AddDigits.swift)| Easy| O(1)| O(1)|
 [Plus One](https://leetcode.com/problems/plus-one/)| [Swift](./Math/PlusOne.swift)| Easy| O(n)| O(1)|

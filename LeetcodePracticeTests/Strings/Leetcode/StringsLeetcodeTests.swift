@@ -200,18 +200,6 @@ class StringsLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj("1203", "1213"), true)
     }
     
-    func testPermutationInStr() {
-        let obj = PermutationInStr()
-        XCTAssertEqual(obj("ab", "eidbaooo"), true)
-    }
-    
-    func testFindAnagramsInStr() {
-        let obj = FindAnagramsInStr()
-        XCTAssertEqual(obj.findAnagrams("cbaebabacd", "abc"), [0,6])
-        XCTAssertEqual(obj.findAnagrams("cbaebabacd", "abc"), [0,6])
-        XCTAssertEqual(obj.findAnagrams("cbaebabacd", "abc"), [0,6])
-    }
-    
     func testMinmumWindowSubstring() {
         let obj = MinWindowSubstring()
         XCTAssertEqual(obj.minWindow("ADOBECODEBANC", "ABC"), "BANC")

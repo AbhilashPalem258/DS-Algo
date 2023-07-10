@@ -100,6 +100,22 @@ class KclosestPointsToOrigin {
         }
         return result
     }
+    
+    //self wrote. More efficient
+    func solution2(_ points: [[Int]], _ k: Int) -> [[Int]] {
+        var minHeap = RHeap(array: points) { point1, point2 in
+            let point1dist = sqrt(Double((point1[0] * point1[0]) + (point1[1] * point1[1])))
+            let point2dist = sqrt(Double((point2[0] * point2[0]) + (point2[1] * point2[1])))
+            return point1dist < point2dist
+        }
+        
+        var result = [[Int]]()
+        for _ in 0..<k {
+            result.append(minHeap.remove()!)
+        }
+        
+        return result
+    }
 }
 
 //TimeComplexity: O(2n + 2(nlogn)) == O(nlogn)

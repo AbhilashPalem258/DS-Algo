@@ -13,11 +13,11 @@ struct SortArrayByParity {
         var nums = nums
         var l = 0, r = nums.count - 1
         while l < r {
-            while nums[l] % 2 == 0, l < r {
+            while l < r, nums[l] % 2 == 0 {
                 l += 1
             }
             
-            while nums[r] % 2 != 0, r > l {
+            while l < r, nums[r] % 2 != 0 {
                 r -= 1
             }
             
@@ -99,7 +99,6 @@ class Heaters {
         let houses = houses.sorted(), heaters = heaters.sorted()
         
         var i = 0
-        var left = 0, right = 0
         var radius = 0
         
         for house in houses {
@@ -107,8 +106,8 @@ class Heaters {
                 i += 1
             }
             
-            left = abs(house - (i > 0 ? heaters[i - 1] : heaters[0]))
-            right = abs(house - heaters[i])
+            let left = abs(house - (i > 0 ? heaters[i - 1] : heaters[0]))
+            let right = abs(house - heaters[i])
             
             radius = max(radius, min(left, right))
         }
@@ -1255,10 +1254,10 @@ class ProductExceptSelf {
             prefixMultiply *= nums[i]
         }
         
-        prefixMultiply = 1
+        var suffixMultiply = 1
         for i in (0..<nums.count).reversed() {
-            output[i] *= prefixMultiply
-            prefixMultiply *= nums[i]
+            output[i] *= suffixMultiply
+            suffixMultiply *= nums[i]
         }
         
         return output
