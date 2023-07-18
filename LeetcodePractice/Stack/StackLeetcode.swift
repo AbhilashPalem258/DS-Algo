@@ -175,25 +175,29 @@ struct SimplifyPath {
 
 struct RemoveKDigits {
     func callAsFunction(_ num: String, _ k: Int) -> String {
-        let size = num.count
-        guard size != k else {
+        var stack = [String](), k = k
+        var num = Array(num)
+        let size = num.count - k
+
+        if num.count == k {
             return "0"
         }
-        var collection = [Character](), k = k
-        for number in num {
-            while k > 0, collection.count > 0, Int(String(collection.last!))! > Int(String(number))! {
-                collection.removeLast()
+
+        for char in num {
+            while k > 0, !stack.isEmpty, let last = Int(stack.last!), let current = Int(String(char)), last > current {
+                stack.removeLast()
                 k -= 1
             }
-            collection.append(number)
+            stack.append(String(char))
         }
-        for char in collection {
-            if char != "0" {
+        stack = Array(stack[0..<size])
+        for num in stack {
+            if num != "0" {
                 break
             }
-            collection.removeFirst()
+            stack.removeFirst()
         }
-        return collection.isEmpty ? "0" : String(collection)
+        return stack.isEmpty ? "0" : stack.joined()
     }
 }
 /*
@@ -380,7 +384,7 @@ struct EvaluateReversePolishNotation {
         }
     }
     
-    private func operate(_ token: String, _ prevNum: Int, _ postPrevNum: Int) -> Int {
+    private func operate(_ token: String, _ prevNum: Int, _ postPrevNum: Int) -> Int {        
         switch token {
         case "+":
             return prevNum + postPrevNum

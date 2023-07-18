@@ -1067,13 +1067,16 @@ class FindDuplicateNumber {
  */
 class LinkedListCycle {
     func callAsFunction(_ head: ListNode?) -> Bool {
+        if head == nil {
+            return false
+        }
         var slow = head, fast = head?.next
         while slow !== fast {
+            slow = slow?.next
+            fast = fast?.next?.next
             if fast == nil {
                 return false
             }
-            slow = slow?.next
-            fast = fast?.next?.next
         }
         return true
     }

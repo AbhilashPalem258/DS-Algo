@@ -843,7 +843,7 @@ struct SummaryRanges {
                 res.append("\(nums[start])->\(nums[end])")
             }
         }
-        
+
         var start = 0
         for i in 0..<nums.count {
             if i+1 < nums.count, nums[i+1] - nums[i] == 1 {
@@ -1833,27 +1833,27 @@ class TaskScheduler {
 
 class LongestConsecutiveSeq {
     func callAsFunction(_ nums: [Int]) -> Int {
-        var set = Set<Int>(nums), longest = 0
-        
+        var numSet = Set(nums), longest = 0
+
+        func dfs(num: Int, currentLength: inout Int) {
+            guard numSet.contains(num) else {
+                return
+            }
+
+            longest = max(longest, currentLength)
+            numSet.remove(num)
+            currentLength = 1 + currentLength
+
+            dfs(num: num - 1, currentLength: &currentLength)
+            dfs(num: num + 1, currentLength: &currentLength)
+        }
+
         for num in nums {
             var currentLength = 1
-            dfs(num, &set, &longest, &currentLength)
+            dfs(num: num, currentLength: &currentLength)
         }
-        
+
         return longest
-    }
-    
-    private func dfs(_ num: Int, _ set: inout Set<Int>, _ longest: inout Int, _ length: inout Int) {
-        if !set.contains(num) {
-            return
-        }
-        
-        longest = max(longest, length)
-        set.remove(num)
-        length += 1
-        
-        dfs(num + 1, &set, &longest, &length)
-        dfs(num - 1, &set, &longest, &length)
     }
 }
 
@@ -1978,18 +1978,31 @@ class SubarraySumEqualsK {
  */
 class DailyTemperatures {
     func callAsFunction(_ temperatures: [Int]) -> [Int] {
-        var stack = [(day: Int,temp: Int)](), currentDay = temperatures.count - 1
-        var result = Array(repeating: 0, count: temperatures.count)
-        
+        var stack = [(day: Int, temp: Int)](), result = [Int](repeating: 0, count: temperatures.count)
+        var currentDay = temperatures.count - 1
+
         while currentDay >= 0 {
-            while !stack.isEmpty && stack.last!.temp <= temperatures[currentDay] {
+            while let last = stack.last, last.temp <= temperatures[currentDay] {
                 stack.removeLast()
             }
             result[currentDay] = stack.isEmpty ? 0 : stack.last!.day - currentDay
-            stack.append((currentDay, temperatures[currentDay]))
+            stack.append((day: currentDay, temp: temperatures[currentDay]))
             currentDay -= 1
         }
+
         return result
+//        var stack = [(day: Int,temp: Int)](), currentDay = temperatures.count - 1
+//        var result = Array(repeating: 0, count: temperatures.count)
+//        
+//        while currentDay >= 0 {
+//            while !stack.isEmpty && stack.last!.temp <= temperatures[currentDay] {
+//                stack.removeLast()
+//            }
+//            result[currentDay] = stack.isEmpty ? 0 : stack.last!.day - currentDay
+//            stack.append((currentDay, temperatures[currentDay]))
+//            currentDay -= 1
+//        }
+//        return result
     }
 }
 
