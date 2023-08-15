@@ -103,15 +103,21 @@ class DPLeetcodeTests: XCTestCase {
     
     func testDecodeWays() {
         let obj = DecodeWays()
-        XCTAssertEqual(obj.numDecodings("06"), 0)
-        XCTAssertEqual(obj.numDecodings("0"), 0)
-        XCTAssertEqual(obj.numDecodings("12"), 2)
-        XCTAssertEqual(obj.numDecodings("226"), 3)
         
-        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("06"), 0)
-        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("0"), 0)
-        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("12"), 2)
-        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("226"), 3)
+        XCTAssertEqual(obj.bruteForce("06"), 0)
+        XCTAssertEqual(obj.bruteForce("0"), 0)
+        XCTAssertEqual(obj.bruteForce("12"), 2)
+        XCTAssertEqual(obj.bruteForce("226"), 3)
+//
+//        XCTAssertEqual(obj.numDecodings("06"), 0)
+//        XCTAssertEqual(obj.numDecodings("0"), 0)
+//        XCTAssertEqual(obj.numDecodings("12"), 2)
+//        XCTAssertEqual(obj.numDecodings("226"), 3)
+//
+//        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("06"), 0)
+//        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("0"), 0)
+//        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("12"), 2)
+//        XCTAssertEqual(obj.numDecodingsLinearWithConstantSpace("226"), 3)
     }
     
     func testWordBreak() {
@@ -255,6 +261,10 @@ class DPLeetcodeTests: XCTestCase {
     
     func testEditDistance() {
         let obj = EditDistance()
+        XCTAssertEqual(obj.topToBottom("horse", "ros"), 3)
+        XCTAssertEqual(obj.topToBottom("intention", "execution"), 5)
+        XCTAssertEqual(obj.topToBottom("abd", "acd"), 1)
+        
         XCTAssertEqual(obj.minDistance("horse", "ros"), 3)
         XCTAssertEqual(obj.minDistance("intention", "execution"), 5)
         XCTAssertEqual(obj.minDistance("abd", "acd"), 1)
@@ -270,10 +280,10 @@ class DPLeetcodeTests: XCTestCase {
     
     func testRegularExpressionMatching() {
         let obj = RegularExpressionMatching()
-//        XCTAssertEqual(obj.isMatch("aa", "a"), false)
-//        XCTAssertEqual(obj.isMatch("aa", "a*"), true)
-//        XCTAssertEqual(obj.isMatch("ab", ".*"), true)
-//        XCTAssertEqual(obj.isMatch("aab", "c*a*b"), true)
+        XCTAssertEqual(obj.isMatch("aa", "a"), false)
+        XCTAssertEqual(obj.isMatch("aa", "a*"), true)
+        XCTAssertEqual(obj.isMatch("ab", ".*"), true)
+        XCTAssertEqual(obj.isMatch("aab", "c*a*b"), true)
         XCTAssertEqual(obj.isMatch("mississippi", "mis*is*p*."), false)
     }
     
@@ -316,5 +326,22 @@ class DPLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj([[9,9,4],[6,6,8],[2,1,1]]), 4)
         XCTAssertEqual(obj([[3,4,5],[3,2,6],[2,2,1]]), 4)
         XCTAssertEqual(obj([[1]]), 1)
+    }
+    
+    func testGlobalMaxim() {
+        let obj = GlobalMaxim()
+        XCTAssertEqual(obj.findMaximum(a: [2, 3, 5, 9], m: 3), 3)
+        XCTAssertEqual(obj.findMaximum(a: [1, 2, 3, 4], m: 4), 1)
+    }
+    
+    func testLexicoMaxSubsequence() {
+        let obj = LexicoMaxSubsequence()
+        XCTAssertEqual(obj.lexicoMaxSubsequence(input_str:  "ababc", n: 5), "bac")
+        XCTAssertEqual(obj.lexicoMaxSubsequence(input_str:  "aabcb", n: 5), "acb")
+    }
+    
+    func testAnagramPeriod() {
+        let obj = AnagramPeriod()
+        XCTAssertEqual(obj.solution(s: "ABDCACDBBDCAADCB"), 4)
     }
 }

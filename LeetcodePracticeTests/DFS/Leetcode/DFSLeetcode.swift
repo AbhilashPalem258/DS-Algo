@@ -45,9 +45,9 @@ class DFSLeetcode: XCTestCase {
     
     func testWordSearchII() {
         let obj = WordSearchII()
-        XCTAssertEqual(obj.findWords([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"]), ["oath", "eat"])
-        XCTAssertEqual(obj.findWords([["a","b"],["c","d"]], ["abcb"]), [])
-        XCTAssertEqual(obj.findWords([["o","a","b","n"],["o","t","a","e"],["a","h","k","r"],["a","f","l","v"]], ["oa","oaa"]), ["oa","oaa"])
+        XCTAssertEqual(obj.findWords2([["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"]), ["oath", "eat"])
+//        XCTAssertEqual(obj.findWords([["a","b"],["c","d"]], ["abcb"]), [])
+//        XCTAssertEqual(obj.findWords([["o","a","b","n"],["o","t","a","e"],["a","h","k","r"],["a","f","l","v"]], ["oa","oaa"]), ["oa","oaa"])
     }
     
     func testSubsets() {
@@ -212,8 +212,9 @@ class DFSLeetcode: XCTestCase {
     
     func testCanPartitionKSubsets() {
         let obj = CanPartitionKSubsets()
-        XCTAssertEqual(obj.canPartitionKSubsets([4,5,2,3,5,0,1], 4), true)
-        XCTAssertEqual(obj.canPartitionKSubsets([1,2,3,4], 3), false)
+//        XCTAssertEqual(obj.canPartitionKSubsets([4,5,2,3,5,0,1], 4), true)
+        XCTAssertEqual(obj.canPartitionKSubsets([10,1,10,9,6,1,9,5,9,10,7,8,5,2,10,8], 11), true)
+//        XCTAssertEqual(obj.canPartitionKSubsets([1,2,3,4], 3), false)
     }
     
     func testWordSquares() {

@@ -7,6 +7,7 @@
 
 import Foundation
 
+// https://www.lintcode.com/problem/892/
 struct AlienDictionary {
     func callAsFunction(_ wordList: [String]) -> String {
         var adjList = [Character: Set<Character>]()

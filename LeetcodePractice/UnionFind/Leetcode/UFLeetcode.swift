@@ -156,40 +156,50 @@ class RedundantConnection {
 
 class MinCostConnectPoints {
     func callAsFunction(_ points: [[Int]]) -> Int {
-        var edges = [(v1: Int, v2: Int, weight: Int)]()
+        typealias Node = Int
+        var edges = [(v1: Node, v2: Node, weight: Int)]()
         for i in 0..<points.count {
-            let p1 = points[i]
-            for j in i+1..<points.count {
-                let p2 = points[j]
-                edges.append((i, j, abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])))
-            }
+           let p1 = points[i]
+           for j in i+1..<points.count {
+               let p2 = points[j]
+               let weight = abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+               edges.append((i, j, weight))
+           }
         }
-        
-        edges.sort {
-            $0.weight < $1.weight
-        }
-        
+
+        edges.sort { $0.weight < $1.weight }
+
         var parent = Array(0..<points.count)
-        func find(_ node: Int) -> Int {
-            var res = node
-            while res != parent[node] {
-                parent[node] = parent[parent[node]]
-                res = parent[node]
-            }
-            return res
-        }
-        
+        var rank = Array(repeating: 1, count: points.count)
         var minCost = 0
-        for edge in edges {
-            let p1 = find(edge.v1)
-            let p2 = find(edge.v2)
-            
-            if p1 != p2 {
-                minCost += edge.weight
-                parent[p2] = p1
-            }
+
+        func find(_ node: Node) -> Node {
+           var res = node
+           while res != parent[res] {
+               parent[res] = parent[parent[res]]
+               res = parent[res]
+           }
+           return res
         }
-        
+
+        func union(n1: Node, n2: Node, weight: Int) {
+           let p1 = find(n1), p2 = find(n2)
+
+           if p1 == p2 { return }
+
+           if rank[p2] > rank[p1] {
+               parent[p1] = p2
+               rank[p2] += rank[p1]
+           } else {
+               parent[p2] = p1
+               rank[p1] += rank[p2]
+           }
+           minCost += weight
+        }
+
+        for edge in edges {
+           union(n1: edge.v1, n2: edge.v2, weight: edge.weight)
+        }
         return minCost
     }
 }

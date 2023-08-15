@@ -1086,6 +1086,7 @@ class LinkedListCycleII {
     func callAsFunction(_ head: ListNode?) -> ListNode? {
         var slow = head, fast = head
         
+        // always follow this for cycle detection
         while true {
             if fast == nil {
                 return nil

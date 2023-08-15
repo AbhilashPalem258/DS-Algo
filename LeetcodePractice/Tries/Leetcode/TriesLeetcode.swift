@@ -165,6 +165,44 @@ class WordSearchII {
         return Array(res)
     }
     
+    func findWords2(_ board: [[Character]], _ words: [String]) -> [String] {
+            let m = board.count, n = board[0].count
+            let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+            let node = TrieNode()
+            for word in words {
+                node.addWord(word)
+            }
+
+            var visited = Set<Coordinate>(), result = Set<String>()
+
+            func dfs(position: Coordinate, node: TrieNode, word: String) {
+                let row = position.row, col = position.col
+                if row < 0 || row == m || col < 0 || col < n || visited.contains(position) || node.children[board[row][col]] == nil {
+                    return
+                }
+
+                let word = word + "\(board[row][col])"
+                let node = node.children[board[row][col]]!
+                if node.isWord {
+                    result.insert(word)
+                }
+
+                visited.insert(position)
+                for direction in directions {
+                    dfs(position: .init(row: row + direction.0, col: col + direction.1), node: node, word: word)
+                }
+                visited.remove(position)
+            }
+
+            for row in 0..<m {
+                for col in 0..<n where node.children[board[row][col]] != nil {
+                    dfs(position: .init(row: row, col: col), node: node, word: "")
+                }
+            }
+            return Array(result)
+        }
+    
     struct Coordinate: Hashable {
         let row: Int
         let col: Int

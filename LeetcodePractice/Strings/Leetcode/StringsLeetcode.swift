@@ -116,6 +116,7 @@ struct ValidPalindrome {
             while !(s[j].isLetter || s[j].isNumber) && i < j {
                 j -= 1
             }
+            
             if s[i].lowercased() != s[j].lowercased() {
                 return false
             } else {
@@ -824,17 +825,17 @@ class LongestCommonPrefix {
     }
     
     func neetcodeSolution(_ strs: [String]) -> String {
-        var res = ""
-        let first = strs[0]
-        for i in 0..<first.count {
-            for str in strs {
-                if i == str.count || (first[first.index(first.startIndex, offsetBy: i)] != str[str.index(str.startIndex, offsetBy: i)]) {
-                    return res
-                }
-            }
-            res.append(first[first.index(first.startIndex, offsetBy: i)])
-        }
-        return res
+        var result = ""
+         var first = Array(strs[0])
+         var evaluationStrs = strs.dropFirst().map{Array($0)}
+         for i in 0..<first.count {
+             let char = first[i]
+             for str in evaluationStrs where i == str.count || str[i] != char {
+                 return result
+             }
+             result.append(char)
+         }
+         return result
     }
 }
 
@@ -1006,64 +1007,6 @@ class LongestSubstringAtleastKRepeatingCharacters {
     }
 }
 
-/*
- problem:
- You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part.
-
- Note that the partition is done so that after concatenating all the parts in order, the resultant string should be s.
-
- Return a list of integers representing the size of these parts.
- 
- Testcases:
- Input: s = "ababcbacadefegdehijhklij"
- Output: [9,7,8]
- Explanation:
- The partition is "ababcbaca", "defegde", "hijhklij".
- This is a partition so that each letter appears in at most one part.
- A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits s into less parts.
- 
- Input: s = "eccbbbbdec"
- Output: [10]
- 
- 
- Constraints:
- 1 <= s.length <= 500
- s consists of lowercase English letters.
- 
- 
- link: https://leetcode.com/problems/partition-labels/
- explanation: https://www.youtube.com/watch?v=B7m8UmZE-vw
- primary idea:
- - calculate last index of all chars and store in hashmap
- - iterate through loop again, update end, increase size, if i == end, then we found a partition
- Time Complexity: O(2n)
- Space Complexity: O(n)
- */
-class PartitionLabels {
-    func callAsFunction(_ s: String) -> [Int] {
-        let s = Array(s)
-        var map = [Character: Int]()
-        
-        for i in 0..<s.count {
-            let char = s[i]
-            map[char] = max(i, map[char, default: 0])
-        }
-        
-        var size = 0, end = 0, result = [Int]()
-        
-        for i in 0..<s.count {
-            let currentChar = s[i]
-            size += 1
-            end = max(end, map[currentChar]!)
-            if i == end {
-                result.append(size)
-                size = 0
-            }
-        }
-        return result
-    }
-}
-
 class MaxNumberOfBalloons {
     func callAsFunction(_ text: String) -> Int {
         func counter(_ s: String) -> [String: Int] {
@@ -1199,5 +1142,33 @@ class UniqueEmailAddress {
             res.insert(local + "@" + domain)
         }
         return res.count
+    }
+}
+
+//https://www.lintcode.com/problem/659/
+//https://www.youtube.com/watch?v=B1k_sxOSgv8
+class EncodeAndDecodeStrings {
+    func encode(strs: [String]) -> String {
+        var res = ""
+        for str in strs {
+            res += String(str.count) + "#" + str
+        }
+        return res
+    }
+    
+    func decode(str: String) -> [String] {
+        let str = Array(str)
+        var res = [String](), i = 0
+        while i < str.count {
+            var j = i
+            while j < str.count && str[i].isNumber {
+                j += 1
+            }
+            let length = Int(String(str[i..<j]))!
+            var component = String(str[j..<j+length])
+            res.append(component)
+            i = j + length
+        }
+        return res
     }
 }

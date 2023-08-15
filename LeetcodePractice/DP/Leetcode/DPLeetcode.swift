@@ -95,6 +95,29 @@ class HouseRobberyII {
 }
 
 class DecodeWays {
+    
+    //Brutee force . don not preefer this
+    // Time complexity: 2^n, where at each index we make 2 decisions
+    func bruteForce(_ s: String) -> Int {
+        var s = Array(s)
+        var result = [[String]]()
+        func dfs(i: Int, collection: [String]) {
+            if i == s.count {
+                result.append(collection)
+                return
+            }
+            
+            for index in i..<i+2 where index < s.count {
+                let char = String(s[i...index])
+                if char[char.startIndex] != "0", let val = Int(char), 1 <= val, val <= 26 {
+                    dfs(i: index+1, collection: collection + [char])
+                }
+            }
+        }
+        dfs(i: 0, collection: [])
+        return result.count
+    }
+    
     /*
      Approach: Iterative + Memoization (Top Bottom Iterative Approach)
      TimeComplexity: O(n)
@@ -1134,7 +1157,7 @@ class LCS {
  word1 and word2 consist of lowercase English letters.
  
  link: https://leetcode.com/problems/edit-distance/
- explanation: https://www.youtube.com/watch?v=EgI5nU9etnU
+ explanation: https://www.youtube.com/watch?v=Ti9CByuukE8&list=PLliXPok7ZonkJL2Wxb8CDXsDk193wOsdc&index=10
  primary idea:
  - Iterative Bottom Up approach with Tabulation
  - Tabulation row characters are from word1 and col characters are from word2
@@ -1146,6 +1169,31 @@ class LCS {
  Space Complexity: O(2n)
  */
 class EditDistance {
+    
+    //Solution same as LCS
+    func topToBottom(_ word1: String, _ word2: String) -> Int  {
+        if word1.isEmpty || word2.isEmpty {
+            return word1.isEmpty ? word2.count : word1.count
+        }
+        
+        var rowArray = Array(word1), colArray = Array(word2)
+
+        var prev = Array(0..<colArray.count+1)
+        for row in 1..<rowArray.count+1 {
+            var current = Array(repeating: Int.max, count: colArray.count+1)
+            current[0] = row
+            for col in 1..<colArray.count+1 {
+                if rowArray[row - 1] == colArray[col - 1] {
+                    current[col] = prev[col - 1]
+                } else {
+                    current[col] = 1 + min(current[col - 1], prev[col], prev[col - 1])
+                }
+            }
+            prev = current
+        }
+        return prev.last!
+    }
+    
     func minDistance(_ word1: String, _ word2: String) -> Int {
         let m = word1.count + 1, n = word2.count + 1
         let word1 = Array(word1), word2 = Array(word2)
@@ -1232,45 +1280,42 @@ class WildcardMatching {
     func isMatch(_ s: String, _ p: String) -> Bool {
         let s = Array(s)
         var p = Array(p)
+
         if p.count > 1 {
             var res = [Character]()
             for i in 0..<p.count {
-                if i == 0 && p[i] == "*" {
-                    continue
-                }
-                if i > 0 && p[i] == "*" && p[i - 1] == "*" {
+                if i > 0 && p[i - 1] == "*" && p[i] == "*" {
                     continue
                 }
                 res.append(p[i])
             }
             p = res
         }
-        let m = s.count + 1, n = p.count + 1
-        var memo = Array(repeating: false, count: n)
-        memo[0] = true
-        
+
+        let m = s.count+1, n = p.count+1
+        var prev = Array(repeating: false, count: n)
+        prev[0] = true
         for col in 1..<n {
-            memo[col] = p[col - 1] == "*" ? memo[col - 1] : false
+            prev[col] = p[col - 1] == "*" ? prev[col - 1] : false
         }
-        
+
         for row in 1..<m {
-            var newRow = Array(repeating: false, count: n)
-            for col in 0..<n {
-                if col == 0 {
-                    newRow[col] = false
+            var current = Array(repeating: false, count: n)
+            current[0] = false
+            for col in 1..<n {
+                if s[row - 1] == p[col - 1] || p[col - 1] == "?" {
+                    current[col] = prev[col - 1]
                 } else {
-                    if s[row - 1] == p[col - 1] || p[col - 1] == "?" {
-                        newRow[col] = memo[col - 1]
-                    } else if p[col - 1] == "*" {
-                        newRow[col] = newRow[col - 1] || memo[col]
+                    if p[col - 1] == "*" {
+                        current[col] = current[col - 1] || prev[col]
                     } else {
-                        newRow[col] = false
+                        current[col] = false
                     }
                 }
             }
-            memo = newRow
+            prev = current
         }
-        return memo[n - 1]
+        return prev.last!
     }
 }
 
@@ -1324,53 +1369,53 @@ class WildcardMatching {
  */
 class RegularExpressionMatching {
     func isMatch(_ s: String, _ p: String) -> Bool {
-        let s = Array(s), m = s.count + 1, n = p.count + 1
-        var p = Array(p)
-        if p.count > 1 {
-            var res = [Character]()
-            for i in 0..<p.count {
-                if i == 0 && p[i] == "*" {
+        let str = Array(s)
+        var pattern = Array(p)
+
+        if pattern.count > 1 {
+            var result = [Character]()
+            for i in 0..<pattern.count {
+                if i == 0 && pattern[i] == "*" {
                     continue
                 }
-                if i > 0 && p[i] == "*" && p[i - 1] == "*" {
+                if i > 0 && pattern[i - 1] == "*" && pattern[i] == "*" {
                     continue
                 }
-                res.append(p[i])
+                result.append(pattern[i])
             }
-            p = res
+            pattern = result
         }
-        
-        var memo = Array(repeating: false, count: n)
-        memo[0] = true
+
+        let m = str.count+1, n = pattern.count+1
+        var prev = Array(repeating: false, count: n)
+        prev[0] = true
+
         for col in 1..<n {
-            memo[col] = p[col - 1] == "*" ? memo[col - 2] : false
+            prev[col] = pattern[col - 1] == "*" ? prev[col - 2] : false
         }
-        
+
         for row in 1..<m {
-            var newRow = Array(repeating: false, count: n)
-            for col in 0..<n {
-                if col == 0 {
-                    newRow[col] = false
-                } else {
-                    if s[row - 1] == p[col - 1] || p[col - 1] == "." {
-                        newRow[col] = memo[col - 1]
-                    } else if p[col - 1] == "*" {
-                        if newRow[col - 2]  {
-                            newRow[col] = true
-                        } else if s[row - 1] == p[col - 2] || p[col - 2] == "." {
-                            newRow[col] = memo[col]
-                        } else {
-                            newRow[col] = false
-                        }
+            var current = Array(repeating: false, count: n)
+            current[0] = false
+            for col in 1..<n {
+                if str[row - 1] == pattern[col - 1] || pattern[col - 1] == "." {
+                    current[col] = prev[col - 1]
+                } else if pattern[col - 1] == "*" {
+                    if current[col - 2] {
+                       current[col] = true
+                    } else if str[row - 1] == pattern[col - 2] || pattern[col - 2] == "." {
+                        current[col] = prev[col]
                     } else {
-                        newRow[col] = false
+                        current[col] = false
                     }
+                } else {
+                    current[col] = false
                 }
             }
-            memo = newRow
+            prev = current
         }
-        
-        return memo[n - 1]
+
+        return prev.last!
     }
 }
 
@@ -1608,7 +1653,6 @@ class SubsetSum {
         var memo = Array(repeating: false, count: target+1)
         //target 0 has empty subset
         memo[0] = true
-        print(memo)
         
         for num in nums where num <= target {
             var subTarget = target
@@ -1618,7 +1662,6 @@ class SubsetSum {
                 }
                 subTarget -= 1
             }
-            print(memo)
         }
         
         return memo[target]
@@ -1908,22 +1951,22 @@ struct PalindromeSubstrings {
      Space Complexity: O(1)
      */
     func countSubstringsDp(_ s: String) -> Int {
-        let n = s.count
-        var result = 0, s = Array(s)
-        
-        func isPalindrome(start: Int, end: Int) -> Int {
-            var count = 0, start = start, end = end
+        var result = 0
+        var s = Array(s)
+
+        func expand(start: Int, end: Int) {
+            var start = start, end = end
             while start >= 0 && end < s.count && s[start] == s[end] {
-                count += 1
+                result += 1
+                
                 start -= 1
                 end += 1
             }
-            return count
         }
-        
-        for i in 0..<n {
-            result += isPalindrome(start: i, end: i)
-            result += isPalindrome(start: i, end: i+1)
+
+        for i in 0..<s.count {
+            expand(start: i, end: i)
+            expand(start: i, end: i+1)
         }
         return result
     }
@@ -1942,32 +1985,28 @@ class LongestPalindromicSubstring {
      Space Complexity: O(n)
      */
     func longestPalindrome(_ s: String) -> String {
-        var start = 0, end = 0, s = Array(s)
-        
-        func expand(start: Int, end: Int) -> Int {
+        var s = Array(s), maxlength = 0
+        var maxStart = 0, maxEnd = 0
+
+        func expand(start: Int, end: Int) {
             var start = start, end = end
             while start >= 0 && end < s.count && s[start] == s[end] {
-                start -= 1
-                end += 1
+                 let currentLength = end - start + 1
+                 if currentLength > maxlength {
+                     maxlength = currentLength
+                     maxStart = start
+                     maxEnd = end
+                 }
+                 start -= 1
+                 end += 1
             }
-            return end - start - 1
         }
-        
+
         for i in 0..<s.count {
-            //odd palindrome
-            let oddLen = expand(start: i, end: i)
-            //even palindrome
-            let evenLen = expand(start: i, end: i+1)
-            
-            let len = max(oddLen, evenLen)
-            
-            if len > (end - start) {
-                start = i - (len - 1)/2
-                end = i + len/2
-            }
+            expand(start: i, end: i)
+            expand(start: i, end: i+1)
         }
-        
-        return String(s[start..<end+1])
+        return String(s[maxStart...maxEnd])
     }
 }
 fileprivate extension StringProtocol {
@@ -2083,34 +2122,273 @@ class FrogJump {
  */
 class LongestIncreasingPath {
     func callAsFunction(_ matrix: [[Int]]) -> Int {
-        var dp = [String: Int](), maxVal = 0
-        let m = matrix.count, n = matrix.first!.count
-        
-        func dfs(row: Int, col: Int, prevValue: Int) -> Int {
-            if row < 0 || row == m || col < 0 || col == n || prevValue >= matrix[row][col] {
+        let m = matrix.count, n = matrix[0].count
+        var cache = [String: Int]()
+
+        let directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+
+        func dfs(_ row: Int, _ col: Int, prevVal: Int) -> Int {
+            if row < 0 || row == m || col < 0 || col == n || prevVal >= matrix[row][col] {
                 return 0
             }
-            if let existingVal = dp["\(row),\(col)"] {
+            if let existingVal = cache["\(row), \(col)"] {
                 return existingVal
             }
-            var res = 1
-            let currentValue = matrix[row][col]
-            for position in [(row - 1, col), (row + 1, col), (row, col-1), (row, col+1)] {
-                res = max(res, 1 + dfs(row: position.0, col: position.1, prevValue: currentValue))
+
+            var res = 0
+            for direction in directions {
+                res = max(res, 1 + dfs(row + direction.0, col + direction.1, prevVal: matrix[row][col]))
             }
-            dp["\(row),\(col)"] = res
-            maxVal = max(maxVal, res)
+            cache["\(row), \(col)"] = res
             return res
         }
-        
+
+        var maxVal = 0
         for row in 0..<m {
             for col in 0..<n {
-                _ = dfs(row: row, col: col, prevValue: -1)
-                if maxVal == m * n {
+                maxVal = max(maxVal, dfs(row, col, prevVal: -1))
+                if maxVal == m*n {
                     return maxVal
                 }
             }
         }
+
         return maxVal
     }
 }
+
+//---------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+/*
+ Consider an array of distinct positive integers where elements are sorted in ascending order. We want to find all the subsequences of array consisting of exactly m elements. for example given array A = [1 , 2,  3, 4], subsequences consisting of m = 3 elements and that 3 elements are [1, 2, 3]  [1, 2, 4] [1, 3, 4]  [2, 3, 4]
+ - M = 3
+ - Find the global maximum pseudocode
+ */
+class GlobalMaxim {
+    func isPossible(a: inout [Int], m: Int, global_max: Int) -> Bool
+    {
+        var prev_element_in_sequence = a[0];
+        var m = m - 1;
+        for i in 1..<a.count where m > 0 {
+            if(a[i] - prev_element_in_sequence >= global_max)
+            {
+                prev_element_in_sequence = a[i];
+                m -= 1;
+            }
+        }
+        
+        return m == 0;
+    }
+    
+    func findMaximum(a: [Int], m: Int) -> Int
+    {
+        var s = 0;
+        var e = Int.max;
+        var a = a;
+
+        var global_max = 0;
+
+        //  perform binary search to find
+        //  the fix the value of the global maximum
+        while s <= e {
+            var curr_global_max = s + (e - s) / 2;
+
+            //  finding if it's possible to find such a subsequence
+            //  which is of length m, with the fixed, current global max
+            if(isPossible(a: &a, m: m, global_max: curr_global_max))
+            {
+                global_max = curr_global_max;
+                s = curr_global_max + 1;
+            }
+            else {
+                e = curr_global_max - 1;
+            }
+        }
+
+        return global_max;
+    }
+}
+
+
+/*
+ Modify the string
+ Given a string input_str of length n choose any character that occurs atleast twice and delete any one occurrence. Repeat this until all the remaining  characters are distinct . Return the lexicographically maximum string that can be formed this way.
+
+ input_str = “aabcd”, length of the string n  = 5,
+ some of  “acd”, delete first occurrences of a and d
+ “abc”,  delete the first occurrence of a and second occurrence of b
+ */
+class LexicoMaxSubsequence {
+    func lexicoMaxSubsequence(input_str: String, n: Int) -> String
+    {
+        let s = Array(input_str)
+        var st: [Character] = []
+
+        var visited: [Int] = Array(0..<26)
+        var cnt = Array(0..<26)
+        
+        for i in 0..<26 {
+            visited[i] = 0
+            cnt[i] = 0
+        }
+
+        for i in 0..<n {
+            cnt[Int(s[i].asciiValue! - Character("a").asciiValue!)] += 1
+        }
+
+        for i in 0..<n {
+            cnt[Int(s[i].asciiValue! - Character("a").asciiValue!)] -= 1
+            if (visited[Int(s[i].asciiValue! - Character("a").asciiValue!)] > 0) {
+                continue
+            }
+            
+            while (st.count > 0 && st[st.count - 1].asciiValue! < s[i].asciiValue!
+                   && cnt[Int(st[st.count - 1].asciiValue! - Character("a").asciiValue!)] != 0) {
+                visited[Int(st[st.count - 1].asciiValue! - Character("a").asciiValue!)] = 0;
+                _ = st.popLast()
+            }
+            
+            st.append(s[i])
+            visited[Int(s[i].asciiValue! - Character("a").asciiValue!)] = 1
+        }
+        var s1 = "";
+        while st.count > 0 {
+            s1 = String(st[st.count - 1]) + s1;
+            _ = st.popLast()
+        }
+        return s1;
+    }
+
+}
+
+/*
+ Anagram period
+  A string can be formed using another string s by repeatedly concatenating the anagrams of s any number of times. Given a string input_str of length n. find  out the length of the smallest string s that can be used to create input_str
+
+ input_str only consists of lower cases English letter
+
+ input_str = “ABCACBBCAACB” , n = 8, s = AABB ,Append,  ABAB, Append  BAAB
+ S = “AB”, Append , Anagrams(s) in the order “AB”,
+ */
+class AnagramPeriod {
+    func solution(s: String) -> Int {
+        let sCount = s.count
+        let s = Array(s)
+        
+        func isDivisor(tMap: [Character: Int], length: Int) -> Bool {
+            if sCount % length != 0 {
+                return false
+            }
+            var isDivisor = true
+            for i in stride(from: 0, to: sCount, by: length) {
+                let subArr = s[i..<i+length]
+                var subArrMap = [Character: Int]()
+                for char in subArr {
+                    subArrMap[char, default: 0] += 1
+                }
+                if subArrMap != tMap {
+                    isDivisor = false
+                    break
+                }
+            }
+            return isDivisor
+        }
+        
+        var sMap = [Character: Int]()
+        for i in 0..<s.count {
+            sMap[s[i], default: 0] += 1
+            if isDivisor(tMap: sMap, length: i+1) {
+                return i+1
+            }
+        }
+        return -1
+    }
+}
+
+/*
+ - Given number num two adjacent digits can be swapped if their parity is same I.e both are odd or both or even
+     - [5, 9] has same parity but [6, 9 ] do not. Find the largest number that can be created, the swap operation can be applied any number of times.
+ */
+class SwapParity {
+    func largestInteger(_ num: Int) -> Int {
+        let ds = String(num).map { Int(String($0))! }
+        
+        var od = ds
+            .filter { $0 % 2 == 1 }
+            .sorted()
+
+        var ev = ds
+            .filter { $0 % 2 == 0 }
+            .sorted()
+        
+        var res = [Int]()
+        
+        for i in ds.indices {
+            if ds[i] % 2 == 0 {
+                res.append(ev.removeLast())
+            }
+            else {
+                res.append(od.removeLast())
+            }
+        }
+        
+        return Int(res.map({ "\($0)" }).joined())!
+    }
+}
+
+//Link: https://leetcode.com/problems/valid-parentheses/
+struct BalancedBrackets {
+    func callAsFunction(_ s: String) -> Bool {
+        let rule = "()[]{}"
+        var ruleMap = [Character: Int]()
+        for (i, element) in rule.enumerated() {
+            ruleMap[element] = i
+        }
+        var stack = [Character]()
+        for char in s {
+            if ruleMap[char]! % 2 == 0 {
+                stack.append(char)
+            } else {
+                if stack.isEmpty {
+                    return false
+                } else {
+                    if ruleMap[char]! - ruleMap[stack.last!]! == 1 {
+                        stack.removeLast()
+                    } else {
+                        return false
+                    }
+                }
+            }
+        }
+        return stack.isEmpty ? true : false
+    }
+}
+
+/*
+ MCQ Anwers:
+
+ - I love cars
+ - Compiled time error
+ - Property wrapper
+ - Array<String>
+ - X == 5
+ - doSomething will not be called
+ - @ObservedObject, @EnvironmentObject
+ - Deadlock
+ - Subscription?.cancel() , Releasing this instance
+ - DispatchQueue.Global
+ - Janvi — Compile time error
+ - Closure escaping - When executed after returns
+ - Array manipulation - Tony bear
+ - Extension String - Extensions can’t add properties
+ - Unit tests - All of these
+ - X = {alb} — Array<String>
+ - Failable initialiser - init?()
+ - MyFunc(5, b: 6)
+ - [String: Any]
+ - Enum — 3
+ - Initialiser call - designated initialiser
+ - Try Block — Optional Test
+ - Structs
+ - didSet, willSet — propertyObservers
+ */

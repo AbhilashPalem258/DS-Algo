@@ -37,7 +37,7 @@ struct SortColors {
     func callAsFunction(_ nums: inout [Int]) {
         var red = 0, blue = nums.count - 1, i = 0
         
-        while i < blue {
+        while i <= blue {
             if nums[i] == 0 {
                 (nums[red], nums[i]) = (nums[i], nums[red])
                 i += 1

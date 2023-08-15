@@ -925,6 +925,67 @@ class AsteroidCollision {
 
 /*
  problem:
+ 303. Range Sum Query - Immutable
+
+ Given an integer array nums, handle multiple queries of the following type:
+
+ Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
+ Implement the NumArray class:
+
+ NumArray(int[] nums) Initializes the object with the integer array nums.
+ int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
+  
+
+ Example 1:
+
+ Input
+ ["NumArray", "sumRange", "sumRange", "sumRange"]
+ [[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5], [0, 5]]
+ Output
+ [null, 1, -1, -3]
+
+ Explanation
+ NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+ numArray.sumRange(0, 2); // return (-2) + 0 + 3 = 1
+ numArray.sumRange(2, 5); // return 3 + (-5) + 2 + (-1) = -1
+ numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
+  
+
+ Constraints:
+
+ 1 <= nums.length <= 104
+ -105 <= nums[i] <= 105
+ 0 <= left <= right < nums.length
+ At most 104 calls will be made to sumRange.
+ 
+ link: https://leetcode.com/problems/range-sum-query-immutable/
+ explanation video: https://www.youtube.com/watch?v=2pndAmo_sMA
+ Notes:
+ - Short explanation video better watch
+ */
+class RangeSumQueryImmutable {
+
+    private let prefixSum: [Int]
+    
+    init(_ nums: [Int]) {
+        var prefix = [Int]()
+        var sum = 0
+        for num in nums {
+            sum += num
+            prefix.append(sum)
+        }
+        self.prefixSum = prefix
+    }
+    
+    func sumRange(_ left: Int, _ right: Int) -> Int {
+        let rightSum = prefixSum[right]
+        let leftSum = left > 0 ? prefixSum[left - 1] : 0
+        return rightSum - leftSum
+    }
+}
+
+/*
+ problem:
  Given a 2D matrix matrix, handle multiple queries of the following type:
 
  Calculate the sum of the elements of matrix inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).

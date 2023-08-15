@@ -147,6 +147,12 @@
 [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)| [Swift](./String/LongestCommonPrefix.swift)| Easy| O(nm)| O(m)|
 [One Edit Distance &hearts;](https://leetcode.com/problems/one-edit-distance/)| [Swift](./String/OneEditDistance.swift)| Medium| O(n)| O(n)|
 [Word Pattern](https://leetcode.com/problems/word-pattern/)| [Swift](./String/WordPattern.swift)| Easy| O(n)| O(n)|
+[Longest Substring with At Least K Repeating Characters](https://leetcode.com/problems/longest-substring-with-at-least-k-repeating-characters/description/)| [Swift](./String/WordPattern.swift)| Medium| O(n)| O(n)|
+[Maximum Number of Balloons](https://leetcode.com/problems/maximum-number-of-balloons/)| [Swift](./String/WordPattern.swift)| Easy| O(n)| O(n)|
+[Zigzag Conversion](https://leetcode.com/problems/zigzag-conversion/)| [Swift](./String/WordPattern.swift)| Medium| O(n)| O(n)|
+[Is Subsequence](https://leetcode.com/problems/is-subsequence/)| [Swift](./String/WordPattern.swift)| Easy| O(n)| O(n)|
+[Unique Email Addresses](https://leetcode.com/problems/unique-email-addresses/)| [Swift](./String/WordPattern.swift)| Easy| O(n)| O(n)|
+[Encode and Decode Strings](https://www.lintcode.com/problem/659/)| [Swift](./String/WordPattern.swift)| Medium| O(n)| O(n)|
 [Text Justification](https://leetcode.com/problems/text-justification/)| [Swift](./String/TextJustification.swift)| Hard| O(n)| O(n)|
 [Find the Closest Palindrome](https://leetcode.com/problems/find-the-closest-palindrome/)| [Swift](./String/FindClosestPalindrome.swift)| Hard| O(n)| O(n)|
 

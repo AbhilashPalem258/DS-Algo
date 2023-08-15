@@ -124,6 +124,20 @@ struct WordSearch {
 
 struct Subsets {
     
+    //Prefer returning result along recursion
+    func subsets2(_ nums: [Int]) -> [[Int]] {
+        var result = [[Int]]()
+        let count = nums.count
+
+        func dfs(i: Int, subset: [Int]) -> [[Int]] {
+            if i == count {
+                return [subset]
+            }
+            return dfs(i: i + 1, subset: subset + [nums[i]]) + dfs(i: i + 1, subset: subset)
+        }
+        return dfs(i: 0, subset: [])
+    }
+    
     //TimeComplexity: O(n * lengthOfSubset(2^n)) where n is length of nums and in the worst case the length of each subset can be 2^n
     // for each element in nums, we have 2 choices, either to include it in subset or not include it. for an array of [1,2,3], the number of sets is 2 * 2 * 2 = 2^n
     //Neetcode
@@ -169,6 +183,8 @@ struct Subsets {
         dfs(index: 0, subset: [])
         return result
    }
+    
+    
 }
 
 class Combinations {
@@ -219,6 +235,28 @@ class CombinationSum {
         dfs(0, target: target)
         return combinations
     }
+    
+    func recursiveBackResult(_ candidates: [Int], _ target: Int) -> [[Int]] {
+        let candidates = candidates.sorted()
+        let count = candidates.count
+
+        func dfs(start: Int, target: Int, path: [Int]) -> [[Int]] {
+            if target == 0 {
+                return [path]
+            }
+
+            var output = [[Int]]()
+            for i in start..<count {
+                let current = candidates[i]
+                if current > target {
+                    break
+                }
+                output += dfs(start: i, target: target - current, path: path + [current])
+            }
+            return output
+        }
+        return dfs(start: 0, target: target, path: [])
+    }
 }
 
 class CombinationSumII {
@@ -252,6 +290,30 @@ class CombinationSumII {
         dfs(0, target: target)
         return combinations
     }
+    
+    func recursiveBack(_ candidates: [Int], _ target: Int) -> [[Int]] {
+        let count = candidates.count
+        let candidates = candidates.sorted()
+
+        func dfs(start: Int, target: Int, path: [Int]) -> [[Int]] {
+            if target == 0 {
+                return [path]
+            }
+            var output = [[Int]]()
+            for i in start..<count {
+                if i > 0 && candidates[i] == candidates[i - 1] && i != start {
+                    continue
+                }
+                let current = candidates[i]
+                if current > target {
+                    break
+                }
+                output += dfs(start: i+1, target: target - current, path: path + [current])
+            }
+            return output
+        }
+        return dfs(start: 0, target: target, path: [])
+    }
 }
 
 class CombinationSumIII {
@@ -283,6 +345,28 @@ class CombinationSumIII {
         dfs(0, target: n)
         
         return combinations
+    }
+    
+    func recursiveBack(_ k: Int, _ n: Int) -> [[Int]] {
+        let numbers = Array(1...9)
+        let count = numbers.count
+
+        func dfs(start: Int, target: Int, path: [Int]) -> [[Int]] {
+            if path.count == k {
+                return target == 0 ? [path] : []
+            }
+
+            var output = [[Int]]()
+            for i in start..<count {
+                let current = numbers[i]
+                if current > target {
+                    break
+                }
+                output += dfs(start: i+1, target: target - current, path: path + [current])
+            }
+            return output
+        }
+        return dfs(start: 0, target: n, path: [])
     }
 }
 
@@ -324,6 +408,42 @@ class LetterCombinationsPhoneNumber {
         
         dfs(0)
         return combinations
+    }
+    
+    func recursiveBack(_ digits: String) -> [String] {
+        if digits == "" {
+           return []
+       }
+       let count = digits.count
+       let digits = Array(digits)
+
+       let map: [Character: String] = [
+           "2": "abc",
+           "3": "def",
+           "4": "ghi",
+           "5": "jkl",
+           "6": "mno",
+           "7": "pqrs",
+           "8": "tuv",
+           "9": "wxyz"
+       ]
+
+       func dfs(i: Int, path: [Character]) -> [String] {
+           if i == count {
+               return [String(path)]
+           }
+
+           var output = [String]()
+           let digit = digits[i]
+           if let alphabetStr = map[digit] {
+               let chars = Array(alphabetStr)
+               for char in chars {
+                  output += dfs(i: i+1, path: path + [char])
+               }
+           }
+           return output
+       }
+       return dfs(i: 0, path: [])
     }
 }
 
@@ -457,7 +577,7 @@ class MatchsticksToSquare {
 
 class RestoreIPAddress {
     func callAsFunction(_ s: String) -> [String] {
-        if s.count < 4 && s.count > 12 {
+        if s.count < 4 || s.count > 12 {
             return []
         }
         var res = [String]()
@@ -549,9 +669,9 @@ class FactorCombinations {
             }
             
             for factor in start...target {
-                if factor > target {
-                    break
-                }
+//                if factor > target {
+//                    break
+//                }
                 if target % factor == 0 {
                     dfs(factor, target: target/factor, path: path + [factor])
                 }
@@ -1354,6 +1474,7 @@ class SurroundedRegions {
     }
 }
 
+//https://leetcode.com/problems/flood-fill/
 class FloodFill {
     func callAsFunction(_ image: [[Int]], _ sr: Int, _ sc: Int, _ newColor: Int) -> [[Int]] {
         var image = image
@@ -1477,7 +1598,7 @@ class MaxAreaOfIsland {
  
  
  link: https://leetcode.com/problems/find-eventual-safe-states/
- explanation: https://leetcode.com/problems/find-eventual-safe-states/discuss/902091/Swift-Recursion-%2B-Memo
+ explanation: https://www.youtube.com/watch?v=Re_v0j0CRsg
  primary idea:
  - Backtracking
  - For everypath we traverse, we use a set to detect any cycle
@@ -1489,30 +1610,28 @@ class MaxAreaOfIsland {
 class FindEventualSafeStates {
     func callAsFunction(_ graph: [[Int]]) -> [Int] {
         typealias Node = Int
-        var memo = [Node: Bool]()
-        func isSafe(node: Node, path: Set<Int>) -> Bool {
-            var eventuallySafe = true
-            for neighbourNode in graph[node] {
-                if let isAlreadySafe = memo[node] {
-                    return isAlreadySafe
-                }
-                if path.contains(neighbourNode) {
-                    eventuallySafe = false
-                    break
-                }
-                var path = path
-                path.insert(node)
-                if !isSafe(node: neighbourNode, path: path) {
-                    eventuallySafe = false
+        let n = graph.count
+        var safeMap = [Node: Bool]()
+        
+        func dfs(_ node: Node) -> Bool {
+            if let existing = safeMap[node] {
+                return existing
+            }
+            
+            safeMap[node] = false
+            for neighbour in graph[node] {
+                if !dfs(neighbour) {
+                    return safeMap[node]!
                 }
             }
-            memo[node] = eventuallySafe
-            return eventuallySafe
+            safeMap[node] = true
+            return safeMap[node]!
         }
+        
         var result = [Node]()
-        for i in 0..<graph.count {
-            if isSafe(node: i, path: Set<Int>()) {
-                result.append(i)
+        for node in 0..<n {
+            if dfs(node) {
+                result.append(node)
             }
         }
         return result

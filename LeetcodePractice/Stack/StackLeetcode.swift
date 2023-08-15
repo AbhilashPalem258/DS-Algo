@@ -263,7 +263,6 @@ struct TernaryExpressionParser {
              }
          }
          
-         
          return stack.isEmpty ? "" : String(stack.last!)
     }
 }
