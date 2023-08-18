@@ -386,8 +386,18 @@
 [Word Ladder](https://leetcode.com/problems/word-ladder/)| [Swift](./BFS/WordLadder.swift)| Medium| O(nm)| O(nm)|
 [Evaluate Division](https://leetcode.com/problems/evaluate-division/)| [Swift](./BFS/EvaluateDivision.swift)| Medium| O(n^2)| O(n)|
 [Shortest Distance from All Buildings](https://leetcode.com/problems/shortest-distance-from-all-buildings/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[As Far from Land as Possible](https://leetcode.com/problems/as-far-from-land-as-possible/description/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Medium| O((mn)^2)| O(mn)|
+[Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Medium| O((mn)^2)| O(mn)|
 [Open the Lock](https://leetcode.com/problems/open-the-lock/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
 [Snakes And Ladders](https://leetcode.com/problems/snakes-and-ladders/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Cut Off Trees for Golf Event](https://leetcode.com/problems/cut-off-trees-for-golf-event/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Get Watched Videos by Your Friends](https://leetcode.com/problems/get-watched-videos-by-your-friends/description/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[01 Matrix](https://leetcode.com/problems/01-matrix/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Employee Importance](https://leetcode.com/problems/employee-importance/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Time Needed to Inform All Employees](https://leetcode.com/problems/time-needed-to-inform-all-employees/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Shortest Path in Binary Matrix](https://leetcode.com/problems/shortest-path-in-binary-matrix/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+[Shortest Path in a Grid with Obstacles Elimination](https://leetcode.com/problems/shortest-path-in-a-grid-with-obstacles-elimination/)| [Swift](./BFS/ShortestDistanceAllBuildings.swift)| Hard| O((mn)^2)| O(mn)|
+
 
 ## Math
 | Title | Solution | Difficulty | Time | Space |
