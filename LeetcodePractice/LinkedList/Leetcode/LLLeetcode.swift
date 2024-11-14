@@ -38,6 +38,50 @@ import Foundation
  */
 
 /*
+ 876. Middle of the Linked List
+ Given the head of a singly linked list, return the middle node of the linked list.
+
+ If there are two middle nodes, return the second middle node.
+ 
+ Example 1:
+
+
+ Input: head = [1,2,3,4,5]
+ Output: [3,4,5]
+ Explanation: The middle node of the list is node 3.
+ Example 2:
+
+
+ Input: head = [1,2,3,4,5,6]
+ Output: [4,5,6]
+ Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
+  
+
+ Constraints:
+
+ The number of nodes in the list is in the range [1, 100].
+ 1 <= Node.val <= 100
+ 
+ link: https://leetcode.com/problems/middle-of-the-linked-list/
+ explanation:
+ primary idea: Slow and Fast Pointer
+ Time Complexity: O(N), where N is the number of nodes in the given list.
+ Space Complexity: O(1), the space used by slow and fast
+ */
+class MiddleOfTheLinkedList {
+    func callAsFunction(_ head: ListNode?) -> ListNode? {
+        var slow = head
+        var fast = head
+
+        while fast != nil && fast?.next != nil {
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+        return slow
+    }
+}
+
+/*
  problem:
  You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
 
@@ -1158,6 +1202,35 @@ class IntersectionOfTwoLinkedLists {
         }
         return l1
     }
+    
+    //Preferred
+    func solution2(_ headA: ListNode?, _ headB: ListNode?) -> ListNode? {
+        var l1Node = headA, l2Node = headB
+        var isL1NodeSwitched = false, isL2NodeSwitched = false
+        while l1Node !== l2Node {
+            if l1Node == nil {
+                if isL1NodeSwitched {
+                    return nil
+                }
+                isL1NodeSwitched = true
+                l1Node = headB
+                continue
+            }
+
+            if l2Node == nil {
+                if isL2NodeSwitched {
+                    return nil
+                }
+                isL2NodeSwitched = true
+                l2Node = headA
+                continue
+            }
+
+            l1Node = l1Node?.next
+            l2Node = l2Node?.next
+        }
+        return l1Node
+    }
 }
 
 
@@ -1360,5 +1433,63 @@ class MyCircularQueue {
     
     func isFull() -> Bool {
         space == 0
+    }
+}
+
+/*
+ 237. Delete Node in a Linked List
+ There is a singly-linked list head and we want to delete a node node in it.
+
+ You are given the node to be deleted node. You will not be given access to the first node of head.
+
+ All the values of the linked list are unique, and it is guaranteed that the given node node is not the last node in the linked list.
+
+ Delete the given node. Note that by deleting the node, we do not mean removing it from memory. We mean:
+
+ The value of the given node should not exist in the linked list.
+ The number of nodes in the linked list should decrease by one.
+ All the values before node should be in the same order.
+ All the values after node should be in the same order.
+ Custom testing:
+
+ For the input, you should provide the entire linked list head and the node to be given node. node should not be the last node of the list and should be an actual node in the list.
+ We will build the linked list and pass the node to your function.
+ The output will be the entire list after calling your function.
+  
+
+ Example 1:
+
+
+ Input: head = [4,5,1,9], node = 5
+ Output: [4,1,9]
+ Explanation: You are given the second node with value 5, the linked list should become 4 -> 1 -> 9 after calling your function.
+ Example 2:
+
+
+ Input: head = [4,5,1,9], node = 1
+ Output: [4,5,9]
+ Explanation: You are given the third node with value 1, the linked list should become 4 -> 5 -> 9 after calling your function.
+  
+
+ Constraints:
+
+ The number of the nodes in the given list is in the range [2, 1000].
+ -1000 <= Node.val <= 1000
+ The value of each node in the list is unique.
+ The node to be deleted is in the list and is not a tail node.
+ 
+ link: https://leetcode.com/problems/delete-node-in-a-linked-list/description/?envType=daily-question&envId=2024-05-05
+ primary idea:
+ - Change the current node's value to next node value and delete the next node
+ Time Complexity: O(1)
+ Space Complexity: O(1)
+ */
+class DeleteNode {
+    func callAsFunction(_ node: ListNode?) {
+        guard let current = node, let next = current.next else {
+            return
+        }
+        current.val = next.val
+        current.next = current.next?.next
     }
 }

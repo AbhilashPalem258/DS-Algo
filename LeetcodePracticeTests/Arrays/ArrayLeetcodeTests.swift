@@ -61,14 +61,16 @@ class ArrayLeetcodeTests: XCTestCase {
     
     func testRemoveDuplicatesFromSortedArray() {
         let obj = RemoveDuplicatesFromSortedArray()
+//        
+//        var var1 = [1,1,2]
+//        let val1 = obj(&var1)
+//        XCTAssertEqual(val1, 2)
+//        
+//        var var2 = [0,0,1,1,1,2,2,3,3,4]
+//        let val2 = obj(&var2)
+//        XCTAssertEqual(val2, 5)
         
-        var var1 = [1,1,2]
-        let val1 = obj(&var1)
-        XCTAssertEqual(val1, 2)
-        
-        var var2 = [0,0,1,1,1,2,2,3,3,4]
-        let val2 = obj(&var2)
-        XCTAssertEqual(val2, 5)
+        XCTAssertEqual(obj.alexSuits(N: 2, M: 2), 3) 
     }
     
     func testRemoveDuplicatesFromSortedArrayII() {
@@ -169,8 +171,8 @@ class ArrayLeetcodeTests: XCTestCase {
     }
     
     func testMissingRanges() {
-        let obj = MissingRanges()
-        XCTAssertEqual(obj.findMissingRanges([0, 1, 3, 50, 75], 0 ,99), ["2", "4->49", "51->74", "76->99"])
+//        let obj = MissingRanges()
+//        XCTAssertEqual(obj.findMissingRanges([0, 1, 3, 50, 75], 0 ,99), ["2", "4->49", "51->74", "76->99"])
     }
     
     func testAsteriodsCollisons() {

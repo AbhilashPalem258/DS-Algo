@@ -87,6 +87,9 @@
 		00FEA98126A44687006D324B /* GraphAdjacencyList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEA98026A44687006D324B /* GraphAdjacencyList.swift */; };
 		00FEA98526A53F3F006D324B /* DFSLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEA98426A53F3F006D324B /* DFSLeetcode.swift */; };
 		00FEA98926A54347006D324B /* DFSLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FEA98826A54347006D324B /* DFSLeetcode.swift */; };
+		D549174C2BE972F70058422B /* MonotonicStackLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D549174B2BE972F70058422B /* MonotonicStackLeetcode.swift */; };
+		D5B83ECA2CA74C1300E3CC67 /* IntervalsLeetcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B83EC92CA74C1300E3CC67 /* IntervalsLeetcode.swift */; };
+		D5B83ECD2CA87F7200E3CC67 /* IntervalsLeetcodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5B83ECC2CA87F7200E3CC67 /* IntervalsLeetcodeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +197,9 @@
 		00FEA98026A44687006D324B /* GraphAdjacencyList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphAdjacencyList.swift; sourceTree = "<group>"; };
 		00FEA98426A53F3F006D324B /* DFSLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFSLeetcode.swift; sourceTree = "<group>"; };
 		00FEA98826A54347006D324B /* DFSLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFSLeetcode.swift; sourceTree = "<group>"; };
+		D549174B2BE972F70058422B /* MonotonicStackLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotonicStackLeetcode.swift; sourceTree = "<group>"; };
+		D5B83EC92CA74C1300E3CC67 /* IntervalsLeetcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalsLeetcode.swift; sourceTree = "<group>"; };
+		D5B83ECC2CA87F7200E3CC67 /* IntervalsLeetcodeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntervalsLeetcodeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +372,8 @@
 		004C9284267A24AC0094CC50 /* LeetcodePractice */ = {
 			isa = PBXGroup;
 			children = (
+				D5B83EC82CA74C0000E3CC67 /* Intervals */,
+				D54917492BE972D20058422B /* MonotonicStack */,
 				0063F3AF27FC82D200AB679E /* Tries */,
 				0063F3AB27FC38B000AB679E /* Greedy */,
 				0084399C27CFD70400A7FB98 /* Recursion */,
@@ -411,6 +419,7 @@
 		004C9297267A24AE0094CC50 /* LeetcodePracticeTests */ = {
 			isa = PBXGroup;
 			children = (
+				D5B83ECB2CA87F4600E3CC67 /* Intervals */,
 				0084399F27CFDDB200A7FB98 /* Recursion */,
 				0084399927CC9FFB00A7FB98 /* TwoPointer */,
 				00EDC66C27C77C88005BAC05 /* Heap */,
@@ -1098,6 +1107,38 @@
 			path = Leetcode;
 			sourceTree = "<group>";
 		};
+		D54917492BE972D20058422B /* MonotonicStack */ = {
+			isa = PBXGroup;
+			children = (
+				D549174A2BE972E10058422B /* Leetcode */,
+			);
+			path = MonotonicStack;
+			sourceTree = "<group>";
+		};
+		D549174A2BE972E10058422B /* Leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				D549174B2BE972F70058422B /* MonotonicStackLeetcode.swift */,
+			);
+			path = Leetcode;
+			sourceTree = "<group>";
+		};
+		D5B83EC82CA74C0000E3CC67 /* Intervals */ = {
+			isa = PBXGroup;
+			children = (
+				D5B83EC92CA74C1300E3CC67 /* IntervalsLeetcode.swift */,
+			);
+			path = Intervals;
+			sourceTree = "<group>";
+		};
+		D5B83ECB2CA87F4600E3CC67 /* Intervals */ = {
+			isa = PBXGroup;
+			children = (
+				D5B83ECC2CA87F7200E3CC67 /* IntervalsLeetcodeTests.swift */,
+			);
+			path = Intervals;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1258,6 +1299,7 @@
 				00D2FF8427C49BAA00717C4F /* SlidingWindowLeetcode.swift in Sources */,
 				007A36112686152D0054CFE9 /* StringsLeetcode.swift in Sources */,
 				004C92C5267C3D3E0094CC50 /* 143.swift in Sources */,
+				D5B83ECA2CA74C1300E3CC67 /* IntervalsLeetcode.swift in Sources */,
 				002BA83D269AE3CB00367D72 /* SearchLeetcode.swift in Sources */,
 				0063F3B227FC82F300AB679E /* TriesLeetcode.swift in Sources */,
 				008EE83326B1C126002889EB /* Heap.swift in Sources */,
@@ -1267,6 +1309,7 @@
 				007A35DF267E260D0054CFE9 /* StackLeetcode.swift in Sources */,
 				00C43F6227A39BA2009E78F5 /* BellmanFordGraph.swift in Sources */,
 				008FDB57269D473900A88584 /* LeetcodeSort.swift in Sources */,
+				D549174C2BE972F70058422B /* MonotonicStackLeetcode.swift in Sources */,
 				00168B6C26AFC76700123087 /* UFLeetcode.swift in Sources */,
 				00FEA97D26A42C6C006D324B /* AdjacencyList.swift in Sources */,
 				007A35F1267F45370054CFE9 /* OptimizedQueue.swift in Sources */,
@@ -1291,6 +1334,7 @@
 				007A360926806F550054CFE9 /* TreeLeetcodeTests.swift in Sources */,
 				0084399B27CCA01500A7FB98 /* TwoPointerLeetcode.swift in Sources */,
 				007738C826B49D11001E5422 /* DPLeetcode.swift in Sources */,
+				D5B83ECD2CA87F7200E3CC67 /* IntervalsLeetcodeTests.swift in Sources */,
 				00EDC66E27C77CA1005BAC05 /* HeapLeetcode.swift in Sources */,
 				00FEA98926A54347006D324B /* DFSLeetcode.swift in Sources */,
 				009EA37427B9274300E83B07 /* StackLeetcode.swift in Sources */,
@@ -1459,10 +1503,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LeetcodePractice/LeetcodePractice.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LeetcodePractice/Preview Content\"";
-				DEVELOPMENT_TEAM = ML69X72R93;
+				DEVELOPMENT_TEAM = FY7LB4LG7Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LeetcodePractice/Info.plist;
@@ -1484,10 +1529,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LeetcodePractice/LeetcodePractice.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LeetcodePractice/Preview Content\"";
-				DEVELOPMENT_TEAM = ML69X72R93;
+				DEVELOPMENT_TEAM = FY7LB4LG7Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LeetcodePractice/Info.plist;
@@ -1508,6 +1554,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ML69X72R93;
@@ -1530,6 +1577,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ML69X72R93;
@@ -1551,6 +1599,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ML69X72R93;
@@ -1571,6 +1620,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = ML69X72R93;

@@ -101,11 +101,6 @@ class SortLeetcode: XCTestCase {
         XCTAssertEqual(obj([6,2,6,5,1,2]), 9)
     }
     
-    func testInsertInterval() {
-        let obj = InsertInterval()
-        XCTAssertEqual(obj.insert([[1,3],[6,9]], [2,5]), [[1,5],[6,9]])
-    }
-    
     func testLargestNumber() {
         let obj = LargestNumber()
         XCTAssertEqual(obj([10,2]), "210")

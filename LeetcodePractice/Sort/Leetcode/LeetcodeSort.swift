@@ -396,33 +396,6 @@ struct ArrayPartitionI {
         return sum
     }
 }
-/*
- link: https://leetcode.com/problems/insert-interval/
- */
-class InsertInterval {
-    func insert(_ intervals: [[Int]], _ newInterval1: [Int]) -> [[Int]] {
-        var newInterval = newInterval1, result = [[Int]]()
-        var isInserted = false
-        for interval in intervals {
-            if newInterval[1] < interval[0] {
-                if !isInserted {
-                    result.append(newInterval)
-                    isInserted = true
-                }
-                result.append(interval)
-            } else if interval[1] < newInterval[0] {
-                result.append(interval)
-            } else {
-                newInterval[0] = min(interval[0], newInterval[0])
-                newInterval[1] = max(interval[1], newInterval[1])
-            }
-        }
-        if !isInserted {
-            result.append(newInterval)
-        }
-        return result
-    }
-}
 
 struct LargestNumber {
     /*

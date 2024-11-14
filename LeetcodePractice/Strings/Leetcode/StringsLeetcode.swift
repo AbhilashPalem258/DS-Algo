@@ -26,6 +26,28 @@ struct FizzBuzz {
     }
 }
 
+//Link: https://leetcode.com/problems/relative-ranks/description/?envType=daily-question&envId=2024-05-08
+class FindRelativeRanks {
+    func callAsFunction(_ score: [Int]) -> [String] {
+        let positions = Dictionary(uniqueKeysWithValues: zip(score.sorted(by: >), 1...score.count))
+        var placements = [
+            1: "Gold Medal",
+            2: "Silver Medal",
+            3: "Bronze Medal"
+        ]
+
+        return score.map {  score in
+            guard let position = positions[score] else {
+                return ""
+            }
+            guard let placement = placements[position] else {
+                return String(position)
+            }
+            return placement
+        }
+    }
+}
+
 //link: https://leetcode.com/problems/first-unique-character-in-a-string/
 struct FirstUniqCharInStr {
     func callAsFunction(_ s: String) -> Int {
@@ -200,28 +222,23 @@ struct ValidPalindromeII {
  */
 struct PalindromePermutation {
     func callAsFunction(_ s: String) -> Bool {
-        var charMap = [Character: Int]()
-        
+        var sMap = [Character: Int]()
         for char in s {
-            charMap[char, default: 0] += 1
+            sMap[char, default: 0] += 1
         }
-        
-        var alreadySkippedMiddle = false
-        
-        for (_, value) in charMap {
-            if value == 2 {
+
+        var skippedMiddle = false
+        for (_, count) in sMap {
+            if count % 2 == 0 {
                 continue
-            } else if value == 1 {
-                if alreadySkippedMiddle {
-                    return false
-                } else {
-                    alreadySkippedMiddle = true
-                }
             } else {
-                return false
+                if !skippedMiddle {
+                    skippedMiddle = true
+                } else {
+                    return false
+                }
             }
         }
-        
         return true
     }
 }
@@ -879,47 +896,46 @@ struct OneEditDistance {
     
     func callAsFunction(_ s: String, _ t: String) -> Bool {
         guard s != t else {
-            return false
+           return false
         }
-        
+
         var editType: EditType = .insert
         if s.count - t.count == 1 {
-            editType = .delete
+           editType = .delete
         } else if t.count - s.count == 1 {
-            editType = .insert
+           editType = .insert
         } else if s.count == t.count {
-            editType = .replace
+           editType = .replace
         } else {
-            return false
+           return false
         }
-        
-        let sChars = Array(s), tChars = Array(t)
-        var i = 0, j = 0, flag = false
-        
-        while i < sChars.count && j < tChars.count {
-            if sChars[i] != tChars[j] {
-                
-                guard !flag else {
-                    return false
-                }
-                
-                flag = true
-                
-                switch editType {
-                case .insert:
-                    j += 1
-                case .delete:
-                    i += 1
-                case .replace:
-                    i += 1
-                    j += 1
-                }
-                
-            } else {
-                i += 1
-                j += 1
-            }
+
+        let s = Array(s), t = Array(t)
+        var sIndex = 0, tIndex = 0
+        var isEdited = false
+
+        while sIndex < s.count && tIndex < t.count {
+           if s[sIndex] != t[tIndex] {
+               if isEdited {
+                   return false
+               }
+
+               isEdited = true
+               switch editType {
+               case .insert:
+                   tIndex += 1
+               case .delete:
+                   sIndex += 1
+               case .replace:
+                   sIndex += 1
+                   tIndex += 1
+               }
+           } else {
+               sIndex += 1
+               tIndex += 1
+           }
         }
+
         return true
     }
 }
@@ -1149,26 +1165,30 @@ class UniqueEmailAddress {
 //https://www.youtube.com/watch?v=B1k_sxOSgv8
 class EncodeAndDecodeStrings {
     func encode(strs: [String]) -> String {
-        var res = ""
+        var encodedStr = ""
         for str in strs {
-            res += String(str.count) + "#" + str
+            let count = str.count
+            encodedStr += "\(count)#\(str)"
         }
-        return res
+        return encodedStr
     }
     
-    func decode(str: String) -> [String] {
-        let str = Array(str)
-        var res = [String](), i = 0
-        while i < str.count {
-            var j = i
-            while j < str.count && str[i].isNumber {
-                j += 1
+    func decode(_ s: String) -> [String] {
+        var decodedStrs = [String]()
+        let s = Array(s)
+        var index = 0
+        while index < s.count {
+            let start = index
+            while index < s.count && s[index].isNumber {
+                index += 1
             }
-            let length = Int(String(str[i..<j]))!
-            var component = String(str[j..<j+length])
-            res.append(component)
-            i = j + length
+            let end = index
+            let length = Int(String(s[start..<end])) ?? 0
+            index += 1
+            let str = String(s[index..<index+length])
+            decodedStrs.append(str)
+            index += length
         }
-        return res
+        return decodedStrs
     }
 }

@@ -6,6 +6,9 @@
 //
 
 import Foundation
+/*
+ https://leetcode.com/discuss/interview-question/3722472/mastering-sliding-window-technique-a-comprehensive-guide
+ */
 
 /*
  problem:
@@ -313,22 +316,19 @@ class FindAllAnagramsInString {
  */
 class LengthOfLongestSubstringWithOutRepeatingChar {
     func callAsFunction(_ s: String) -> Int {
-        if s.count <= 1 {
-            return s.count
-        }
-        
         let s = Array(s)
-        var l = 0
-        var maxLen = 0, charToIndexMap = [Character: Int]()
-        for r in 0..<s.count {
-            let char = s[r]
-            if let existingIndex = charToIndexMap[char] {
-                l = max(l, existingIndex)
+        var existingCharMap = [Character: Int](), maxLength = 0
+        var start = 0
+        for end in 0..<s.count {
+            let currentChar = s[end]
+            if let existingIndex = existingCharMap[currentChar] {
+                start = max(existingIndex, start)
             }
-            maxLen = max(maxLen, r - l + 1)
-            charToIndexMap[char] = r + 1
+            let currentWindowLength = end - start + 1
+            maxLength = max(maxLength, currentWindowLength)
+            existingCharMap[currentChar] = end + 1
         }
-        return maxLen
+        return maxLength
     }
 }
 
@@ -376,31 +376,30 @@ class LengthOfLongestSubstringWithOutRepeatingChar {
  */
 class MaxSlidingWindow {
     func callAsFunction(_ nums: [Int], _ k: Int) -> [Int] {
-        if nums.count * k == 0 {
-            return []
-        }
-        
-        if k == 1 {
-            return nums
-        }
-        
-       var res = [Int]()
-       var maxIds = [Int]()
-        
-        for i in 0..<nums.count {
-            while !maxIds.isEmpty && nums[maxIds.last!] < nums[i] {
-                maxIds.removeLast()
+        var maxIds = [Int](), result = [Int]()
+        var start = 0
+        for end in 0..<nums.count {
+            let currentNum = nums[end]
+
+            while let last = maxIds.last, nums[last] <= currentNum {
+                _ = maxIds.popLast()
             }
-            maxIds.append(i)
-            
-            if i >= k - 1 {
-                if maxIds.first! + k == i {
+            maxIds.append(end)
+
+            var currentWindowLength: Int { end - start + 1 }
+            if currentWindowLength >  k {
+                let removableNum = nums[start]
+                if maxIds.first == start {
                     maxIds.removeFirst()
                 }
-                res.append(nums[maxIds.first!])
+                start += 1
+            }
+
+            if currentWindowLength == k {
+                result.append(nums[maxIds.first!])
             }
         }
-        return res
+        return result
     }
 }
 
@@ -831,5 +830,69 @@ class RepeatedDNASequences {
             seen.insert(dna)
         }
         return Array(res)
+    }
+}
+
+/*
+ 1876. Substrings of Size Three with Distinct Characters
+ A string is good if there are no repeated characters.
+
+ Given a string s​​​​​, return the number of good substrings of length three in s​​​​​​.
+
+ Note that if there are multiple occurrences of the same substring, every occurrence should be counted.
+
+ A substring is a contiguous sequence of characters in a string.
+
+  
+
+ Example 1:
+
+ Input: s = "xyzzaz"
+ Output: 1
+ Explanation: There are 4 substrings of size 3: "xyz", "yzz", "zza", and "zaz".
+ The only good substring of length 3 is "xyz".
+ Example 2:
+
+ Input: s = "aababcabc"
+ Output: 4
+ Explanation: There are 7 substrings of size 3: "aab", "aba", "bab", "abc", "bca", "cab", and "abc".
+ The good substrings are "abc", "bca", "cab", and "abc".
+  
+
+ Constraints:
+
+ 1 <= s.length <= 100
+ s​​​​​​ consists of lowercase English letters.
+ 
+ link:https://leetcode.com/problems/substrings-of-size-three-with-distinct-characters/description/
+ explanation:
+ primary idea:
+ - Classic sliding window problem
+ */
+class CountGoodSubstrings {
+    func callAsFunction(_ s: String) -> Int {
+        let s = Array(s)
+        let windowLength = 3
+        var start = 0, windowSet = Set<Character>()
+        var result = 0
+
+        for end in 0..<s.count {
+            let char = s[end]
+            while windowSet.contains(char){
+                let removableChar = s[start]
+                windowSet.remove(removableChar)
+                start += 1
+            }
+            if (end - start + 1) > windowLength {
+                let removableChar = s[start]
+                windowSet.remove(removableChar)
+                start += 1
+            }
+            windowSet.insert(char)
+            if (end - start + 1) == windowLength {
+                result += 1
+            }
+        }
+        return result
     }
 }

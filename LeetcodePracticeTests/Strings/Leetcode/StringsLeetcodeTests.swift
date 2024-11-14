@@ -247,4 +247,10 @@ class StringsLeetcodeTests: XCTestCase {
         XCTAssertEqual(obj(["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]), 2)
         XCTAssertEqual(obj(["a@leetcode.com","b@leetcode.com","c@leetcode.com"]), 3)
     }
+    
+    func testEncodeAndDecodeStrings() {
+        let obj = EncodeAndDecodeStrings()
+//        XCTAssertEqual(obj.encode(strs: ["Hello","World"]), "5#Hello5#World")
+        XCTAssertEqual(obj.decode("5#Hello5#World"), ["Hello","World"])
+    }
 }

@@ -7,6 +7,7 @@
 * [String](#string)
 * [Linked List](#linked-list)
 * [Stack](#stack)
+* [Monotonic Stack](#monotonic-stack)
 * [Queue](#queue)
 * [Tree](#tree)
 * [Binary Search Tree](#binary-search-tree)
@@ -196,14 +197,19 @@
 [Evaluate Reverse Polish Notation](https://leetcode.com/problems/evaluate-reverse-polish-notation/)| [Swift](./Stack/EvaluateReversePolishNotation.swift)| Medium| O(n)| O(n)|
 [Exclusive Time of Functions](https://leetcode.com/problems/exclusive-time-of-functions/)| [Swift](./Stack/ExclusiveTimeFunctions.swift) | Medium| O(n)| O(n)|
 [Simplify Path](https://leetcode.com/problems/simplify-path/)| [Swift](./Stack/SimplifyPath.swift)| Medium| O(n)| O(n)|
-[Remove K Digits](https://leetcode.com/problems/remove-k-digits/)| [Swift](./Stack/RemoveKDigits.swift)| Medium| O(n)| O(n)|
 [Ternary Expression Parser &hearts;](https://leetcode.com/problems/ternary-expression-parser/)| [Swift](./Stack/TernaryExpressionParser.swift)| Medium| O(n)| O(n)|
 [Decode String](https://leetcode.com/problems/decode-string/)| [Swift](./Stack/DecodeString.swift)| Medium| O(n)| O(n)|
 [Basic Calculator](https://leetcode.com/problems/basic-calculator/)| [Swift](./Stack/BasicCalculator.swift)| Hard| O(n)| O(n)|
+
+
+## Monotonic Stack
+| Title | Solution | Difficulty | Time | Space |
+| ----- | -------- | ---------- | ---- | ----- |
+[Remove K Digits](https://leetcode.com/problems/remove-k-digits/)| [Swift](./Stack/RemoveKDigits.swift)| Medium| O(n)| O(n)|
 [Online Stock Span](https://leetcode.com/problems/online-stock-span/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(n)| O(n)|
 [Car Fleet](https://leetcode.com/problems/car-fleet/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(nlogn)| O(n)|
 [Largest Rectangle In Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/)| [Swift](./Stack/BasicCalculator.swift)| Medium| O(nlogn)| O(n)|
-  
+
 ## Queue
 | Title | Solution | Difficulty | Time | Space |
 | ----- | -------- | ---------- | ---- | ----- |

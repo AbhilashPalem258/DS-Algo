@@ -8,6 +8,8 @@
 import Foundation
 import AppKit
 
+//https://medium.com/techie-delight/top-20-breadth-first-search-bfs-practice-problems-ac2812283ab1
+//https://igotanoffer.com/blogs/tech/breadth-first-search-interview-questions#medium
 /*
  link: https://leetcode.com/problems/word-ladder/
  PrimaryIdea:
@@ -851,5 +853,52 @@ class ShortestPathInAGridWithObstacles {
             steps += 1
         }
         return minSteps == Int.max ? -1 : minSteps
+    }
+}
+
+/*
+ link:https://leetcode.com/problems/largest-local-values-in-a-matrix/?envType=daily-question&envId=2024-05-12
+ PrimaryIdea: https://www.youtube.com/watch?v=wdTRu9sarFA
+ TimeComplexity: 9 * O(n^2)
+ */
+class LargestLocalValuesInaMatrix {
+    func solution1(_ grid: [[Int]]) -> [[Int]] {
+        func getMaxVal(row: Int, col: Int) -> Int {
+            var maxVal = grid[row][col]
+            for position in [(row - 1, col - 1), (row - 1, col), (row - 1, col + 1), (row, col - 1), (row, col + 1), (row + 1, col - 1), (row + 1, col), (row + 1, col + 1)] {
+                maxVal = max(maxVal, grid[position.0][position.1])
+            }
+            return maxVal
+        }
+        
+        let n = grid.count
+        var output = [[Int]].init(repeating: [Int](repeating: 0, count: n-2), count: n-2)
+        for row in 1..<n-1 {
+            for col in 1..<n-1 {
+                output[row - 1][col - 1] = getMaxVal(row: row, col: col)
+            }
+        }
+        return output
+    }
+    
+    func solution2(_ grid: [[Int]]) -> [[Int]] {
+        func getMaxValue(row: Int, col: Int) -> Int {
+            var maxVal = 0
+            for currentRow in row..<row+3 {
+                for currentCol in col..<col+3 {
+                    maxVal = max(maxVal, grid[currentRow][currentCol])
+                }
+            }
+            return maxVal
+        }
+        
+        let n = grid.count
+        var output = [[Int]].init(repeating: [Int](repeating: 0, count: n-2), count: n-2)
+        for row in 0..<n-2 {
+            for col in 0..<n-2 {
+                output[row][col] = getMaxValue(row: row, col: col)
+            }
+        }
+        return output
     }
 }

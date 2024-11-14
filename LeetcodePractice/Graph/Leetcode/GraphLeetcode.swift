@@ -99,6 +99,7 @@ class CloneGraph {
     }
 }
 
+//https://www.lintcode.com/problem/178/
 struct GraphValidTree {
     func callAsFunction(n: Int, edges: [[Int]]) -> Bool {
         typealias Node = Int
@@ -134,6 +135,7 @@ struct GraphValidTree {
     }
 }
 
+//https://leetcode.com/problems/reorder-routes-to-make-all-paths-lead-to-the-city-zero/
 struct MinReorder {
     func callAsFunction(_ n: Int, _ connections: [[Int]]) -> Int {
         
@@ -166,5 +168,55 @@ struct MinReorder {
         }
         dfs(city: 0)
         return changes
+    }
+}
+
+//https://leetcode.com/problems/minimum-height-trees/description/
+class MinHeightTrees {
+    func findMinHeightTrees(_ n: Int, _ edges: [[Int]]) -> [Int] {
+        guard n > 1 else {
+            return [0]
+        }
+
+        guard n > 2 else {
+            return [0, 1]
+        }
+
+        typealias Node = Int
+        var adjList = [Node: Set<Node>]()
+
+        func createAdjList() {
+            for edge in edges {
+                let from = edge[0], to = edge[1]
+                adjList[from, default: .init()].insert(to)
+                adjList[to, default: .init()].insert(from)
+            }
+        }
+
+        createAdjList()
+
+        var leaves = [Node]()
+        for node in 0..<n {
+            let neighbours = adjList[node]
+            if neighbours?.count == 1 {
+                leaves.append(node)
+            }
+        }
+
+        var remaining = n
+        while remaining > 2 {
+            var newLeaves = [Node]()
+            for leaf in leaves {
+                for adjNode in adjList[leaf] ?? [] {
+                    adjList[adjNode]!.remove(leaf)
+                    if adjList[adjNode]!.count == 1 {
+                        newLeaves.append(adjNode)
+                    }
+                }
+            }
+            remaining -= leaves.count
+            leaves = newLeaves
+        }
+        return leaves
     }
 }

@@ -341,6 +341,57 @@ class FirstMissingPositive {
     }
 }
 
+/*
+ 442. Find All Duplicates in an Array
+ Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears once or twice, return an array of all the integers that appears twice.
+
+ You must write an algorithm that runs in O(n) time and uses only constant extra space.
+
+ Example 1:
+
+ Input: nums = [4,3,2,7,8,2,3,1]
+ Output: [2,3]
+ Example 2:
+
+ Input: nums = [1,1,2]
+ Output: [1]
+ Example 3:
+
+ Input: nums = [1]
+ Output: []
+  
+
+ Constraints:
+
+ n == nums.length
+ 1 <= n <= 105
+ 1 <= nums[i] <= n
+ Each element in nums appears once or twice.
+ 
+ link: https://leetcode.com/problems/find-all-duplicates-in-an-array/description/
+ explanation: https://www.youtube.com/watch?v=8g78yfzMlao
+ primary idea:
+ - Same as https://leetcode.com/problems/first-missing-positive/, above problem
+ */
+class FindAllDuplicatesInAnArray {
+    func findDuplicates(_ nums: [Int]) -> [Int] {
+        var nums = nums, result = [Int]()
+
+        for i in 0..<nums.count {
+            let index = abs(nums[i]) - 1
+            if index >= 0 && index < nums.count {
+                if nums[index] < 0 {
+                    result.append(abs(nums[i]))
+                } else {
+                    nums[index] *= -1
+                }
+            }
+        }
+        
+        return result
+    }
+}
+
 
 class IntersectionOfTwoArrays {
     func intersection(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
@@ -863,31 +914,19 @@ struct SummaryRanges {
  Output: ["2", "4->49", "51->74", "76->99"]
  */
 struct MissingRanges {
-    func findMissingRanges(_ nums: [Int], _ lower: Int, _ upper: Int) -> [String] {
-        var results = [String]()
-        
-        func addRange(_ start: Int, _ end: Int) {
-            if start == end {
-                results.append("\(start)")
-            } else if start < end {
-                results.append("\(start)->\(end)")
+    func findMissingRanges(_ nums: [Int], _ lower: Int, _ upper: Int) -> [[Int]] {
+        var nums = [lower - 1] + nums + [upper + 1]
+        var missingRanges = [[Int]]()
+
+        for i in 0..<nums.count - 1 {
+            let currentNum = nums[i]
+            let nextNum = nums[i + 1]
+
+            if nextNum - currentNum > 1 {
+                missingRanges.append([currentNum + 1, nextNum - 1])
             }
         }
-        
-        if nums.isEmpty {
-            addRange(lower, upper)
-            return results
-        }
-        
-        addRange(lower, nums[0] - 1)
-        
-        for i in 1..<nums.count {
-            addRange(nums[i - 1] + 1, nums[i] - 1)
-        }
-        
-        addRange(nums[nums.count - 1] + 1, upper)
-        
-        return results
+        return missingRanges
     }
 }
 
@@ -2221,5 +2260,95 @@ class MinDominoeRotationsForEqualRow {
             }
         }
         return -1
+    }
+}
+
+/*
+ 1570. Dot Product of Two Sparse Vectors
+ Given two sparse vectors, compute their dot product.
+
+ Implement class SparseVector:
+
+ SparseVector(nums) Initializes the object with the vector nums
+ dotProduct(vec) Compute the dot product between the instance of SparseVector and vec
+ A sparse vector is a vector that has mostly zero values, you should store the sparse vector efficiently and compute the dot product between two SparseVector.
+
+ Follow up: What if only one of the vectors is sparse?
+
+  
+
+ Example 1:
+
+ Input: nums1 = [1,0,0,2,3], nums2 = [0,3,0,4,0]
+ Output: 8
+ Explanation: v1 = SparseVector(nums1) , v2 = SparseVector(nums2)
+ v1.dotProduct(v2) = 1*0 + 0*3 + 0*0 + 2*4 + 3*0 = 8
+ Example 2:
+
+ Input: nums1 = [0,1,0,0,0], nums2 = [0,0,0,0,2]
+ Output: 0
+ Explanation: v1 = SparseVector(nums1) , v2 = SparseVector(nums2)
+ v1.dotProduct(v2) = 0*0 + 1*0 + 0*0 + 0*0 + 0*2 = 0
+ Example 3:
+
+ Input: nums1 = [0,1,0,0,2,0,0], nums2 = [1,0,0,0,3,0,4]
+ Output: 6
+  
+
+ Constraints:
+
+ n == nums1.length == nums2.length
+ 1 <= n <= 10^5
+ 0 <= nums1[i], nums2[i] <= 100
+ 
+ link: https://leetcode.com/problems/dot-product-of-two-sparse-vectors/
+ explanation:
+ primary idea:
+ - store all non zero items in dictionary as index as key for easy lookup
+ - if the same index has non zero values in both SparseVector, sum it up and return
+ Time Complexity: O(n) where n is the number of items in nums
+ Space Complexity: O(n)
+ */
+class SparseVector {
+
+    private var items = [Int: Int]()
+    
+    init(_ nums: [Int]) {
+        for (index, num) in nums.enumerated() where num != 0 {
+            items[index] = num
+        }
+    }
+
+    // Return the dotProduct of two sparse vectors
+    func dotProduct(_ vec: SparseVector) -> Int {
+        var sum = 0
+        for (index, vecVal) in vec.items where items[index] != nil {
+            sum += vecVal * items[index]!
+        }
+        return sum
+    }
+}
+
+//NEETCODE IO ALL
+/*
+ *** TODO UPDATE ***
+ link: https://leetcode.com/problems/replace-elements-with-greatest-element-on-right-side
+ Explanation:
+ Primary idea:
+ Time Complexity: O(N)
+ Space: Complexity: O(N)
+ */
+class ReplaceElementsWithGreatestElementOnRightSide {
+    func callAsFunction(_ arr: [Int]) -> [Int] {
+        var maxVal = -1
+        var result = [Int](repeating: -1, count: arr.count)
+        var i = arr.count - 1
+
+        while i >= 0 {
+            result[i] = maxVal
+            maxVal = max(maxVal,arr[i])
+            i -= 1
+        }
+        return result
     }
 }

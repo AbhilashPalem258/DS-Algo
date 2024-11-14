@@ -330,3 +330,54 @@ class MedianFinder {
         return Double(smallHeap.peek()! + largeHeap.peek()!)/2
     }
 }
+/*
+ link:https://leetcode.com/problems/minimum-cost-to-hire-k-workers/description/
+ Primary idea: https://www.youtube.com/watch?v=f879mUH6vJk&t=755s
+ Time complexity:
+ Space complexity:
+ */
+class MincostToHireWorkers {
+    func solution1(_ quality: [Int], _ wage: [Int], _ k: Int) -> Double {
+        let data = zip(quality, wage)
+            .map { (quality: $0, wage: $1, wageToQuality: Double($1)/Double($0)) }
+            .sorted(by: {$0.wageToQuality < $1.wageToQuality})
+        
+        var workersbyQuality = RHeap<Int>(sort: >)
+        var currentQualitySum = 0
+        var result = Double.infinity
+        
+        for workerData in data {
+            workersbyQuality.insert(workerData.quality)
+            currentQualitySum += workerData.quality
+            
+            if workersbyQuality.count > k {
+                currentQualitySum -= workersbyQuality.remove() ?? 0
+            }
+            
+            if workersbyQuality.count == k {
+                result = min(result, Double(currentQualitySum) * Double(workerData.wageToQuality))
+            }
+        }
+        
+        return result
+    }
+}
+/*
+ link: https://leetcode.com/problems/last-stone-weight/
+ */
+class LastStoneWeight {
+    func solution1(_ stones: [Int]) -> Int {
+        var heap = RHeap(array: stones, sort: >)
+
+        while heap.count > 1 {
+            let y = heap.remove()!
+            let x = heap.remove()!
+
+            if x != y {
+                heap.insert(y - x)
+            }
+        }
+
+        return heap.peek() ?? 0
+    }
+}

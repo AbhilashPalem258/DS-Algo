@@ -68,6 +68,8 @@ class TrappingRainWater {
  - Equation to find water contained at each iteration = Area of container = Height * width = min(height[l], height[r]) * (r - l)
  - We need to be greedy, we always move pointer which has less height than the pointer that has more height. It results in getting more container area
  - If both the left and right heights are same, we will the next pointer value which is less than other and we move that specific pointer - Greedy
+ Time Complexity: O(n)
+ Space Complexity: O(1)
  */
 struct ContainerWithMaxWater {
     func callAsFunction(_ height: [Int]) -> Int {
@@ -172,7 +174,7 @@ class SumOfSquareNumbers {
  - Sort the people arr
  - if we find the sum of weight more than limit, the person with higher weight should go alone in a boat
  - If sum is <= limit, then both can travel along eachother in single boat
- Time Complexity: O(2n)
+ Time Complexity: O nlog(n)
  Space Complexity: O(n)
  */
 class BoatsToSavePeople {
@@ -349,7 +351,7 @@ class SearchSuggestionSystem {
  - Sliding window.
  - prev contains count of firstBinary element. current contains count of current binary element
  - whenever we find a char not equal to earlier. we add count of substrings and start sliding window from prev.
- Time Complexity: O(2n)
+ Time Complexity: O(n)
  Space Complexity: O(n)
  */
 class CountBinarySubstrings {
